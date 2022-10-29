@@ -32,15 +32,21 @@ Zodra dit gedaan is, kun je het project openen.
 Nu je een fork hebt gemaakt, moet je ervoor zorgen dat je fork up-to-date blijft met de originele repository.
 Dit doe je door de originele repository toe te voegen als een remote repository.
 Dit doe je door in de bovenste balk op de knop Git te klikken, en daarna op "Remote".
+
 ![img.png](Public/Images/manageRemotes.png)
+
 In het menu dat nu opent, klik je op het plusje linksboven.
-![img.png](Public/Images/plusje.png)
+
+![img.png](Public/Images/plusje.png) 
+
 In het menu dat nu opent, vul je de volgende gegevens in:
-- Name: upstream
+- Name: upstream 
 - URL: het url die je hebt gekopieerd in stap 2. 
 
-Dat ziet er ongeveer zo uit:
-![img.png](Public/Images/upstream.png)
+Dat ziet er ongeveer zo uit: 
+
+![img.png](Public/Images/upstream.png) 
+
 Ik heb een compleet andere url gebruikt, maar dat maakt niet uit. Klik nu op OK.
 Nu je dit hebt gedaan, moet je ervoor zorgen dat je fork up-to-date blijft met de originele repository.
 
@@ -49,7 +55,31 @@ Nu je dit hebt gedaan, moet je ervoor zorgen dat je fork up-to-date blijft met d
 Iedereen heeft nu zijn eigen versie van het project, maar we willen natuurlijk wel dat iedereen de laatste versie heeft.
 Dit doen we door de originele repository te pullen, en deze vervolgens te pushen naar onze fork.
 Dit doe je door in de bovenste balk op de knop Git te klikken, en daarna op "Pull".
-![img.png](pull.png)
 
+![img.png](Public/Images/pull.png) 
+
+In het menu dat nu opent, klik je op de knop "Pull from" en selecteer je "upstream".
+
+![img.png](Public/Images/pullUpstream.png) 
+
+Klik nu op Pull en wacht tot de originele repository is gepulled. Als dit niet lukt, stuur mij dan een berichtje op discord.
+Volg deze stap elke keer uit voordat je begint met werken aan het project.
+
+### Stap 5 - Het toevoegen van code
+
+Nu kunnen we beginnen met het toevoegen van code.
+Begin met het schrijven van je code, en zorg ervoor dat je de code goed test.
+Zodra je klaar bent met het schrijven van je code, moet je ervoor zorgen dat je code wordt gepushed naar je fork.
+Dit doe je door in de bovenste balk op de knop Git te klikken, en daarna op "Commit".
+
+![img.png](commit.png)
+
+In het menu dat nu opent, selecteer je de bestanden die je wilt committen, 
+maar meestal staan alle gewijzigde bestanden al geselecteerd. Vul nu een zinnige commit message in die beschrijfd welke
+wijzigingen je hebt gemaakt.
+
+![img.png](desc.png)
+
+Klik nu op de knop "Commit and Push" en wacht tot je code is gepushed.
 
 ## Code style
