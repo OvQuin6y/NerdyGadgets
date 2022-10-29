@@ -2,6 +2,8 @@
 Voordat je begint met het project, lees je eerst de volgende informatie goed door.
 Dit bestand beschrijft hoe je code aan dit project kunt toevoegen, en hoe de code is opgebouwd.
 
+Dit project is beheerd door: Ruben, 
+
 ## Het toevoegen van code
 
 ### Stap 1 - Het maken van een fork
