@@ -72,14 +72,32 @@ Begin met het schrijven van je code, en zorg ervoor dat je de code goed test.
 Zodra je klaar bent met het schrijven van je code, moet je ervoor zorgen dat je code wordt gepushed naar je fork.
 Dit doe je door in de bovenste balk op de knop Git te klikken, en daarna op "Commit".
 
-![img.png](commit.png)
+![img.png](Public/Images/commit.png)
 
 In het menu dat nu opent, selecteer je de bestanden die je wilt committen, 
 maar meestal staan alle gewijzigde bestanden al geselecteerd. Vul nu een zinnige commit message in die beschrijfd welke
 wijzigingen je hebt gemaakt.
 
-![img.png](desc.png)
+![img.png](Public/Images/desc.png)
 
-Klik nu op de knop "Commit and Push" en wacht tot je code is gepushed.
+Klik nu op de knop "Commit and Push" en in het menu dat nu opent, klik je op de knop "Push".
+
+![img.png](Public/Images/push.png)
+
+Nu is als het goed is je code gepushed naar je fork. (Zo niet stuur mij dan een berichtje op discord)
+
+### Stap 6 - Het maken van een pull request
+
+Nu je code is gepushed naar je fork, moet je ervoor zorgen dat je code wordt toegevoegd aan de originele repository.
+Dit doe je door een pull request te maken. Dit doe je door naar je fork te navigeren op github, en vervolgens op de knop "Contribute" te klikken.
+
+![img.png](Public/Images/contribute.png)
+
+Klik nu op de knop "Open pull request". Op deze pagina kun je de wijzigingen zien die je hebt gemaakt, en kun je een titel en beschrijving toevoegen.
+Zodra je klaar bent, klik je op de knop "Create pull request".
+
+![img.png](Public/Images/createPr.png)
+
+Nu is je pull request aangemaakt, en moet je wachten tot iemand jou wijzigingen heeft goedgekeurd.
 
 ## Code style
