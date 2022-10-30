@@ -103,3 +103,27 @@ Zodra je klaar bent, klik je op de knop "Create pull request".
 Nu is je pull request aangemaakt, en moet je wachten tot iemand jou wijzigingen heeft goedgekeurd.
 
 ## Code style
+
+### Type Hinting
+
+Type hinting is een manier om het type van een variabele te specificeren. Dit is handig omdat je dan weet wat voor type je kunt verwachten.
+Type hinting is niet verplicht, maar wordt wel aangeraden. 
+Neem de volgende simpele functie:
+
+```php
+function add($a, $b) {
+    return $a + $b;
+}
+```
+
+Deze functie heeft geen type hinting, maar je kunt wel zien dat de functie twee parameters verwacht, en dat de functie een integer teruggeeft.
+Zodra je begint met het schrijven van grotere functies, wordt het lastiger om te zien wat voor type je kunt verwachten.
+Dit is waar type hinting om de hoek komt kijken. De functie hieronder is hetzelfde als de functie hierboven, maar met type hinting.
+
+```php
+function add(int $a, int $b): int {
+    return $a + $b;
+}
+```
+
+Nu is het duidelijk dat de functie twee integers verwacht, en dat de functie een integer teruggeeft.
