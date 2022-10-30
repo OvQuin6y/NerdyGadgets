@@ -127,3 +127,34 @@ function add(int $a, int $b): int {
 ```
 
 Nu is het duidelijk dat de functie twee integers verwacht, en dat de functie een integer teruggeeft.
+
+### PHPDoc
+
+PHPDoc is een manier om de functie te documenteren. Dit is handig omdat je dan weet wat de functie doet, en wat de functie verwacht.
+PHPDoc is niet verplicht, maar wordt wel aangeraden.
+Neem de volgende simpele functie:
+
+```php
+function add(int $a, int $b): int {
+    return $a + $b;
+}
+```
+
+Naast type hinting is het ook handig om te weten wat de functie doet. Dit kun je doen door PHPDoc te gebruiken.
+De functie hieronder is hetzelfde als de functie hierboven, maar met PHPDoc.
+
+```php
+/**
+ * Adds two integers together
+ * @param int $a
+ * @param int $b
+ * @return int
+ */
+function add(int $a, int $b): int {
+    return $a + $b;
+}
+```
+
+Net zoals type hinting is dit niet zo nuttig bij kleine functies, maar bij grotere functies kun je makkelijk zien
+wat de functie doet, en wat de functie verwacht.
+
