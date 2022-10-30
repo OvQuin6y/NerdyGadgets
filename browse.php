@@ -1,7 +1,7 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
-//test
+//test2
 $ReturnableResult = null;
 $Sort = "SellPrice";
 $SortName = "price_low_high";
