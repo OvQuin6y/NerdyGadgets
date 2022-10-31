@@ -19,9 +19,11 @@ De meeste opties op deze pagina kun je negeren, als je klaar bent klik je op de 
 Nu je een fork hebt gemaakt, moet je deze klonen naar je eigen computer. 
 Navigeer naar je github profiel en vanaf daar naar je eigen repositories.
 Nadat je de repository hebt gevonden, klik je op de knop "Code" en kopieer je de link die er bij HTTPS staat.
+Zorg ervoor dat je je eigen fork cloned, en niet mijn repository.
 ![img.png](Public/Images/urlKopieëren.png) \
 ![img.png](Public/Images/https.png) \
-Open nu je PHPStorm en klik in de bovenste balk op de knop Git, en daarna op "Clone".
+Open nu je PHPStorm en klik in de bovenste balk op de knop Git, en daarna op "Clone". (Mocht je deze optie niet hebben, 
+klik dan op de knop "VCS" en selecteer "Get from Version Control", dit is hetzelfde als de optie "Clone" die je net hebt gemist.)
 ![img.png](Public/Images/clone.png)
 In het menu dat nu opent, plak je de link die je hebt gekopieerd in het veld "URL".
 ![img.png](Public/Images/cloneurl.png)
