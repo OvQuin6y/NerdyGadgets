@@ -45,7 +45,7 @@ In het menu dat nu opent, klik je op het plusje linksboven.
 
 In het menu dat nu opent, vul je de volgende gegevens in:
 - Name: upstream 
-- URL: het url die je hebt gekopieerd in stap 2. 
+- URL: het url van de originele repository. Dit is: https://github.com/RubenJ01/NerdyGadgets.git
 
 Dat ziet er ongeveer zo uit: 
 
