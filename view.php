@@ -1,6 +1,7 @@
 <!-- dit bestand bevat alle code voor de pagina die één product laat zien -->
 <?php
 include __DIR__ . "/header.php";
+include "cartfuncties.php";
 
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
@@ -132,4 +133,25 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
+    <?php
+    //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
+    if (isset($_GET["id"])) {
+        $stockItemID = $_GET["id"];
+    } else {
+        $stockItemID = 0;
+    }
+    ?>
+    <form method="post">
+        <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
+        <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
+    </form>
+    <?php
+
+    if (isset($_POST["submit"])) {              // zelfafhandelend formulier
+        $stockItemID = $_POST["stockItemID"];
+        addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
+        print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+    }
+    ?>
 </div>
+
