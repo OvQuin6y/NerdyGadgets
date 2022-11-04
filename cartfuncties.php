@@ -1,6 +1,9 @@
 <?php
 
-session_start();                                // altijd hiermee starten als je gebruik wilt maken van sessiegegevens
+if(!isset($_SESSION))
+{
+    session_start();
+}                                // altijd hiermee starten als je gebruik wilt maken van sessiegegevens
 
 function getCart()
 {
