@@ -4,24 +4,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5vh;
 }
-.headcontainer {
+table {
     width: 90%;
-    height: 7vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.bodycontainer {
-    width: 90%;
-    height: 15vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: lightgrey;
-}
-.bodycontainer img {
-    width: 100px;
     height: auto;
 }
+.bodycontainer {
+    width: 100%;
+    min-height: 90%;
+}
+.data {
+    display: flex;
+    align-items: center;
+}
+.data td {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.data img {
+    width: 100px;
+    height: 100px;
+}
+
