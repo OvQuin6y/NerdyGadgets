@@ -9,6 +9,25 @@ table {
     width: 90%;
     height: auto;
 }
+thead {
+    width: 100%;
+    height: 10%;
+}
+.titles {
+    border-bottom: 1px solid grey;
+    padding-bottom: 1%;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.titles td {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
 .bodycontainer {
     width: 100%;
     min-height: 90%;

@@ -15,6 +15,15 @@ $totaalprijs = 0;
 <div class="maincontainer">
     <h1>Inhoud Winkelwagen</h1>
     <table>
+        <thead>
+        <tr class="titles">
+            <td>Image:</td>
+            <td>Name:</td>
+            <td>Quantity:</td>
+            <td>Price:</td>
+            <td>ID:</td>
+        </tr>
+        </thead>
         <tbody class="bodycontainer">
         <?php
         $cart = getCart();
