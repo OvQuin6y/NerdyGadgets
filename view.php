@@ -146,12 +146,10 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
     </form>
     <?php
-    if (isset($_POST["submit"]) || $StockItem['QuantityOnHand'] > 0) {              // zelfafhandelend formulier
+    if (isset($_POST["submit"])) {              // zelfafhandelend formulier
         $stockItemID = $_POST["stockItemID"];
         addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
         print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
-    } else {
-        print("Momenteel geen vooraad");
     }
     ?>
 </div>
