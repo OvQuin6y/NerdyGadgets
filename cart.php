@@ -27,6 +27,12 @@ $totaalprijs = 0;
         <tbody class="bodycontainer">
         <?php
         $cart = getCart();
+        function qtyUp($cart) {
+            $cart[$cart] = $cart[$cart] + 1;
+        }
+        function qtyDown($cart) {
+            $cart[$cart] = $cart[$cart] - 1;
+        }
         foreach ($cart as $nr => $aantal):
             $StockItem = getStockItem($nr, $databaseConnection);
             $stockItemImage = getStockItemImage($nr, $databaseConnection);
@@ -38,7 +44,7 @@ $totaalprijs = 0;
                 <td><h6><?= $StockItem['StockItemName'] ?></h6></td>
                 <td><h4><?= $cart[$nr] ?></h4></td>
                 <td><h4>€<?= number_format((float)$StockItem['SellPrice'], 2, '.', '') ?></h4></td>
-                <td><h4><a href="<?= print("view.php?id=" . $nr) ?>"><?php echo $nr ?></a></h4></td>
+                <td><h4><a href="<?= print("view.php?id=" . $nr) ?>"><?= $nr ?></a></h4></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
