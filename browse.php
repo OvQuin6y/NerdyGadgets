@@ -187,6 +187,8 @@ function getVoorraadTekst($actueleVoorraad)
 {
     if ($actueleVoorraad > 1000) {
         return "Ruime voorraad beschikbaar.";
+    } elseif($actueleVoorraad == 0){
+        return "Product niet op voorraad";
     } else {
         return "Voorraad: $actueleVoorraad";
     }
