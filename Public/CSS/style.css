@@ -484,3 +484,12 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
+
+.CartButton {
+    width: 100%;
+}
+
+.Cart-Image {
+    width: 40px;
+    height: auto;
+}
