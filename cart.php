@@ -19,7 +19,7 @@ $totaalPrijs = 0;
             <td>Image:</td>
             <td>Name:</td>
             <td>Quantity:</td>
-            <td>Price:</td>
+            <td>Price(incl. btw):</td>
             <td>ID:</td>
             <td></td>
         </tr>
