@@ -19,7 +19,7 @@ $totaalPrijs = 0;
             <td>Image:</td>
             <td>Name:</td>
             <td>Quantity:</td>
-            <td>Price:</td>
+            <td>Price(incl. btw):</td>
             <td>ID:</td>
             <td></td>
         </tr>
@@ -61,7 +61,7 @@ $totaalPrijs = 0;
 
         </tbody>
     </table>
-    <h3>Totaalprijs: €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
+    <h3>Totaalprijs(incl. btw): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
 </div>
 </body>
 </html>
