@@ -2,7 +2,7 @@
 Voordat je begint met het project, lees je eerst de volgende informatie goed door.
 Dit bestand beschrijft hoe je code aan dit project kunt toevoegen, en hoe de code is opgebouwd.
 
-Dit project is beheerd door: Ruben, Thimo, Joëlle, Elias
+Dit project is beheerd door: Ruben, Thimo, Joëlle, Elias, Nova en Quincy
 
 ## Het toevoegen van code
 
