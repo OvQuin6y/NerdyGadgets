@@ -57,3 +57,11 @@ function deleteProductFromCart($stockItemID)
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function setProductInCart($stockItemID,$amount)
+{
+    $cart = getCart();                          // eerst de huidige cart ophalen
+    $cart[$stockItemID] = $amount;
+
+    saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
+}
