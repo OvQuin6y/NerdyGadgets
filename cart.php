@@ -58,7 +58,7 @@ $totaalPrijs = 0;
 
         </tbody>
     </table>
-    <h3>Totaalprijs: €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
+    <h3>Totaalprijs (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
 </div>
 </body>
 </html>
