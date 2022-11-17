@@ -484,3 +484,8 @@ ul#ul-class-price li {
 .CartButton {
     width: 100%;
 }
+
+.Cart-Image {
+    width: 40px;
+    height: auto;
+}

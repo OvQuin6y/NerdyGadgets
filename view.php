@@ -77,7 +77,11 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
-            <div class="QuantityText"><?php print $StockItem['QuantityOnHand']; ?></div>
+            <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
+                print("Ruime voorraad beschikbaar");
+            } else {
+                print("voorraad: ".$StockItem['QuantityOnHand']);
+            }; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">

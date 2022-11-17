@@ -46,3 +46,14 @@ function removeProductFromCart($stockItemID)
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function deleteProductFromCart($stockItemID)
+{
+    $cart = getCart();                          // eerst de huidige cart ophalen
+
+    if (array_key_exists($stockItemID, $cart)) {  //controleren of $stockItemID(=key!) al in array staat
+        unset($cart[$stockItemID]);                   //zo ja:  aantal met 1 verlagen
+    }
+
+    saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
+}
