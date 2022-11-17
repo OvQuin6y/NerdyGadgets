@@ -143,7 +143,14 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     ?>
     <form method="post">
         <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
-        <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
+        <?php
+        if ($StockItem['QuantityOnHand'] >= 0){
+
+        ?>
+            <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
+        <?php
+        }
+        ?>
     </form>
     <?php
     if (isset($_POST["submit"])) {              // zelfafhandelend formulier
