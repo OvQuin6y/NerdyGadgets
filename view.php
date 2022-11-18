@@ -97,7 +97,13 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         ?>
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
+                            <?php
+                            if ($StockItem['QuantityOnHand'] > 0){
+                                ?>
                             <input type="submit" name="submit" value="in winkelmandje" class="CartButton">
+                            <?php
+                            }
+                            ?>
                         </form>
                         <?php
 
