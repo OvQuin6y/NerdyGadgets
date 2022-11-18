@@ -77,13 +77,43 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
-            <div class="QuantityText"><?php print $StockItem['QuantityOnHand']; ?></div>
+            <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
+                print("Ruime voorraad beschikbaar");
+            } else {
+                print("voorraad: ".$StockItem['QuantityOnHand']);
+            }; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
                         </p>
                         <h6> Inclusief BTW </h6>
+                        <?php
+                        //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
+                        if (isset($_GET["id"])) {
+                            $stockItemID = $_GET["id"];
+                        } else {
+                            $stockItemID = 0;
+                        }
+                        ?>
+                        <form method="post">
+                            <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
+                            <?php
+                            if ($StockItem['QuantityOnHand'] > 0){
+                                ?>
+                            <input type="submit" name="submit" value="in winkelmandje" class="CartButton">
+                            <?php
+                            }
+                            ?>
+                        </form>
+                        <?php
+
+                        if (isset($_POST["submit"])) {              // zelfafhandelend formulier
+                            $stockItemID = $_POST["stockItemID"];
+                            addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
+                            print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -134,25 +164,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
-    <?php
-    //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
-    if (isset($_GET["id"])) {
-        $stockItemID = $_GET["id"];
-    } else {
-        $stockItemID = 0;
-    }
-    ?>
-    <form method="post">
-        <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
-        <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
-    </form>
-    <?php
 
-    if (isset($_POST["submit"])) {              // zelfafhandelend formulier
-        $stockItemID = $_POST["stockItemID"];
-        addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
-        print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
-    }
-    ?>
+
+
 </div>
 
