@@ -1,3 +1,4 @@
+<!--de pagina met alle inhoud van de winkelwagen-->
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
@@ -45,5 +46,10 @@ $totaalprijs = 0;
     </table>
     <h3>Totaalprijs(incl. btw): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
 </div>
+<form method="post" action="checkout.php">
+    <br>
+    <input type="submit" value="Afrekenen" name="knop">
+    <br>
+</form>
 </body>
 </html>
