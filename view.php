@@ -79,7 +79,9 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             </h2>
             <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
                 print("Ruime voorraad beschikbaar");
-            } else {
+            } else  if ($StockItem["QuantityOnHand"] = 0) {
+                print("Product niet op voorraad");
+                } else {
                 print("voorraad: ".$StockItem['QuantityOnHand']);
             }; ?></div>
             <div id="StockItemHeaderLeft">
