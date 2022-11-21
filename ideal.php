@@ -42,7 +42,7 @@
 <br>
 <img src="iDeal.jpg" alt="iDeal logo">
 <br>
-<form method="post" action="betalingvoltooid.php">
+<form method="post" action="cart.php">
     <label style="font-size:20px;" for="bank">Kies je bank:</label>
     <select style="font-size:20px;" name="bank" id="bank">
         <option style="font-size:20px;" value="abnamro">ABN Amro</option>
