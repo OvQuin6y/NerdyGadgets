@@ -87,7 +87,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
-                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
+                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
+                        </p>
                         <h6> Inclusief BTW </h6>
                         <?php
                         //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
@@ -100,7 +101,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
                             <?php
-                            if ($StockItem['QuantityOnHand'] > 0){
+                            if ($StockItem['QuantityOnHand'] > 0) {
                                 ?>
                                 <input type="submit" name="submit" value="in winkelmandje" class="CartButton">
                                 <?php
@@ -121,11 +122,11 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
 
         <div id="StockItemDescription">
-            <h3>Artikel beschrijving</h3>
+            <h3>Artikelbeschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
         </div>
         <div id="StockItemSpecifications">
-            <h3>Artikel specificaties</h3>
+            <h3>Artikelspecificaties</h3>
             <?php
             $CustomFields = json_decode($StockItem['CustomFields'], true);
             if (is_array($CustomFields)) { ?>
@@ -165,7 +166,4 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
-
-
-
 </div>
