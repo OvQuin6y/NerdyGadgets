@@ -78,10 +78,12 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
             <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
-                    print("Ruime voorraad beschikbaar");
+                print("Ruime voorraad beschikbaar");
+            } else  if ($StockItem["QuantityOnHand"] = 0) {
+                print("Product niet op voorraad");
                 } else {
-                    print("voorraad: " . $StockItem['QuantityOnHand']);
-                }; ?></div>
+                print("voorraad: ".$StockItem['QuantityOnHand']);
+            }; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
@@ -164,6 +166,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
+
+
 
 </div>
 
