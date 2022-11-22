@@ -42,21 +42,19 @@ $databaseConnection = connectToDatabase();
                 }
                 ?>
                 <li>
-                    <a href="categories.php" class="HrefDecoration">Alle categorieën</a>
+                    <a href="categories.php" class="HrefDecoration">Alle categorieÃ«n</a>
                 </li>
             </ul>
         </div>
-<!-- code voor US3: zoeken -->
+        <!-- code voor US3: zoeken -->
         <ul id="ul-class-navigation">
             <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
                 <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
             </li>
         </ul>
-<!-- einde code voor US3 zoeken -->
+        <!-- einde code voor US3 zoeken -->
     </div>
     <div class="row" id="Content">
         <div class="col-12">
             <div id="SubContent">
-
-
