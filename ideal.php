@@ -1,3 +1,8 @@
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -38,11 +43,11 @@
 </style>
 <br>
 <h1 style="font-size:200px;"></h1>
-<h2 style="font-size:20px;">Te betalen bedrag: €</h2>
+<h2 style="font-size:20px;">Te betalen bedrag: €<?php echo round($_SESSION["totaalprijs"], 2) ?></h2>
 <br>
 <img src="iDeal.jpg" alt="iDeal logo">
 <br>
-<form method="post" action="cart.php">
+<form method="post" action="betalingvoltooid.php">
     <label style="font-size:20px;" for="bank">Kies je bank:</label>
     <select style="font-size:20px;" name="bank" id="bank">
         <option style="font-size:20px;" value="abnamro">ABN Amro</option>
@@ -55,11 +60,19 @@
         <option style="font-size:20px;" value="knab">Knab</option>
     </select>
     <br><br><br>
-    <input type="submit" value="Terug" style="font-size: 17px;" href="http://localhost/NerdyGadgets/cart.php" class="form-submit-button">
-    <form method="post" action="cart.php">
-        <input type="submit" value="Afrekenen" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
-               class="form-submit-button">
-    </form>
+    <input type="submit" value="Terug" style="font-size: 17px;" href="http://localhost/NerdyGadgets/cart.php"
+           class="form-submit-button">
+    <input type="submit" value="Afrekenen" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
+           class="form-submit-button">
 </form>
 </body>
 </html>
+<?php
+if(isset($_POST)){
+    $_SESSION["fname"] = $_POST["fname"];
+    $_SESSION["lname"] = $_POST["lname"];
+    $_SESSION["pcode"] = $_POST["pcode"];
+    $_SESSION["hnumber"] = $_POST["hnumber"];
+    $_SESSION["address"] = $_POST["address"];
+}
+?>
