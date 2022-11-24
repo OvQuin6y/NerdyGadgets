@@ -1,3 +1,11 @@
+<?php
+include "cartfuncties.php";
+if(!isset($_SESSION)){
+    session_start();
+}
+include "database.php";
+$databaseConnection = connectToDatabase();
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -43,3 +51,16 @@
 </form>
 </body>
 </html>
+<?php
+if ($_POST){
+    $getCart = getCart();
+    $fname = $_SESSION["fname"];
+    $lname = $_SESSION["lname"];
+    $pcode = $_SESSION["pcode"];
+    $hnumber = $_SESSION["hnumber"];
+    $address = $_SESSION["address"];
+
+}
+
+
+?>

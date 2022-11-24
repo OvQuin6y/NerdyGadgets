@@ -3,7 +3,9 @@
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
 $totaalprijs = 0;
-
+if(!isset($_SESSION['totaalprijs'])) {
+    $_SESSION["totaalprijs"] = $totaalprijs;
+}
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -67,7 +69,11 @@ $totaalprijs = 0;
         foreach ($cart as $nr => $aantal):
             $StockItem = getStockItem($nr, $databaseConnection);
             $stockItemImage = getStockItemImage($nr, $databaseConnection);
-            $totaalprijs += $cart[$nr] * $StockItem['SellPrice']; ?>
+            $totaalprijs += $cart[$nr] * $StockItem['SellPrice'];
+            if(isset($_SESSION['totaalprijs'])) {
+                $_SESSION["totaalprijs"] = $totaalprijs;
+            }
+            ?>
             <tr class="data">
                 <td><h6><?= $StockItem['StockItemName'] ?></h6></td>
                 <td><h4><?= $cart[$nr] ?></h4></td>
@@ -91,8 +97,8 @@ $totaalprijs = 0;
     <input type="text" id="pcode" name="pcode"><br><br>
     <label style="font-size: 25px;" for="hnumber">House number</label>
     <input type="number" id="hnumber" name="hnumber">
-    <label style="font-size:25px;" for="adress">Adress</label>
-    <input type="text" id="adress" name="adress"><br><br>
+    <label style="font-size:25px;" for="address">Adress</label>
+    <input type="text" id="address" name="address"><br><br>
     <input type="submit" value="To payment">
 </form>
 </body>
