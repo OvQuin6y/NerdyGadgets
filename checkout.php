@@ -97,8 +97,11 @@ if(!isset($_SESSION['totaalprijs'])) {
     <input type="text" id="pcode" name="pcode"><br><br>
     <label style="font-size: 25px;" for="hnumber">House number</label>
     <input type="number" id="hnumber" name="hnumber">
-    <label style="font-size:25px;" for="address">Adress</label>
-    <input type="text" id="address" name="address"><br><br>
+    <label style="font-size:25px;" for="deliveryaddressline1">Adress1</label>
+    <input type="text" id="address1" name="address1"><br><br>
+    <label style="font-size: 25px;" for="deliveryadressline2">Adress2</label>
+    <input type="text" id="address" name="address2"><br><br>
+
     <input type="submit" value="To payment">
 </form>
 </body>

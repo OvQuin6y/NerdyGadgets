@@ -9,8 +9,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 <div id="CenteredContent">
     <?php
     if ($StockItem != null) {
-        ?>
-        <?php
         if (isset($StockItem['Video'])) {
             ?>
             <div id="VideoFrame">
