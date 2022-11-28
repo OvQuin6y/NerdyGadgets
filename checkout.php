@@ -16,14 +16,13 @@ if(!isset($_SESSION['totaalprijs'])) {
 </head>
 <body>
 <div class="maincontainer">
-    <h1 style="font-size:40px;">Order payment</h1><br>
+    <h1 style="font-size:40px;">Order summary</h1><br>
     <table>
-        <thead>
+        <thead><br>
         <tr class="titles">
             <td>Name:</td>
             <td>Quantity:</td>
-            <td>Price(incl. btw):</td>
-            <td>ID:</td>
+            <td>Price per product (incl. btw):</td>
         </tr>
         </thead>
         <tbody class="bodycontainer">
@@ -59,9 +58,12 @@ if(!isset($_SESSION['totaalprijs'])) {
                 width: 34%
             }
             form {
-                height: 45px;
-                width: 1000px;
+                height: 20px;
+                width: 900px;
                 padding-left: 5%;
+            }
+            h3 {
+                text-align: right;
             }
         </style>
         <?php
@@ -87,22 +89,27 @@ if(!isset($_SESSION['totaalprijs'])) {
     <h3>Total price (incl. btw): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
     <br><br>
 </div>
-<form method="post" action="ideal.php">
-    <h3 style="font-size:40px;">Contact information: </h3>
-    <label style="font-size:25px;" for="fname">First name:</label>
+<form method="post" action="cart.php">
+    <h4 style="font-size:40px;">Contact information: </h4>
+    <label style="font-size:20px;" for="fname">First name:</label>
     <input type="text" id="fname" name="fname"><br><br>
-    <label style="font-size:25px;" for="lname">Last name:</label>
+    <label style="font-size:20px;" for="lname">Last name:</label>
     <input type="text" id="lname" name="lname"><br><br>
-    <label style="font-size:25px;" for="pcode">Postal code:</label>
+    <label style="font-size:20px;" for="pcode">Postal code:</label>
     <input type="text" id="pcode" name="pcode"><br><br>
-    <label style="font-size: 25px;" for="hnumber">House number</label>
+    <label style="font-size: 20px;" for="hnumber">House number:</label>
     <input type="number" id="hnumber" name="hnumber">
-    <label style="font-size:25px;" for="deliveryaddressline1">Adress1</label>
-    <input type="text" id="address1" name="address1"><br><br>
-    <label style="font-size: 25px;" for="deliveryadressline2">Adress2</label>
-    <input type="text" id="address" name="address2"><br><br>
+    <label style="font-size: 20px;" for="city">City:</label>
+    <input type="text" id="city" name="city">
+    <label style="font-size: 20px;" for="e-mail">E-mail:</label>
+    <input type="number" id="e-mail" name="e-mail">
+    <label style="font-size: 20px;" for="hnumber">Phone number:</label>
+    <input type="number" id="pnumber" name="pnumber">
+    <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
+           class="form-submit-button">
+    <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
+           class="form-submit-button">
 
-    <input type="submit" value="To payment">
 </form>
 </body>
 </html>
