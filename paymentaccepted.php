@@ -38,15 +38,15 @@ $databaseConnection = connectToDatabase();
         /*border-color: #FFA500;*/
         border-radius: 12px;
         height: 45px;
-        width: 500px;
+        width: 350px;
     }
 </style>
 <br>
 <h1 style="font-size:300px;"></h1>
-<h2 style="font-size:20px;">De betaling is voltooid.</h2>
+<h2 style="font-size:20px;">The payment has been accepted.</h2>
 <form method="post" action="browse.php">
     <br>
-    <input style="font-size:20px;" type="submit" value="Keer terug naar NerdyGadgets" href="http://localhost/NerdyGadgets/ideal.php"
+    <input style="font-size:20px;" type="submit" value="Return to NerdyGadgets" href="http://localhost/NerdyGadgets/ideal.php"
            class="form-submit-button">
 </form>
 </body>

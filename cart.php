@@ -8,12 +8,12 @@ $totaalPrijs = 0;
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Winkelwagen</title>
+    <title>Shopping cart</title>
     <link rel="stylesheet" href="Public/CSS/cart.css">
 </head>
 <body>
 <div class="maincontainer">
-    <h1>Inhoud Winkelwagen</h1>
+    <h1>Shopping cart contents</h1>
     <table>
         <thead>
         <tr class="titles">
@@ -50,7 +50,7 @@ $totaalPrijs = 0;
                 <td><div class="qty-container"><h4><form class="aantalform" action="cart.php" method="post"><input class="aantal" type="number" name="<?php echo "quantity".$nr?>" min="1" max="<?php $stockItem["QuantityOnHand"]?>" value="<?php echo (ISSET($_POST["quantity".$nr])) ? $_POST["quantity".$nr] :  $aantal?>" placeholder="<?php echo (ISSET($_POST["quantity".$nr])) ? $_POST["quantity".$nr] :  $aantal?>"><input class="aantal2" type="submit" value="OK"></form></h4></div></td>
                 <td><h4>€<?= number_format((float)$stockItem['SellPrice'], 2, '.', '') ?></h4></td>
                 <td><h4><a href="view.php?id=<?= $nr ?>"><?php echo $nr ?></a></h4></td>
-                <td><h4><a href="cart.php?<?php echo "del".$nr?>">verwijderen</a> </h4></td>
+                <td><h4><a href="cart.php?<?php echo "del".$nr?>">delete</a> </h4></td>
             </tr>
 
         <?php
@@ -59,11 +59,11 @@ $totaalPrijs = 0;
 
         </tbody>
     </table>
-    <h3>Totaalprijs (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
+    <h3>Total price (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
 </div>
 <form method="post" action="checkout.php">
     <br>
-    <input type="submit" value="Afrekenen" name="knop">
+    <input type="submit" value="Place order" name="knop">
     <br>
 </form>
 </body>
