@@ -204,14 +204,14 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
 <!-- code deel 3 van User story: Zoeken producten : de html -->
 <!-- de zoekbalk links op de pagina  -->
 
-<div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filteren </h2>
+<div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filter </h2>
     <form>
         <div id="FilterOptions">
-            <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Zoeken</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Search</h4>
             <input type="text" name="search_string" id="search_string"
                    value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
                    class="form-submit">
-            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Amount of products on page</h4>
 
             <input type="hidden" name="category_id" id="category_id"
                    value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
@@ -233,19 +233,19 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
             <select name="sort" id="sort" onchange="this.form.submit()">>
                 <option value="price_low_high" <?php if ($_SESSION['sort'] == "price_low_high") {
                     print "selected";
-                } ?>>Prijs oplopend
+                } ?>>Price high to low
                 </option>
                 <option value="price_high_low" <?php if ($_SESSION['sort'] == "price_high_low") {
                     print "selected";
-                } ?> >Prijs aflopend
+                } ?> >Price low to high
                 </option>
                 <option value="name_low_high" <?php if ($_SESSION['sort'] == "name_low_high") {
                     print "selected";
-                } ?>>Naam oplopend
+                } ?>>Name A-Z
                 </option>
                 <option value="name_high_low" <?php if ($_SESSION['sort'] == "name_high_low") {
                     print "selected";
-                } ?>>Naam aflopend
+                } ?>>Name Z-A
                 </option>
             </select>
     </form>
@@ -281,7 +281,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
                             <h6>Inclusief BTW </h6>
                         </div>
                     </div>
-                    <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
+                    <h1 class="StockItemID">Articlenumber: <?php print $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
                     <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"]); ?></h4>
@@ -329,7 +329,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
     } else {
         ?>
         <h2 id="NoSearchResults">
-            Yarr, er zijn geen resultaten gevonden.
+            Yarr, no results have been found.
         </h2>
         <?php
     }

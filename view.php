@@ -9,8 +9,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 <div id="CenteredContent">
     <?php
     if ($StockItem != null) {
-        ?>
-        <?php
         if (isset($StockItem['Video'])) {
             ?>
             <div id="VideoFrame">
@@ -89,7 +87,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
                         </p>
-                        <h6> Inclusief BTW </h6>
+                        <h6> Including BTW </h6>
                         <?php
                         //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
                         if (isset($_GET["id"])) {
