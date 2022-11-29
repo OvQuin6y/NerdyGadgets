@@ -60,11 +60,12 @@ $totaalPrijs = 0;
         </tbody>
     </table>
     <h3>Total price (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
+    <form method="post" action="checkout.php">
+        <br>
+        <input type="submit" value="Place order" name="knop">
+        <br>
+    </form>
 </div>
-<form method="post" action="checkout.php">
-    <br>
-    <input type="submit" value="Place order" name="knop">
-    <br>
-</form>
+
 </body>
 </html>
