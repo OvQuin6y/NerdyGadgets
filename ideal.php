@@ -73,6 +73,13 @@ if(isset($_POST)){
     $_SESSION["lname"] = $_POST["lname"];
     $_SESSION["pcode"] = $_POST["pcode"];
     $_SESSION["hnumber"] = $_POST["hnumber"];
-    $_SESSION["address"] = $_POST["address"];
+    $_SESSION["dpcode"] = $_POST["dpcode"];
+    $_SESSION["daline1"] = $_POST["daline1"];
+    $_SESSION["daline2"] = $_POST["daline2"];
+    $_SESSION["paline1"] = $_POST["paline1"];
+    $_SESSION["paline2"] = $_POST["paline2"];
+    $_SESSION["pnumber"] = $_POST["pnumber"];
+
+
 }
 ?>
