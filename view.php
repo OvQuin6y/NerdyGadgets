@@ -9,8 +9,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 <div id="CenteredContent">
     <?php
     if ($StockItem != null) {
-        ?>
-        <?php
         if (isset($StockItem['Video'])) {
             ?>
             <div id="VideoFrame">
@@ -78,17 +76,18 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
             <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
-                print("Ruime voorraad beschikbaar");
-            } else  if ($StockItem["QuantityOnHand"] = 0) {
-                print("Product niet op voorraad");
+                    print("Ruime voorraad beschikbaar");
+                } else if ($StockItem["QuantityOnHand"] = 0) {
+                    print("Product niet op voorraad");
                 } else {
-                print("voorraad: ".$StockItem['QuantityOnHand']);
-            }; ?></div>
+                    print("voorraad: ".$StockItem['QuantityOnHand']);
+                }; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
-                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
-                        <h6> Inclusief BTW </h6>
+                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
+                        </p>
+                        <h6> Including BTW </h6>
                         <?php
                         //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
                         if (isset($_GET["id"])) {
@@ -100,10 +99,10 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
                             <?php
-                            if ($StockItem['QuantityOnHand'] > 0){
+                            if ($StockItem['QuantityOnHand'] > 0) {
                                 ?>
-                            <input type="submit" name="submit" value="in winkelmandje" class="CartButton">
-                            <?php
+                                <input type="submit" name="submit" value="in winkelmandje" class="CartButton">
+                                <?php
                             }
                             ?>
                         </form>
@@ -121,11 +120,11 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
 
         <div id="StockItemDescription">
-            <h3>Artikel beschrijving</h3>
+            <h3>Artikelbeschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
         </div>
         <div id="StockItemSpecifications">
-            <h3>Artikel specificaties</h3>
+            <h3>Artikelspecificaties</h3>
             <?php
             $CustomFields = json_decode($StockItem['CustomFields'], true);
             if (is_array($CustomFields)) { ?>
@@ -165,8 +164,4 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
-
-
-
 </div>
-
