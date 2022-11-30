@@ -4,8 +4,8 @@ include "header.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-include "database.php";
-$databaseConnection = connectToDatabase();
+
+
 ?>
     <!DOCTYPE html>
     <html lang="nl">
@@ -62,7 +62,6 @@ if ($_POST) {
     $lname = $_SESSION["lname"];
     $pcode = $_SESSION["pcode"];
     $hnumber = $_SESSION["hnumber"];
-    $address = $_SESSION["address"];
     $dpcode = $_SESSION["dpcode"];
     $daline1 = $_SESSION["daline1"];
     $daline2 = $_SESSION["daline2"];
@@ -73,23 +72,40 @@ if ($_POST) {
     $newStock = 0;
     $customerID = 0;
     $date = date("Y/m/d");
+    $orderID = 0;
     $addCustomer = $databaseConnection->prepare("INSERT INTO customers(CustomerName, BillToCustomerID, CustomerCategoryID,AccountOpenedDate,                      
         PhoneNumber, DeliveryAddressLine1, DeliveryAddressLine2,                      
         DeliveryPostalCode, PostalAddressLine1,PostalAddressLine2,PostalPostalCode,                      
         ValidFrom, ValidTo)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $addCustomer->prepare("siissssssssss", $fname, 1, 3, $date, $pnumber, $daline1, $daline2, $dpcode, $paline1, $paline2, $pcode, $date, "9999-12-31 23:59:59");
+    $dateToValid = "9999-12-31 23:59:59";
+    $billToCustomerId = 1;
+    $customerCategoryId = 3;
+    $addCustomer->bind_param("siissssssssss", $fname, $billToCustomerId, $customerCategoryId, $date, $pnumber, $daline1, $daline2, $dpcode, $paline1, $paline2, $pcode, $date, $dateToValid);
     $addCustomer->execute();
     $getCustomerid = $databaseConnection->prepare("SELECT CustomerID FROM customers WHERE CustomerName = ? AND PhoneNumber = ?");
     $getCustomerid->bind_param("ss", $fname, $pnumber);
+    $getCustomerid->execute();
     $getCustomerid->store_result();
     $getCustomerid->bind_result($result);
     while ($getCustomerid->fetch()) {
         $customerID = $result;
     }
+    $addOrder = $databaseConnection->prepare("INSERT INTO orders(CustomerID, OrderDate, ExpectedDeliveryDate, IsUndersupplyBackordered, LastEditedBy,
+                   LastEditedWhen) VALUES (?,?,?,?,?,?)");
+    $isUndersupplyBackordered = 0;
+    $addOrder->bind_param("ississ", $customerID, $date, $date, $isUndersupplyBackordered, $date, $date);
+    $addOrder->execute();
+    $getOrderID = $databaseConnection->prepare("SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1; ");
+    $getOrderID->execute();
+    $getOrderID->store_result();
+    $getOrderID->bind_result($result);
+    while ($getOrderID->fetch()){
+        $orderID = $result;
+    }
 
     foreach ($getCart as $nr => $aantal) {
-        $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitmenholdings WHERE StockItemID = ?");
+        $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
         $getStock->bind_param("i", $nr);
         $getStock->execute();
         $getStock->store_result();
@@ -97,9 +113,10 @@ if ($_POST) {
         while ($getStock->fetch()) {
             $newStock = $oldStock - $aantal;
         }
-        $updateStock = $databaseConnection->prepare("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockitemID = ?");
+        $updateStock = $databaseConnection->prepare("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockitemID = ?; ");
         $updateStock->bind_param("ii", $newStock, $nr);
         $updateStock->execute();
+
     }
 
 }
