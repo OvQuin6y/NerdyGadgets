@@ -110,11 +110,11 @@ if(!isset($_SESSION['totaalprijs'])) {
     <label style="font-size:20px;" for="daline1">Delivery address line 1:</label>
     <input type="text" id="daline1" name="daline1" required><br><br>
     <label style="font-size:20px;" for="daline2">Delivery address line 2:</label>
-    <input type="text" id="daline2" name="daline2" required><br><br>
+    <input type="text" id="daline2" name="daline2"><br><br>
     <label style="font-size:20px;" for="paline1">Postal address line 1:</label>
     <input type="text" id="paline1" name="paline1" required><br><br>
     <label style="font-size:20px;" for="paline2">Postal address line 2:</label>
-    <input type="text" id="paline2" name="paline2" required><br><br>
+    <input type="text" id="paline2" name="paline2"><br><br>
     <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
            class="form-submit-button">
     <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"

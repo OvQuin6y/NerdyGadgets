@@ -66,6 +66,5 @@ $totaalPrijs = 0;
         <br>
     </form>
 </div>
-
 </body>
 </html>
