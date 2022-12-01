@@ -4,7 +4,9 @@ include "header.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-
+if (!isset($_SESSION["transactionOngoing"]) || !$_SESSION["transactionOngoing"]) {
+    header("Location: browse.php");
+}
 
 ?>
     <!DOCTYPE html>
@@ -56,7 +58,7 @@ if (!isset($_SESSION)) {
     </body>
     </html>
 <?php
-if ($_POST) {
+if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOngoing"]) {
     $getCart = getCart();
     $fname = $_SESSION["fname"];
     $lname = $_SESSION["lname"];
@@ -103,7 +105,6 @@ if ($_POST) {
     while ($getOrderID->fetch()){
         $orderID = $result;
     }
-
     foreach ($getCart as $nr => $aantal) {
         $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
         $getStock->bind_param("i", $nr);
@@ -116,9 +117,8 @@ if ($_POST) {
         $updateStock = $databaseConnection->prepare("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockitemID = ?; ");
         $updateStock->bind_param("ii", $newStock, $nr);
         $updateStock->execute();
-
     }
-
+    $_SESSION["transactionOngoing"] = false;
 }
 
 
