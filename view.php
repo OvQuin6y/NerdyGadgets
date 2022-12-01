@@ -80,10 +80,12 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     print("Much stock available");
                 } elseif ($StockItem["QuantityOnHand"] == 0) {
                     print("Product unavailable");
-                } elseif ($StockItem["QuantityOnHand"] <= 50) {
+                } elseif ($StockItem["QuantityOnHand"] == 1) {
+                    print("Hurry! Only " . $StockItem['QuantityOnHand'] . " item left");
+                } elseif ($StockItem["QuantityOnHand"] <= 50 && $StockItem["QuantityOnHand"] > 1) {
                     print("Hurry! Only " . $StockItem['QuantityOnHand'] . " items left");
                 } else {
-                print($StockItem["QuantityOnHand"] . " items in stock");
+                    print($StockItem["QuantityOnHand"] . " items in stock");
                 }; ?></div>
 
             <div id="StockItemHeaderLeft">
