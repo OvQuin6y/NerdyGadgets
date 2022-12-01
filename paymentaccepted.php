@@ -74,6 +74,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     $paline1 = $_SESSION["paline1"];
     $paline2 = $_SESSION["paline2"];
     $pnumber = $_SESSION["pnumber"];
+    $fullname = $fname. " ". $lname;
 
     $newStock = 0;
     $customerID = 0;
@@ -87,10 +88,10 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     $dateToValid = "9999-12-31 23:59:59";
     $billToCustomerId = 1;
     $customerCategoryId = 3;
-    $addCustomer->bind_param("siissssssssss", $fname, $billToCustomerId, $customerCategoryId, $date, $pnumber, $daline1, $daline2, $dpcode, $paline1, $paline2, $pcode, $date, $dateToValid);
+    $addCustomer->bind_param("siissssssssss", $fullname, $billToCustomerId, $customerCategoryId, $date, $pnumber, $daline1, $daline2, $dpcode, $paline1, $paline2, $pcode, $date, $dateToValid);
     $addCustomer->execute();
     $getCustomerid = $databaseConnection->prepare("SELECT CustomerID FROM customers WHERE CustomerName = ? AND PhoneNumber = ?");
-    $getCustomerid->bind_param("ss", $fname, $pnumber);
+    $getCustomerid->bind_param("ss", $fullname, $pnumber);
     $getCustomerid->execute();
     $getCustomerid->store_result();
     $getCustomerid->bind_result($result);
