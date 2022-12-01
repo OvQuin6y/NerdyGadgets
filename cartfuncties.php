@@ -73,3 +73,13 @@ function clearCart() {
         deleteProductFromCart($nr);
     }
 }
+
+function isCardEmpty() {
+    $cart = getCart();
+
+    if (count($cart) == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}

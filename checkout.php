@@ -2,9 +2,15 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
+
 $totaalprijs = 0;
+
 if(!isset($_SESSION['totaalprijs'])) {
     $_SESSION["totaalprijs"] = $totaalprijs;
+}
+
+if(isCardEmpty()) {
+    header("Location: index.php");
 }
 ?>
 <!DOCTYPE html>
