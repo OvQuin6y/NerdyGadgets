@@ -1,6 +1,9 @@
 <?php
 include "cartfuncties.php";
 include "database.php";
+
+$databaseConnection = connectToDatabase();
+
 if (!isset($_SESSION)) {
     session_start();
 }
