@@ -106,6 +106,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $orderID = $result;
     }
     foreach ($getCart as $nr => $aantal) {
+        $description = "";
         $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
         $getStock->bind_param("i", $nr);
         $getStock->execute();
@@ -117,6 +118,19 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $updateStock = $databaseConnection->prepare("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockitemID = ?; ");
         $updateStock->bind_param("ii", $newStock, $nr);
         $updateStock->execute();
+        $getDescription = $databaseConnection->prepare("SELECT SearchDetails FROM stockitems WHERE StockItemID = ?; ");
+        $getDescription->bind_param("i", $nr);
+        $getDescription->execute();
+        $getDescription->store_result();
+        $getDescription->bind_result($result);
+        while($getDescription->fetch()){
+            $description = $result;
+        }
+        $addOrderline = $databaseConnection->prepare("INSERT INTO orderlines(OrderID, StockItemID, Description, Quantity, LastEditedBy, lastEditedWhen)
+        VALUES (?,?,?,?,?,?)");
+        $addOrderline->bind_param("iisiis", $orderID,$nr, $description, $aantal, $customerID, $date);
+        $addOrderline->execute();
+
     }
     $_SESSION["transactionOngoing"] = false;
     clearCart();
