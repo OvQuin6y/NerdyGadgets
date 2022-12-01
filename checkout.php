@@ -104,7 +104,7 @@ if(!isset($_SESSION['totaalprijs'])) {
     <label style="font-size: 20px;" for="city">City:</label>
     <input type="text" id="city" name="city" required><br><br>
     <label style="font-size: 20px;" for="e-mail">E-mail:</label>
-    <input type="text" id="e-mail" name="e-mail" required><br><br>
+    <input type="email" id="e-mail" name="e-mail" required><br><br>
     <label style="font-size: 20px;" for="pnumber">Phone number:</label>
     <input type="number" id="pnumber" name="pnumber" required><br><br>
     <label style="font-size:20px;" for="daline1">Delivery address line 1:</label>
@@ -119,7 +119,6 @@ if(!isset($_SESSION['totaalprijs'])) {
            class="form-submit-button">
     <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
            class="form-submit-button">
-
 </form>
 </body>
 </html>
