@@ -79,7 +79,6 @@ if(isset($_POST)){
     $_SESSION["paline1"] = $_POST["paline1"];
     $_SESSION["paline2"] = $_POST["paline2"];
     $_SESSION["pnumber"] = $_POST["pnumber"];
-
-
+    $_SESSION["transactionOngoing"] = true;
 }
 ?>

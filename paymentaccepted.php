@@ -4,7 +4,9 @@ include "header.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-
+if (!isset($_SESSION["transactionOngoing"]) || !$_SESSION["transactionOngoing"]) {
+    header("Location: browse.php");
+}
 
 ?>
     <!DOCTYPE html>
@@ -56,7 +58,7 @@ if (!isset($_SESSION)) {
     </body>
     </html>
 <?php
-if ($_POST) {
+if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOngoing"]) {
     $getCart = getCart();
     $fname = $_SESSION["fname"];
     $lname = $_SESSION["lname"];
@@ -103,7 +105,6 @@ if ($_POST) {
     while ($getOrderID->fetch()){
         $orderID = $result;
     }
-
     foreach ($getCart as $nr => $aantal) {
         $description = "";
         $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
@@ -126,11 +127,13 @@ if ($_POST) {
             $description = $result;
         }
         $addOrderline = $databaseConnection->prepare("INSERT INTO orderlines(OrderID, StockItemID, Description, Quantity, LastEditedBy, lastEditedWhen)
-VALUES (?,?,?,?,?,?)");
+        VALUES (?,?,?,?,?,?)");
         $addOrderline->bind_param("iisiis", $orderID,$nr, $description, $aantal, $customerID, $date);
         $addOrderline->execute();
-    }
 
+    }
+    $_SESSION["transactionOngoing"] = false;
+    clearCart();
 }
 
 
