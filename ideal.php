@@ -45,7 +45,7 @@ if (!isset($_SESSION)) {
 <h1 style="font-size:200px;"></h1>
 <h2 style="font-size:20px;">Amount to pay: €<?php echo round($_SESSION["totaalprijs"], 2) ?></h2>
 <br>
-<img src="iDeal.jpg" alt="iDeal logo">
+<img src="Public/Img/iDeal.jpg" alt="iDeal logo">
 <br>
 <form method="post" action="paymentaccepted.php">
     <label style="font-size:20px;" for="bank">Choose your bank:</label>

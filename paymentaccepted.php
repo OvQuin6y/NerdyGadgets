@@ -32,13 +32,13 @@ $databaseConnection = connectToDatabase();
         width: 10%;
     }
     .form-submit-button {
-        /*background: #FFA500;*/
+        background: #676EFF;
         color: white;
         border-style: outset;
-        /*border-color: #FFA500;*/
+        border-color: #676EFF;
         border-radius: 12px;
         height: 45px;
-        width: 350px;
+    width: 350px;
     }
 </style>
 <br>

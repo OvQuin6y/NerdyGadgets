@@ -125,9 +125,8 @@ if ($CategoryID == "") {
                 LIMIT ?  OFFSET ?";
 
 
-
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "ii",  $ProductsOnPage, $Offset);
+    mysqli_stmt_bind_param($Statement, "ii", $ProductsOnPage, $Offset);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
@@ -182,18 +181,21 @@ if (isset($amount)) {
     $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
 }
 
-
+  ?><div class="QuantityText"><?php
 function getVoorraadTekst($actueleVoorraad)
 {
     if ($actueleVoorraad > 1000) {
-        return "Ruime voorraad beschikbaar.";
-    } elseif($actueleVoorraad == 0){
-        return "Product niet op voorraad";
+        return "Much stock available";
+    } elseif ($actueleVoorraad == 0) {
+        return "Product unavailable";
+    } elseif ($actueleVoorraad <= 50) {
+        return "Hurry! Only <b><i> $actueleVoorraad </i></b> items left";
     } else {
-        return "Voorraad: $actueleVoorraad";
+        return "$actueleVoorraad items in stock";
     }
-}
-
+} ?>
+</div>
+<?php
 function berekenVerkoopPrijs($adviesPrijs, $btw)
 {
     return $btw * $adviesPrijs / 100 + $adviesPrijs;
@@ -211,7 +213,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
             <input type="text" name="search_string" id="search_string"
                    value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
                    class="form-submit">
-            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Amount of products on page</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Products per page</h4>
 
             <input type="hidden" name="category_id" id="category_id"
                    value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
@@ -229,7 +231,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
                 } ?>>75
                 </option>
             </select>
-            <h4 class="FilterTopMargin"><i class="fas fa-sort"></i> Sorteren</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-sort"></i> Sort by</h4>
             <select name="sort" id="sort" onchange="this.form.submit()">>
                 <option value="price_low_high" <?php if ($_SESSION['sort'] == "price_low_high") {
                     print "selected";
@@ -277,8 +279,8 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
 
                     <div id="StockItemFrameRight">
                         <div class="CenterPriceLeftChild">
-                            <h1 class="StockItemPriceText"><?php print sprintf(" %0.2f", berekenVerkoopPrijs($row["RecommendedRetailPrice"], $row["TaxRate"])); ?></h1>
-                            <h6>Inclusief BTW </h6>
+                            <h1 class="StockItemPriceText"><?php print "€ " . sprintf(" %0.2f", berekenVerkoopPrijs($row["RecommendedRetailPrice"], $row["TaxRate"])); ?></h1>
+                            <h6>Including BTW </h6>
                         </div>
                     </div>
                     <h1 class="StockItemID">Articlenumber: <?php print $row["StockItemID"]; ?></h1>
@@ -288,7 +290,6 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
                 </div>
                 <!--  coderegel 2 van User story: bekijken producten  -->
             </a>
-
 
             <!--  einde coderegel 2 van User story: bekijken producten  -->
         <?php } ?>

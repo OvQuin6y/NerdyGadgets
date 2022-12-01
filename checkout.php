@@ -107,8 +107,7 @@ if(!isset($_SESSION['totaalprijs'])) {
     <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
            class="form-submit-button">
     <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
-           class="form-submit-button">
-
+           class="form-submit-button" formaction="ideal.php">
 </form>
 </body>
 </html>

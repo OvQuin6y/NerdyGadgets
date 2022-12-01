@@ -489,9 +489,14 @@ ul#ul-class-price li {
     color: #fff;
 }
 
-.CartButton {
-    width: 100%;
-}
+ .CartButton {
+     background: #676EFF;
+     color: white;
+     border-style: outset;
+     border-color: #676EFF;
+     border-radius: 12px;
+     height: 45px;
+ }
 
 .Cart-Image {
     width: 40px;
@@ -519,4 +524,14 @@ ul#ul-class-price li {
     align-items: center;
     display: flex;
     justify-content: center;
+}
+
+.NerdyReturn {
+    background: #676EFF;
+    color: white;
+    border-style: outset;
+    border-color: #676EFF;
+    border-radius: 12px;
+    height: 45px;
+    width: 350px;
 }
