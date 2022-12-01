@@ -1,6 +1,6 @@
 <?php
 include "cartfuncties.php";
-include "header.php";
+include "database.php";
 if (!isset($_SESSION)) {
     session_start();
 }

@@ -60,9 +60,9 @@ if (!isset($_SESSION)) {
         <option style="font-size:20px;" value="knab">Knab</option>
     </select>
     <br><br><br>
-    <input type="submit" value="Back" style="font-size: 17px;" href="http://localhost/NerdyGadgets/cart.php"
+    <input type="submit" value="Back" style="font-size: 17px;" formaction="cart.php"
            class="form-submit-button">
-    <input type="submit" value="Pay" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
+    <input type="submit" value="Pay" style="font-size: 17px;"
            class="form-submit-button">
 </form>
 </body>
