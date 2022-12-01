@@ -65,3 +65,11 @@ function setProductInCart($stockItemID,$amount)
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function clearCart() {
+    $cart = getCart();
+
+    foreach ($cart as $nr => $aantal) {
+        deleteProductFromCart($nr);
+    }
+}

@@ -119,6 +119,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $updateStock->execute();
     }
     $_SESSION["transactionOngoing"] = false;
+    clearCart();
 }
 
 
