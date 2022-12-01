@@ -80,6 +80,7 @@ if(!isset($_SESSION['totaalprijs'])) {
                 <td><h6><?= $StockItem['StockItemName'] ?></h6></td>
                 <td><h4><?= $cart[$nr] ?></h4></td>
                 <td><h4>€<?= number_format((float)$StockItem['SellPrice'], 2, '.', '') ?></h4></td>
+                <td><h4><a href="<?= print("view.php?id=" . $nr) ?>"><?php echo $nr ?></a></h4></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -88,22 +89,32 @@ if(!isset($_SESSION['totaalprijs'])) {
     <h3>Total price (incl. btw): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
     <br><br>
 </div>
-<form method="post" action="cart.php">
+<form method="post" action="ideal.php">
     <h4 style="font-size:40px;">Contact information: </h4>
     <label style="font-size:20px;" for="fname">First name:</label>
-    <input type="text" id="fname" name="fname"><br><br>
+    <input type="text" id="fname" name="fname" required><br><br>
     <label style="font-size:20px;" for="lname">Last name:</label>
-    <input type="text" id="lname" name="lname"><br><br>
+    <input type="text" id="lname" name="lname" required><br><br>
+    <label style="font-size:20px;" for="dpcode">Delivery postal code:</label>
+    <input type="text" id="dpcode" name="dpcode" required><br><br>
     <label style="font-size:20px;" for="pcode">Postal code:</label>
-    <input type="text" id="pcode" name="pcode"><br><br>
+    <input type="text" id="pcode" name="pcode" required><br><br>
     <label style="font-size: 20px;" for="hnumber">House number:</label>
-    <input type="number" id="hnumber" name="hnumber">
+    <input type="number" id="hnumber" name="hnumber" required><br><br>
     <label style="font-size: 20px;" for="city">City:</label>
-    <input type="text" id="city" name="city">
+    <input type="text" id="city" name="city" required><br><br>
     <label style="font-size: 20px;" for="e-mail">E-mail:</label>
-    <input type="number" id="e-mail" name="e-mail">
-    <label style="font-size: 20px;" for="hnumber">Phone number:</label>
-    <input type="number" id="pnumber" name="pnumber">
+    <input type="text" id="e-mail" name="e-mail" required><br><br>
+    <label style="font-size: 20px;" for="pnumber">Phone number:</label>
+    <input type="number" id="pnumber" name="pnumber" required><br><br>
+    <label style="font-size:20px;" for="daline1">Delivery address line 1:</label>
+    <input type="text" id="daline1" name="daline1" required><br><br>
+    <label style="font-size:20px;" for="daline2">Delivery address line 2:</label>
+    <input type="text" id="daline2" name="daline2"><br><br>
+    <label style="font-size:20px;" for="paline1">Postal address line 1:</label>
+    <input type="text" id="paline1" name="paline1" required><br><br>
+    <label style="font-size:20px;" for="paline2">Postal address line 2:</label>
+    <input type="text" id="paline2" name="paline2"><br><br>
     <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
            class="form-submit-button">
     <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
