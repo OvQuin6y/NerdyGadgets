@@ -104,30 +104,18 @@ if (window.history.replaceState ) {
 </script>
 <form method="post" action="ideal.php">
     <h4 style="font-size:40px;">Contact information: </h4>
-    <label style="font-size:20px;" for="fname">First name:</label>
-    <input type="text" id="fname" name="fname" required><br><br>
-    <label style="font-size:20px;" for="lname">Last name:</label>
-    <input type="text" id="lname" name="lname" required><br><br>
-    <label style="font-size:20px;" for="dpcode">Delivery postal code:</label>
-    <input type="text" id="dpcode" name="dpcode" required><br><br>
-    <label style="font-size:20px;" for="pcode">Postal code:</label>
-    <input type="text" id="pcode" name="pcode" required><br><br>
-    <label style="font-size: 20px;" for="hnumber">House number:</label>
-    <input type="number" id="hnumber" name="hnumber" required><br><br>
-    <label style="font-size: 20px;" for="city">City:</label>
-    <input type="text" id="city" name="city" required><br><br>
-    <label style="font-size: 20px;" for="e-mail">E-mail:</label>
-    <input type="email" id="e-mail" name="e-mail" required><br><br>
-    <label style="font-size: 20px;" for="pnumber">Phone number:</label>
-    <input type="number" id="pnumber" name="pnumber" required><br><br>
-    <label style="font-size:20px;" for="daline1">Delivery address line 1:</label>
-    <input type="text" id="daline1" name="daline1" required><br><br>
-    <label style="font-size:20px;" for="daline2">Delivery address line 2:</label>
-    <input type="text" id="daline2" name="daline2"><br><br>
-    <label style="font-size:20px;" for="paline1">Postal address line 1:</label>
-    <input type="text" id="paline1" name="paline1" required><br><br>
-    <label style="font-size:20px;" for="paline2">Postal address line 2:</label>
-    <input type="text" id="paline2" name="paline2"><br><br>
+    <input type="text" id="fname" name="fname" placeholder="First name" required><br><br>
+    <input type="text" id="lname" name="lname" placeholder="Last name" required><br><br>
+    <input type="text" id="dpcode" name="dpcode" placeholder="Delivery postal code" required><br><br>
+    <input type="text" id="pcode" name="pcode" placeholder="Postal code" required><br><br>
+    <input type="number" id="hnumber" name="hnumber" placeholder="House number" required><br><br>
+    <input type="text" id="city" name="city" placeholder="City" required><br><br>
+    <input type="email" id="e-mail" name="e-mail" placeholder="e.g Example@windesheim.nl" required><br><br>
+    <input type="number" id="pnumber" name="pnumber" placeholder="Phone number" required><br><br>
+    <input type="text" id="daline1" name="daline1" required placeholder="Delivery Address"><br><br>
+    <input type="text" id="daline2" name="daline2" placeholder="Aparment, suite, etc. (Optional)"><br><br>
+    <input type="text" id="paline1" name="paline1" placeholder="Postal address" required><br><br>
+    <input type="text" id="paline2" name="paline2" placeholder="(Optional) Postal address 2"><br><br>
     <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
            class="form-submit-button">
     <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
