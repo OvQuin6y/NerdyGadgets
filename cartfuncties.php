@@ -65,3 +65,20 @@ function setProductInCart($stockItemID,$amount)
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function clearCart() {
+    $cart = getCart();  // haal de huidige cart op
+
+    foreach ($cart as $nr => $aantal) { // loop door de cart
+        deleteProductFromCart($nr);  // verwijder elk product uit de cart
+    }
+}
+
+function isCardEmpty() {
+    $cart = getCart();  // haal de huidige cart op
+
+    if (count($cart) == 0) {  // kijk of de cart leeg is
+        return true; // als de cart leeg is, geef true terug
+    }
+    return false; // als de cart niet leeg is, geef false terug
+}

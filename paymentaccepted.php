@@ -4,8 +4,10 @@ include "header.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-include "database.php";
-$databaseConnection = connectToDatabase();
+if (!isset($_SESSION["transactionOngoing"]) || !$_SESSION["transactionOngoing"]) {
+    header("Location: browse.php");
+}
+
 ?>
     <!DOCTYPE html>
     <html lang="nl">
@@ -23,9 +25,9 @@ $databaseConnection = connectToDatabase();
             text-align: center;
         }
 
-    form {
-        text-align: center;
-    }
+        form {
+            text-align: center;
+        }
 
         img {
             display: block;
@@ -55,34 +57,8 @@ $databaseConnection = connectToDatabase();
     </form>
     </body>
     </html>
-    img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 10%;
-    }
-    .form-submit-button {
-        background: #676EFF;
-        color: white;
-        border-style: outset;
-        border-color: #676EFF;
-        border-radius: 12px;
-        height: 45px;
-    width: 350px;
-    }
-</style>
-<br>
-<h1 style="font-size:300px;"></h1>
-<h2 style="font-size:20px;">The payment has been accepted.</h2>
-<form method="post" action="browse.php">
-    <br>
-    <input style="font-size:20px;" type="submit" value="Return to NerdyGadgets" href="http://localhost/NerdyGadgets/ideal.php"
-           class="form-submit-button">
-</form>
-</body>
-</html>
 <?php
-if ($_POST) {
+if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOngoing"]) {
     $getCart = getCart();
     $fname = $_SESSION["fname"];
     $lname = $_SESSION["lname"];
@@ -131,6 +107,7 @@ if ($_POST) {
     }
 
     foreach ($getCart as $nr => $aantal) {
+        $description = "";
         $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
         $getStock->bind_param("i", $nr);
         $getStock->execute();
@@ -142,9 +119,22 @@ if ($_POST) {
         $updateStock = $databaseConnection->prepare("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockitemID = ?; ");
         $updateStock->bind_param("ii", $newStock, $nr);
         $updateStock->execute();
+        $getDescription = $databaseConnection->prepare("SELECT SearchDetails FROM stockitems WHERE StockItemID = ?; ");
+        $getDescription->bind_param("i", $nr);
+        $getDescription->execute();
+        $getDescription->store_result();
+        $getDescription->bind_result($result);
+        while($getDescription->fetch()){
+            $description = $result;
+        }
+        $addOrderline = $databaseConnection->prepare("INSERT INTO orderlines(OrderID, StockItemID, Description, Quantity, LastEditedBy, lastEditedWhen)
+        VALUES (?,?,?,?,?,?)");
+        $addOrderline->bind_param("iisiis", $orderID,$nr, $description, $aantal, $customerID, $date);
+        $addOrderline->execute();
 
     }
-
+    $_SESSION["transactionOngoing"] = false;
+    clearCart();
 }
 
 

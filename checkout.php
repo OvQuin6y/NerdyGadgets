@@ -2,9 +2,15 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
+
 $totaalprijs = 0;
+
 if(!isset($_SESSION['totaalprijs'])) {
     $_SESSION["totaalprijs"] = $totaalprijs;
+}
+
+if(isCardEmpty()) {
+    header("Location: index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -89,6 +95,13 @@ if(!isset($_SESSION['totaalprijs'])) {
     <h3>Total price (incl. btw): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
     <br><br>
 </div>
+<?php
+?>
+<script>
+if (window.history.replaceState ) {
+    window.history.replaceState(null, null, window.location.href );
+}
+</script>
 <form method="post" action="ideal.php">
     <h4 style="font-size:40px;">Contact information: </h4>
     <label style="font-size:20px;" for="fname">First name:</label>
@@ -104,7 +117,7 @@ if(!isset($_SESSION['totaalprijs'])) {
     <label style="font-size: 20px;" for="city">City:</label>
     <input type="text" id="city" name="city" required><br><br>
     <label style="font-size: 20px;" for="e-mail">E-mail:</label>
-    <input type="text" id="e-mail" name="e-mail" required><br><br>
+    <input type="email" id="e-mail" name="e-mail" required><br><br>
     <label style="font-size: 20px;" for="pnumber">Phone number:</label>
     <input type="number" id="pnumber" name="pnumber" required><br><br>
     <label style="font-size:20px;" for="daline1">Delivery address line 1:</label>
@@ -118,7 +131,7 @@ if(!isset($_SESSION['totaalprijs'])) {
     <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
            class="form-submit-button">
     <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
-           class="form-submit-button" formaction="ideal.php">
+           class="form-submit-button">
 </form>
 </body>
 </html>
