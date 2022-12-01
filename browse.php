@@ -188,7 +188,9 @@ function getVoorraadTekst($actueleVoorraad)
         return "Much stock available";
     } elseif ($actueleVoorraad == 0) {
         return "Product unavailable";
-    } elseif ($actueleVoorraad <= 50) {
+    } elseif ($actueleVoorraad == 1) {
+        return "Hurry! Only <b><i> $actueleVoorraad </i></b> item left";
+    } elseif ($actueleVoorraad <= 50 && $actueleVoorraad > 1) {
         return "Hurry! Only <b><i> $actueleVoorraad </i></b> items left";
     } else {
         return "$actueleVoorraad items in stock";

@@ -98,9 +98,9 @@ if(isCardEmpty()) {
 <?php
 ?>
 <script>
-if (window.history.replaceState ) {
-    window.history.replaceState(null, null, window.location.href );
-}
+    if (window.history.replaceState ) {
+        window.history.replaceState(null, null, window.location.href );
+    }
 </script>
 <form method="post" action="ideal.php">
     <h4 style="font-size:40px;">Contact information: </h4>
@@ -118,7 +118,7 @@ if (window.history.replaceState ) {
     <input type="text" id="paline2" name="paline2" placeholder="(Optional) Postal address 2"><br><br>
     <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
            class="form-submit-button">
-    <input type="submit" value="Confirm and continue" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
+    <input type="submit" value="Confirm and continue" style="font-size: 17px;" name="goToIdeal"
            class="form-submit-button">
 </form>
 </body>

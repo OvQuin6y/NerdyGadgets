@@ -2,6 +2,9 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+if(!isset($_POST["goToIdeal"])){
+    header("Location: checkout.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -68,7 +71,7 @@ if (!isset($_SESSION)) {
 </body>
 </html>
 <?php
-if(isset($_POST)){
+if(isset($_POST["goToIdeal"])){
     $_SESSION["fname"] = $_POST["fname"];
     $_SESSION["lname"] = $_POST["lname"];
     $_SESSION["pcode"] = $_POST["pcode"];
