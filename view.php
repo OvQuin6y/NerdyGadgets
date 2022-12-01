@@ -6,6 +6,7 @@ include "cartfuncties.php";
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 ?>
+<link rel="stylesheet" href="Public/CSS/cart.css">
 <div id="CenteredContent">
     <?php
     if ($StockItem != null) {
@@ -70,22 +71,25 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             }
             ?>
 
-
-            <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
+            <h1 class="StockItemID">Articlenumber: <?php print $StockItem["StockItemID"]; ?></h1>
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
+
             <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
-                    print("Ruime voorraad beschikbaar");
-                } else if ($StockItem["QuantityOnHand"] = 0) {
-                    print("Product niet op voorraad");
+                    print("Much stock available");
+                } elseif ($StockItem["QuantityOnHand"] == 0) {
+                    print("Product unavailable");
+                } elseif ($StockItem["QuantityOnHand"] <= 50) {
+                    print("Hurry! Only " . $StockItem['QuantityOnHand'] . " items left");
                 } else {
-                    print("voorraad: ".$StockItem['QuantityOnHand']);
+                print($StockItem["QuantityOnHand"] . " items in stock");
                 }; ?></div>
+
             <div id="StockItemHeaderLeft">
-                <div class="CenterPriceLeft">
+                <div class="CenterPriceLeft"><br>
                     <div class="CenterPriceLeftChild">
-                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
+                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?>
                         </p>
                         <h6> Including BTW </h6>
                         <?php
@@ -101,7 +105,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <?php
                             if ($StockItem['QuantityOnHand'] > 0) {
                                 ?>
-                                <input type="submit" name="submit" value="in winkelmandje" class="CartButton">
+                                <input type="submit" name="submit" value="Add to shopping cart" class="CartButton">
                                 <?php
                             }
                             ?>
@@ -111,7 +115,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                             $stockItemID = $_POST["stockItemID"];
                             addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
-                            print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+                            print("Product added to <a href='cart.php'> shopping cart!</a>");
                         }
                         ?>
                     </div>
@@ -120,17 +124,17 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
 
         <div id="StockItemDescription">
-            <h3>Artikelbeschrijving</h3>
+            <h3>Article description</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
         </div>
         <div id="StockItemSpecifications">
-            <h3>Artikelspecificaties</h3>
+            <h3>Article specifications</h3>
             <?php
             $CustomFields = json_decode($StockItem['CustomFields'], true);
             if (is_array($CustomFields)) { ?>
                 <table>
                 <thead>
-                <th>Naam</th>
+                <th>Name</th>
                 <th>Data</th>
                 </thead>
                 <?php
@@ -162,6 +166,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
         <?php
     } else {
-        ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
+        ?><h2 id="ProductNotFound">The searched product could not be found</h2><?php
     } ?>
 </div>

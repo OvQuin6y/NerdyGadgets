@@ -105,6 +105,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     while ($getOrderID->fetch()){
         $orderID = $result;
     }
+
     foreach ($getCart as $nr => $aantal) {
         $description = "";
         $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
