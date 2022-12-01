@@ -67,18 +67,18 @@ function setProductInCart($stockItemID,$amount)
 }
 
 function clearCart() {
-    $cart = getCart();
+    $cart = getCart();  // haal de huidige cart op
 
-    foreach ($cart as $nr => $aantal) {
-        deleteProductFromCart($nr);
+    foreach ($cart as $nr => $aantal) { // loop door de cart
+        deleteProductFromCart($nr);  // verwijder elk product uit de cart
     }
 }
 
 function isCardEmpty() {
-    $cart = getCart();
+    $cart = getCart();  // haal de huidige cart op
 
-    if (count($cart) == 0) {
-        return true;
+    if (count($cart) == 0) {  // kijk of de cart leeg is
+        return true; // als de cart leeg is, geef true terug
     }
-    return false;
+    return false; // als de cart niet leeg is, geef false terug
 }
