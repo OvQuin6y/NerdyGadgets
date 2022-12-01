@@ -95,6 +95,13 @@ if(isCardEmpty()) {
     <h3>Total price (incl. btw): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
     <br><br>
 </div>
+<?php
+?>
+<script>
+if (window.history.replaceState ) {
+    window.history.replaceState(null, null, window.location.href );
+}
+</script>
 <form method="post" action="ideal.php">
     <h4 style="font-size:40px;">Contact information: </h4>
     <label style="font-size:20px;" for="fname">First name:</label>

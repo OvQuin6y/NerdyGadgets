@@ -79,7 +79,6 @@ function isCardEmpty() {
 
     if (count($cart) == 0) {
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
