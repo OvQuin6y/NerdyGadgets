@@ -14,7 +14,7 @@ $totaalPrijs = 0;
 <body>
 <div class="maincontainer">
     <h1>Shopping cart contents</h1>
-    <table>
+    <table id="checkoutItems">
         <thead>
         <tr class="titles">
             <td>Image:</td>
@@ -60,11 +60,22 @@ $totaalPrijs = 0;
         </tbody>
     </table>
     <h3>Total price (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
-    <form method="post" action="checkout.php">
+    <form method="post" action="checkout.php" id="orderForm">
         <br>
         <input type="submit" value="Place order" name="knop">
         <br>
     </form>
+    <script>
+        var form = document.getElementById("orderForm");
+        var checkoutItemsLength = document.getElementById("checkoutItems").rows.length;
+
+        form.addEventListener("submit", function(event) {
+            if (checkoutItemsLength <= 1) {
+                event.preventDefault();
+                alert("You can't place an order with an empty cart!");
+            }
+        });
+    </script>
 </div>
 </body>
 </html>
