@@ -28,10 +28,6 @@ if (!isset($_SESSION["transactionOngoing"]) || !$_SESSION["transactionOngoing"])
             text-align: center;
         }
 
-        form {
-            text-align: center;
-        }
-
         img {
             display: block;
             margin-left: auto;
@@ -39,11 +35,16 @@ if (!isset($_SESSION["transactionOngoing"]) || !$_SESSION["transactionOngoing"])
             width: 10%;
         }
 
+        form {
+            text-align: center;
+        }
+
         .form-submit-button {
-            /*background: #FFA500;*/
+            background: #676EFF;
+            text-align: center;
             color: white;
             border-style: outset;
-            /*border-color: #FFA500;*/
+            border-color: #676EFF;
             border-radius: 12px;
             height: 45px;
             width: 350px;
@@ -105,7 +106,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     $getOrderID->execute();
     $getOrderID->store_result();
     $getOrderID->bind_result($result);
-    while ($getOrderID->fetch()){
+    while ($getOrderID->fetch()) {
         $orderID = $result;
     }
 
@@ -127,12 +128,12 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $getDescription->execute();
         $getDescription->store_result();
         $getDescription->bind_result($result);
-        while($getDescription->fetch()){
+        while ($getDescription->fetch()) {
             $description = $result;
         }
         $addOrderline = $databaseConnection->prepare("INSERT INTO orderlines(OrderID, StockItemID, Description, Quantity, LastEditedBy, lastEditedWhen)
         VALUES (?,?,?,?,?,?)");
-        $addOrderline->bind_param("iisiis", $orderID,$nr, $description, $aantal, $customerID, $date);
+        $addOrderline->bind_param("iisiis", $orderID, $nr, $description, $aantal, $customerID, $date);
         $addOrderline->execute();
 
     }

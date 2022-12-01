@@ -128,7 +128,7 @@ if(isCardEmpty()) {
     <input type="text" id="paline1" name="paline1" required><br><br>
     <label style="font-size:20px;" for="paline2">Postal address line 2:</label>
     <input type="text" id="paline2" name="paline2"><br><br>
-    <input type="submit" value="Back to shopping cart" style="font-size: 17px;"
+    <input type="submit" value="Back to shopping cart" style="font-size: 17px;" formaction="cart.php"
            class="form-submit-button">
     <input type="submit" value="Confirm and continue" style="font-size: 17px;" name="goToIdeal"
            class="form-submit-button">
