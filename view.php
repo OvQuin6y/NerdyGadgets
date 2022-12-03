@@ -78,11 +78,11 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
             <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
                     print("Much stock available");
-                } elseif ($StockItem["QuantityOnHand"] == 0) {
+                } elseif ($StockItem["QuantityOnHand"] <= 0) {
                     print("Product unavailable");
                 } elseif ($StockItem["QuantityOnHand"] == 1) {
                     print("Hurry! Only " . $StockItem['QuantityOnHand'] . " item left");
-                } elseif ($StockItem["QuantityOnHand"] <= 50 && $StockItem["QuantityOnHand"] > 1) {
+                } elseif ($StockItem["QuantityOnHand"] <= 50) {
                     print("Hurry! Only " . $StockItem['QuantityOnHand'] . " items left");
                 } else {
                     print($StockItem["QuantityOnHand"] . " items in stock");
