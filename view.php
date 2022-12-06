@@ -107,7 +107,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <?php
                             if ($StockItem['QuantityOnHand'] > 0) {
                                 ?>
-                                <input type="submit" name="submit" value="Add to shopping cart" class="CartButton">
+                                <input type="submit" name="submit" value="Add to shopping cart" class="Button_add_to_cart">
                                 <?php
                             }
                             ?>
