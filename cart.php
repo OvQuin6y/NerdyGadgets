@@ -74,7 +74,7 @@ $totaalPrijs = 0;
     <h3>Total price (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
     <form method="post" action="checkout.php" id="orderForm">
         <br>
-        <input type="submit" value="Place order" name="knop">
+        <input type="submit" value="Place order" name="knop" class="Button_place_order">
         <br>
     </form>
     <script>

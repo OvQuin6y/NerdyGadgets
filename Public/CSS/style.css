@@ -489,13 +489,51 @@ ul#ul-class-price li {
     color: #fff;
 }
 
- .CartButton {
+ .Button_add_to_cart {
      background: #676EFF;
      color: white;
-     border-style: outset;
-     border-color: #676EFF;
-     border-radius: 12px;
-     height: 45px;
+     border-style: none;
+     height: 30px;
+     width: 85%;
+ }
+.Button_place_order {
+    background: #676EFF;
+    color: white;
+    border-style: none;
+    height: 30px;
+    width: 95%;
+}
+.Buttons_checkout {
+    background: #676EFF;
+    color: white;
+    border-style: none;
+    height: 30px;
+    width: 40%;
+    text-align: left;
+}
+.Inputfields {
+    width: 40%;
+    height: 30px;
+}
+
+ .Checkout_form {
+     display: flex;
+     width: 100%;
+     height: auto;
+     flex-wrap: wrap;
+     justify-content: center;
+     column-gap: 5px;
+
+ }
+ .Invoer_form{
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+ }
+ .Text_checkout {
+     font-size:40px;
+     Text-align: center;
  }
 
 .Cart-Image {
