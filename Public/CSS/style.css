@@ -535,3 +535,9 @@ ul#ul-class-price li {
     height: 45px;
     width: 350px;
 }
+
+.registerContainer {
+    border: 5px solid;
+    display: flex;
+    justify-content: center;
+}
