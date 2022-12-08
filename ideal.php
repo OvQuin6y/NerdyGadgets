@@ -10,7 +10,7 @@ if(!isset($_POST["goToIdeal"])){
 <html lang="nl">
 <head>
     <meta charset="utf-8">
-    <title>iDeal bevestiginsscherm</title>
+    <title>iDeal bevestigingsscherm</title>
 </head>
 <body style="background-color:#FFFFFF;">
 <style>
