@@ -86,7 +86,6 @@ if(isCardEmpty()) {
                 <td><h6><?= $StockItem['StockItemName'] ?></h6></td>
                 <td><h4><?= $cart[$nr] ?></h4></td>
                 <td><h4>€<?= number_format((float)$StockItem['SellPrice'], 2, '.', '') ?></h4></td>
-                <td><h4><a href="<?= print("view.php?id=" . $nr) ?>"><?php echo $nr ?></a></h4></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -102,24 +101,24 @@ if(isCardEmpty()) {
         window.history.replaceState(null, null, window.location.href );
     }
 </script>
-<form method="post" action="ideal.php">
-    <h4 style="font-size:40px;">Contact information: </h4>
-    <input type="text" id="fname" name="fname" placeholder="First name" required><br><br>
-    <input type="text" id="lname" name="lname" placeholder="Last name" required><br><br>
-    <input type="text" id="dpcode" name="dpcode" placeholder="Delivery postal code" required><br><br>
-    <input type="text" id="pcode" name="pcode" placeholder="Postal code" required><br><br>
-    <input type="number" id="hnumber" name="hnumber" placeholder="House number" required><br><br>
-    <input type="text" id="city" name="city" placeholder="City" required><br><br>
-    <input type="email" id="e-mail" name="e-mail" placeholder="e.g Example@windesheim.nl" required><br><br>
-    <input type="number" id="pnumber" name="pnumber" placeholder="Phone number" required><br><br>
-    <input type="text" id="daline1" name="daline1" required placeholder="Delivery Address"><br><br>
-    <input type="text" id="daline2" name="daline2" placeholder="Aparment, suite, etc. (Optional)"><br><br>
-    <input type="text" id="paline1" name="paline1" placeholder="Postal address" required><br><br>
-    <input type="text" id="paline2" name="paline2" placeholder="(Optional) Postal address 2"><br><br>
-    <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php"
-           class="form-submit-button">
-    <input type="submit" value="Confirm and continue" style="font-size: 17px;" name="goToIdeal"
-           class="form-submit-button">
-</form>
+<div class="Invoer_form"></div>
+    <h4 class = "Text_checkout">Contact information: </h4>
+    <form class = "Checkout_form" method="post" action="ideal.php">
+            <input type="text" id="fname" name="fname" placeholder="First name" class = Inputfields required><br><br>
+            <input type="text" id="lname" name="lname" placeholder="Last name" class = Inputfields required><br><br>
+            <input type="text" id="dpcode" name="dpcode" placeholder="Delivery postal code" class = Inputfields required><br><br>
+            <input type="text" id="pcode" name="pcode" placeholder="Postal code" class = Inputfields required><br><br>
+            <input type="number" id="hnumber" name="hnumber" placeholder="House number" class = Inputfields required><br><br>
+            <input type="text" id="city" name="city" placeholder="City" class = Inputfields required><br><br>
+            <input type="email" id="e-mail" name="e-mail" placeholder="e.g Example@windesheim.nl" class = Inputfields required><br><br>
+            <input type="number" id="pnumber" name="pnumber" placeholder="Phone number" class = Inputfields required><br><br>
+            <input type="text" id="daline1" name="daline1" required placeholder="Delivery Address" class = Inputfields><br><br>
+            <input type="text" id="daline2" name="daline2" placeholder="Aparment, suite, etc. (Optional)" class = Inputfields><br><br>
+            <input type="text" id="paline1" name="paline1" placeholder="Postal address" class = Inputfields required><br><br>
+            <input type="text" id="paline2" name="paline2" placeholder="(Optional) Postal address 2" class = Inputfields><br><br>
+            <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php" class="Buttons_checkout"><br>
+            <input type="submit" value="Confirm and continue" style="font-size: 17px;" name="goToIdeal" class="Buttons_checkout"><br><br>
+    </form>
+</div>
 </body>
 </html>
