@@ -579,3 +579,9 @@ ul#ul-class-price li {
     display: flex;
     justify-content: center;
 }
+
+.loginField {
+    display: flex;
+    text-align: center;
+    width: 20%;
+}
