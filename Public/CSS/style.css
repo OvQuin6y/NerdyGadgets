@@ -574,14 +574,29 @@ ul#ul-class-price li {
     width: 350px;
 }
 
-.registerContainer {
-    border: 5px solid;
+.registerTitle {
     display: flex;
     justify-content: center;
 }
 
-.loginField {
+.registerContainer {
+    margin: auto;
     display: flex;
-    text-align: center;
     width: 20%;
+    padding-top: 15px;
+}
+
+.registerContainer {
+    width: 20%;
+}
+
+.invoer {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.submitRegistration {
+
+    width: 50%;
 }
