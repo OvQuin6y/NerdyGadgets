@@ -74,7 +74,8 @@ function clearCart() {
     }
 }
 
-function isCardEmpty() {
+function isCardEmpty(): bool
+{
     $cart = getCart();  // haal de huidige cart op
 
     if (count($cart) == 0) {  // kijk of de cart leeg is

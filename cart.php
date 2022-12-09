@@ -49,7 +49,7 @@ $totaalPrijs = 0;
                 <td><h6><?= $stockItem['StockItemName'] ?></h6></td>
                 <td>
                     <div class="qty-container">
-                        <h4>
+                         <h4>
                             <form class="aantalform" action="cart.php" method="post"><input class="aantal" type="number"
                                                                                             name="<?php echo "quantity" . $nr ?>"
                                                                                             min="1"
@@ -74,7 +74,7 @@ $totaalPrijs = 0;
     <h3>Total price (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
     <form method="post" action="checkout.php" id="orderForm">
         <br>
-        <input type="submit" value="Place order" name="knop">
+        <input type="submit" value="Place order" name="knop" class="Button_place_order">
         <br>
     </form>
     <script>
