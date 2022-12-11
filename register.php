@@ -15,33 +15,21 @@ include "cartfuncties.php";
     <h1>register</h1>
 </div>
 <div class="container">
-<form method="post" action="confirmation.php">
-    <table>
-        <div class="invoer">
-            <input type="text" id="fname" name="fname" placeholder="First name" required>
-            <input type="text" id="lname" name="lname" placeholder="Last name" required>
-        </div>
-        <div class="invoer">
-            <input type="text" id="mail" name="mail" placeholder="E-mail" required>
-            <input type="text" id="phone" name="phone" placeholder="Phone number" required>
-        </div>
-        <div class="invoer">
-            <input type="text" id="pcode" name="pcode" placeholder="Postal code" required>
-            <input type="text" id="city" name="city" placeholder="City" required>
-        </div>
-        <div class="invoer">
-            <input type="text" id="hnumber" name="hnumber" placeholder="House number" required>
-            <input type="text" id="apartment" name="apartment" placeholder="Apartment/suite (opt.)">
-        </div>
-        <div class="invoer">
-            <input type="text" id="password" name="password" placeholder="Password" required>
-            <input type="text" id="cpassword" name="cpassword" placeholder="Confirm password">
-        </div>
-        <div class="invoer">
-            <input class="submitRegistration" type="submit" value="Continue" name="confirmRegistration">
-        </div>
-    </table>
-</form>
+    <form class = "Checkout_form" method="post" action="confirmation.php">
+        <input type="text" name="fname" placeholder="First name" class = Inputfields required><br><br>
+        <input type="text" name="lname" placeholder="Last name" class = Inputfields required><br><br>
+        <input type="email" name="email" placeholder="E-mail" class = Inputfields required><br><br>
+        <input type="number" name="pnumber" placeholder="Phone number" class = Inputfields required><br><br>
+        <input type="text" name="pcode" placeholder="Postal code" class = Inputfields required><br><br>
+        <input type="text" name="city" placeholder="City" class = Inputfields required><br><br>
+        <input type="number" name="hnumber" placeholder="House number" class = Inputfields required><br><br>
+        <input type="text" name="apartment" placeholder="Apartment/suite (opt.)" class = Inputfields><br><br>
+        <input type="password" name="pword" placeholder="Password" class = Inputfields required><br><br>
+        <input type="password" name="cpword" placeholder="Confirm password" class = Inputfields required><br><br>
+        <input type="submit" value="Cancel" style="font-size: 17px;" href="index.php" class="Buttons_checkout"><br>
+        <input type="submit" value="Register" style="font-size: 17px;" name="register" class="Buttons_checkout"><br><br>
+    </form>
+    <h1 style="font-size:20px; text-align: center">Already have an account? log in <a href="login.php">here</a></h1>
 </div>
 </body>
 
