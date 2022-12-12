@@ -39,8 +39,8 @@ if(!isset($_POST["goToIdeal"])){
         color: white;
         border-style: outset;
         border-color: #FFA500;
-        border-radius: 12px;
-        height: 45px;
+        border-radius:         height: 45px;
+        12px;
         width: 100px;
     }
 </style>
@@ -63,8 +63,8 @@ if(!isset($_POST["goToIdeal"])){
         <option style="font-size:20px;" value="knab">Knab</option>
     </select>
     <br><br><br>
-    <input type="submit" value="Back" style="font-size: 17px;" formaction="cart.php"
-           class="form-submit-button">
+    <input type="submit" value="Back" style="font-size: 17px;" fomaction="cart.php"
+           class="form-submit-button">r
     <input type="submit" value="Pay" style="font-size: 17px;"
            class="form-submit-button">
 </form>
