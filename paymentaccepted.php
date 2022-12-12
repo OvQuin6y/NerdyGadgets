@@ -1,6 +1,9 @@
 <?php
 include "cartfuncties.php";
 include "database.php";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 $databaseConnection = connectToDatabase();
 
@@ -140,7 +143,14 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     }
     $_SESSION["transactionOngoing"] = false;
     clearCart();
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }
-
-
 ?>
