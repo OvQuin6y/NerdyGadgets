@@ -86,7 +86,6 @@ if(isCardEmpty()) {
                 <td><h6><?= $StockItem['StockItemName'] ?></h6></td>
                 <td><h4><?= $cart[$nr] ?></h4></td>
                 <td><h4>€<?= number_format((float)$StockItem['SellPrice'], 2, '.', '') ?></h4></td>
-                <td><h4><a href="<?= print("view.php?id=" . $nr) ?>"><?php echo $nr ?></a></h4></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

@@ -49,7 +49,7 @@ $totaalPrijs = 0;
                 <td><h6><?= $stockItem['StockItemName'] ?></h6></td>
                 <td>
                     <div class="qty-container">
-                        <h4>
+                         <h4>
                             <form class="aantalform" action="cart.php" method="post"><input class="aantal" type="number"
                                                                                             name="<?php echo "quantity" . $nr ?>"
                                                                                             min="1"
