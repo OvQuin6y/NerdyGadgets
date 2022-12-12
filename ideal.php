@@ -82,6 +82,7 @@ if(isset($_POST["goToIdeal"])){
     $_SESSION["paline1"] = $_POST["paline1"];
     $_SESSION["paline2"] = $_POST["paline2"];
     $_SESSION["pnumber"] = $_POST["pnumber"];
+    $_SESSION["e-mail"] = $_POST["e-mail"];
     $_SESSION["transactionOngoing"] = true;
 }
 ?>

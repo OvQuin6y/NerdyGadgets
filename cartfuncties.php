@@ -66,7 +66,8 @@ function setProductInCart($stockItemID,$amount)
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
 
-function clearCart() {
+function clearCart()
+{
     $cart = getCart();  // haal de huidige cart op
 
     foreach ($cart as $nr => $aantal) { // loop door de cart
@@ -82,4 +83,13 @@ function isCardEmpty(): bool
         return true; // als de cart leeg is, geef true terug
     }
     return false; // als de cart niet leeg is, geef false terug
+}
+
+function toString() {
+    $cart = getCart();  // haal de huidige cart op
+    $string = "";  // maak een lege string aan
+    foreach ($cart as $nr => $aantal) { // loop door de cart
+        $string .= $nr . " " . $aantal . " ";  // voeg de producten toe aan de string
+    }
+    return $string; // geef de string terug
 }
