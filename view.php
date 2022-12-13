@@ -3,7 +3,7 @@
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
-$StockItem = getStockItem($_GET['id'], $databaseConnection);
+$StockItem = getStockItem($_GET['id'], $databaseConnection,$_SESSION["lang"]);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 ?>
 <link rel="stylesheet" href="Public/CSS/cart.css">

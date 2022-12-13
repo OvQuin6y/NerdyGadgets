@@ -1,6 +1,13 @@
 <!-- dit is het bestand dat wordt geladen zodra je naar de website gaat -->
 <?php
 include __DIR__ . "/header.php";
+
+if(!isset($_SESSION)){
+    session_start();
+    }
+if (!isset($_SESSION["lang"])){
+    $_SESSION["lang"] = "en";
+}
 ?>
 <div class="IndexStyle">
     <div class="col-11">

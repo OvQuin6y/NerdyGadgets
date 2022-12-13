@@ -29,7 +29,7 @@ $totaalPrijs = 0;
         <?php
         $cart = getCart();
         foreach ($cart as $nr => $aantal):
-            $stockItem = getStockItem($nr, $databaseConnection);
+            $stockItem = getStockItem($nr, $databaseConnection, $_SESSION["lang"]);
             $stockItemImage = getStockItemImage($nr, $databaseConnection);
             $totaalPrijs += $aantal * $stockItem['SellPrice'];
             if (isset($_GET["del" . $nr])) {
