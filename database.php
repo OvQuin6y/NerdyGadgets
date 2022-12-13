@@ -54,8 +54,9 @@ function getStockGroups($databaseConnection, $language) {
     return $group;
 }
 
-function getStockItem($id, $databaseConnection) {
+function getStockItem($id, $databaseConnection, $language) {
     $Result = null;
+    $table = "stockgroups_" .  $language;
     $Query = " 
            SELECT SI.StockItemID, 
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
@@ -63,11 +64,11 @@ function getStockItem($id, $databaseConnection) {
             QuantityOnHand,
             SearchDetails, 
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
-            (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
+            (SELECT ImagePath FROM " . $table .  " JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
             JOIN stockitemholdings SIH USING(stockitemid)
             JOIN stockitemstockgroups ON SI.StockItemID = stockitemstockgroups.StockItemID
-            JOIN stockgroups USING(StockGroupID)
+            JOIN " . $table .  " USING(StockGroupID)
             WHERE SI.stockitemid = ?
             GROUP BY StockItemID";
 

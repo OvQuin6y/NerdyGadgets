@@ -75,7 +75,7 @@ if(isCardEmpty()) {
         <?php
         $cart = getCart();
         foreach ($cart as $nr => $aantal):
-            $StockItem = getStockItem($nr, $databaseConnection);
+            $StockItem = getStockItem($nr, $databaseConnection, $_SESSION["lang"]);
             $stockItemImage = getStockItemImage($nr, $databaseConnection);
             $totaalprijs += $cart[$nr] * $StockItem['SellPrice'];
             if(isset($_SESSION['totaalprijs'])) {

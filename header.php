@@ -6,6 +6,7 @@ if (!isset($_SESSION)) {
 $_SESSION["lang"] = "en";
 include "database.php";
 $databaseConnection = connectToDatabase();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,6 +67,7 @@ $databaseConnection = connectToDatabase();
                 <div id='div_session_write'> </div>
                 <form method="post" action="database.php">
                     <SELECT id= "selectLang" name="language" onchange="changeLanguage()">
+                        <OPTION value=""></OPTION>
                         <OPTION value="en">English</OPTION>
                         <OPTION value="nl">Nederlands</OPTION>
                     </SELECT>
@@ -78,8 +80,7 @@ $databaseConnection = connectToDatabase();
         function changeLanguage() {
             let lang = document.getElementById("selectLang");
             let value = lang.value;
-            $('#div_session_write').load('session_write.php?nieuw_lang=' + value);
-            location.reload();
+            window.location.replace("change_language.php?lang=" + value)
         }
     </script>
     <div class="row" id="Content">
