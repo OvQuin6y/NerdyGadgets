@@ -140,7 +140,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $addOrderline->execute();
 
     }
-    send_email($email, $fullname, toString());
+    send_email($email, $fullname, toString($databaseConnection));
     $_SESSION["transactionOngoing"] = false;
     clearCart();
 }

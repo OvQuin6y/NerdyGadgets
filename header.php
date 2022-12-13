@@ -3,8 +3,10 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+$_SESSION["lang"] = "en";
 include "database.php";
 $databaseConnection = connectToDatabase();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +24,8 @@ $databaseConnection = connectToDatabase();
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="Background">
@@ -32,7 +36,7 @@ $databaseConnection = connectToDatabase();
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
                 <?php
-                $HeaderStockGroups = getHeaderStockGroups($databaseConnection);
+                $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $_SESSION["lang"]);
 
                 foreach ($HeaderStockGroups as $HeaderStockGroup) {
                     ?>
@@ -45,18 +49,40 @@ $databaseConnection = connectToDatabase();
                 ?>
                 <li>
                     <a href="categories.php" class="HrefDecoration">All categories</a>
+
                 </li>
             </ul>
         </div>
+        <ul>
+
+        </ul>
         <!-- code voor US3: zoeken -->
         <ul id="ul-class-navigation">
             <li>
+
+            </li>
+            <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
                 <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
+                <div id='div_session_write'> </div>
+                <form method="post" action="database.php">
+                    <SELECT id= "selectLang" name="language" onchange="changeLanguage()">
+                        <OPTION value=""></OPTION>
+                        <OPTION value="en">English</OPTION>
+                        <OPTION value="nl">Nederlands</OPTION>
+                    </SELECT>
+                </form>
             </li>
         </ul>
         <!-- einde code voor US3 zoeken -->
     </div>
+    <script>
+        function changeLanguage() {
+            let lang = document.getElementById("selectLang");
+            let value = lang.value;
+            window.location.replace("change_language.php?lang=" + value)
+        }
+    </script>
     <div class="row" id="Content">
         <div class="col-12">
             <div id="SubContent">

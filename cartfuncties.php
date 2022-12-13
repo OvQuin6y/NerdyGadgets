@@ -1,7 +1,5 @@
 <?php
 
-include "database.php";
-
 if(!isset($_SESSION)) // altijd hiermee starten als je gebruik wilt maken van sessiegegevens
 {
     session_start();
@@ -121,17 +119,17 @@ function isCardEmpty(): bool
 
 /**
  * Formatteert de inhoud van de cart als een string.
+ * @param $databaseConnection mysqli De database connectie.
  * @return string De inhoud van de cart als een string.
  */
-function toString(): string
+function toString(mysqli $databaseconnection): string
 {
-    $databaseConnection = connectToDatabase();
     $cart = getCart();  // haal de huidige cart op
     $string = "";  // maak een lege string aan
     foreach ($cart as $nr => $aantal) { // loop door de cart
         // query de productnaam uit de database
         $query = "SELECT StockItemName FROM stockitems WHERE StockItemID = $nr"; // maak een query die de productnaam ophaalt
-        $statement = mysqli_prepare($databaseConnection, $query); // maak een verklaring van de query
+        $statement = mysqli_prepare($databaseconnection, $query); // maak een verklaring van de query
         mysqli_stmt_execute($statement); // voer de query uit
         $result = mysqli_stmt_get_result($statement); // haal het resultaat op
         $row = mysqli_fetch_assoc($result); // haal de rij op
