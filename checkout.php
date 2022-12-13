@@ -116,7 +116,7 @@ if(isCardEmpty()) {
             <input type="text" id="daline1" name="daline1" required placeholder="Delivery Address" class = Inputfields><br><br>
             <input type="text" id="daline2" name="daline2" placeholder="Aparment, suite, etc. (Optional)" class = Inputfields><br><br>
             <input type="text" id="paline1" name="paline1" placeholder="Postal address" class = Inputfields required><br><br>
-            <input type="text" id="paline2" name="paline2" placeholder="(Optional) Postal address 2" class = Inputfields><br><br>
+            <input type="text" id="paline2" name="paline2" placeholder="Postal address 2 (Optional)" class = Inputfields><br><br>
             <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php" class="Buttons_checkout"><br>
             <input type="submit" value="Confirm and continue" style="font-size: 17px;" name="goToIdeal" class="Buttons_checkout"><br><br>
     </form>
