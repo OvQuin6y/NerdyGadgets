@@ -3,6 +3,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+$_SESSION["lang"] = "en";
 include "database.php";
 $databaseConnection = connectToDatabase();
 
@@ -23,6 +24,8 @@ $databaseConnection = connectToDatabase();
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="Background">
@@ -33,7 +36,6 @@ $databaseConnection = connectToDatabase();
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
                 <?php
-
                 $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $_SESSION["lang"]);
 
                 foreach ($HeaderStockGroups as $HeaderStockGroup) {
@@ -78,7 +80,7 @@ $databaseConnection = connectToDatabase();
         function changeLanguage() {
             let lang = document.getElementById("selectLang");
             let value = lang.value;
-            window.location.replace("change_language.php?lang=" + value);
+            window.location.replace("change_language.php?lang=" + value)
         }
     </script>
     <div class="row" id="Content">
