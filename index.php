@@ -2,10 +2,11 @@
 <?php
 include __DIR__ . "/header.php";
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
-    }
-if (!isset($_SESSION["lang"])){
+}
+
+if (!isset($_SESSION["lang"])) {
     $_SESSION["lang"] = "en";
 }
 ?>
