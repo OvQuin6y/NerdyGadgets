@@ -53,25 +53,18 @@ $databaseConnection = connectToDatabase();
                 </li>
             </ul>
         </div>
-        <ul>
-
-        </ul>
         <!-- code voor US3: zoeken -->
         <ul id="ul-class-navigation">
-            <li>
-
-            </li>
-            <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
-                <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
-                <div id='div_session_write'> </div>
-                <form method="post" action="database.php">
+            <li class="header-right">
+                <form method="post" action="database.php" class="language">
                     <SELECT id= "selectLang" name="language" onchange="changeLanguage()">
                         <OPTION value=""></OPTION>
                         <OPTION value="en">English</OPTION>
                         <OPTION value="nl">Nederlands</OPTION>
                     </SELECT>
                 </form>
+                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
+                <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
             </li>
         </ul>
         <!-- einde code voor US3 zoeken -->
