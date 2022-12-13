@@ -18,7 +18,6 @@ include "cartfuncties.php";
     <input type="password" name="pword" placeholder="Password" required>
 </div>
 <div>
-    <button>Back to cart</button>
     <input type="submit" value="Login" name="login">
 </div>
 </form>

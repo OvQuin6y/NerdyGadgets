@@ -49,12 +49,21 @@ $databaseConnection = connectToDatabase();
             </ul>
         </div>
         <!-- code voor US3: zoeken -->
-        <ul id="ul-class-navigation">
-            <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
-                <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
-            </li>
-        </ul>
+        <div class="right-header">
+            <ul id="ul-class-navigation">
+                <li>
+                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
+                    <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
+                    <div class="dropdown">
+                        <button class="account-button">Account</button>
+                        <div class="dropdown-content">
+                            <a class="login-header" href="Login.php">Log in</a>
+                            <a class="login-header" href="register.php">Register</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <!-- einde code voor US3 zoeken -->
     </div>
     <div class="row" id="Content">
