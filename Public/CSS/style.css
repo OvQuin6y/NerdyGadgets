@@ -62,6 +62,7 @@ table tr td {
     padding: 10px;
 }
 ul#ul-class-navigation {
+    width: 50vh;
     right: 10px;
     line-height: 200px;
     position: absolute;
@@ -323,6 +324,7 @@ ul#ul-class-price li {
     -ms-user-select: none;
     user-select: none;
 }
+
 .StockGroups {
     position: relative;
     border: 1px solid slategrey;
@@ -488,7 +490,6 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
-
  .Button_add_to_cart {
      background: #676EFF;
      color: white;
@@ -572,4 +573,14 @@ ul#ul-class-price li {
     border-radius: 12px;
     height: 45px;
     width: 350px;
+}
+.header-right {
+    display: flex !important;
+    align-items: center;
+}
+.language {
+    margin-right: 5vh;
+    width: 15vh;
+    display: flex;
+    align-items: center;
 }

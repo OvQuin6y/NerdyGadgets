@@ -75,7 +75,7 @@ if(isCardEmpty()) {
         <?php
         $cart = getCart();
         foreach ($cart as $nr => $aantal):
-            $StockItem = getStockItem($nr, $databaseConnection);
+            $StockItem = getStockItem($nr, $databaseConnection, $_SESSION["lang"]);
             $stockItemImage = getStockItemImage($nr, $databaseConnection);
             $totaalprijs += $cart[$nr] * $StockItem['SellPrice'];
             if(isset($_SESSION['totaalprijs'])) {
@@ -86,7 +86,6 @@ if(isCardEmpty()) {
                 <td><h6><?= $StockItem['StockItemName'] ?></h6></td>
                 <td><h4><?= $cart[$nr] ?></h4></td>
                 <td><h4>€<?= number_format((float)$StockItem['SellPrice'], 2, '.', '') ?></h4></td>
-                <td><h4><a href="<?= print("view.php?id=" . $nr) ?>"><?php echo $nr ?></a></h4></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
