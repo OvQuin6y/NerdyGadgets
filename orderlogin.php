@@ -1,6 +1,16 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
+
+$databaseConnection = connectToDatabase();
+
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+if (ISSET($_SESSION['klantID'])) {
+    header("Location: checkout.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +32,17 @@ include "cartfuncties.php";
         </div>
         <div class="Checkout_form">
         <input style="margin: 7px" type="submit" value="Back to cart" href="cart.php" class="Buttons_checkout">
-        <input style="margin: 7px" type="submit" value="Log in" class="Buttons_checkout">
+        <input style="margin: 7px" type="submit" value="Log in" name="login" class="Buttons_checkout">
         </div>
     </form>
     <div class="Checkout_form">
         <button style="font-size: 20px; margin: 7px" href="checkout.php" class="Buttons_checkout">Continue without account</button>
         <button style="font-size: 20px; margin: 7px" href="register.php" class="Buttons_checkout">Register</button>
     </div>
+    <?php
+    if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) <> $_POST["pword"]) {
+        ?>
+        <h1 style="font-size:20px; text-align: center; color: red;">Wrong password or e-mail</h1> <?php
+    } ?>
 </div>
 </body>

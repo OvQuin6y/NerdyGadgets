@@ -4,6 +4,7 @@ include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
 $totaalprijs = 0;
+$databaseConnection = connectToDatabase();
 
 if(!isset($_SESSION['totaalprijs'])) {
     $_SESSION["totaalprijs"] = $totaalprijs;
@@ -11,6 +12,11 @@ if(!isset($_SESSION['totaalprijs'])) {
 
 if(isCardEmpty()) {
     header("Location: index.php");
+}
+
+if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) == $_POST["pword"]) {
+    $_SESSION["klantID"] = getID($databaseConnection,$_POST["mail"]);
+    echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
 <!DOCTYPE html>
@@ -102,6 +108,7 @@ if(isCardEmpty()) {
     }
 </script>
 <div class="Invoer_form"></div>
+    <h1><?php echo $_SESSION["klantID"]?></h1>
     <h4 class = "Text_checkout">Contact information: </h4>
     <form class = "Checkout_form" method="post" action="ideal.php">
             <input type="text" id="fname" name="fname" placeholder="First name" class = Inputfields required><br><br>

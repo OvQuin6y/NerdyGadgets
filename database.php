@@ -110,3 +110,48 @@ function getStock($id, $databaseConnection) {
 
     return $R;
 }
+
+function getPassword(mysqli $databaseConnection, $mail)
+{
+    $query = "
+                SELECT Password
+                FROM klant
+                WHERE Email ='" . $mail .  "';";
+
+    $result = $databaseConnection->query($query);
+    $return = "";
+    while ($row = $result->fetch_array()) {
+        $return = $row["Password"];
+    }
+    return $return;
+}
+
+function getID(mysqli $databaseConnection, $mail)
+{
+    $query = "
+                SELECT klantID
+                FROM klant
+                WHERE Email ='" . $mail .  "';";
+
+    $result = $databaseConnection->query($query);
+    $return = "";
+    while ($row = $result->fetch_array()) {
+        $return = $row["klantID"];
+    }
+    return $return;
+}
+
+function getName(mysqli $databaseConnection, $id)
+{
+    $query = "
+                SELECT FirstName
+                FROM klant
+                WHERE klantID ='" . $id .  "';";
+
+    $result = $databaseConnection->query($query);
+    $return = "";
+    while ($row = $result->fetch_array()) {
+        $return = $row["FirstName"];
+    }
+    return $return;
+}
