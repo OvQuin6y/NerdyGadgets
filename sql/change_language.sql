@@ -1,7 +1,7 @@
 
 -- De oorspronkelijke tabel hernoemen
 ALTER TABLE stockgroups
-RENAME TO stockgroups_en
+RENAME TO stockgroups_en;
 
 --nieuwe tabel aanmaken (voor nl)
 CREATE TABLE IF NOT EXISTS stockgroups_nl
@@ -80,7 +80,7 @@ ALTER TABLE specialdeals
 --nieuwe tabel met vertalingen aanmaken
 CREATE TABLE IF NOT EXISTS Translation_table
 (
-    Name			VARCHAR(50) 		NOT NULL,
+    Name		VARCHAR(50) 		NOT NULL,
     en			VARCHAR(50) 		NOT NULL,
     nl			VARCHAR(50) 		NOT NULL,
     PRIMARY KEY (Name)
