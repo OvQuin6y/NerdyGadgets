@@ -1,7 +1,14 @@
 <?php
+include "languageFunctions.php";
+include "database.php";
+
 if (!isset($_SESSION)) {
     session_start();
 }
+
+$lang = $_SESSION["lang"];
+$databaseConnection = connectToDatabase();
+
 if(!isset($_POST["goToIdeal"])){
     header("Location: checkout.php");
 }
@@ -10,7 +17,7 @@ if(!isset($_POST["goToIdeal"])){
 <html lang="nl">
 <head>
     <meta charset="utf-8">
-    <title>iDeal bevestigingsscherm</title>
+    <title><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_paginatitel")?></title>
 </head>
 <body style="background-color:#FFFFFF;">
 <style>
@@ -46,26 +53,26 @@ if(!isset($_POST["goToIdeal"])){
 </style>
 <br>
 <h1 style="font-size:200px;"></h1>
-<h2 style="font-size:20px;">Amount to pay: €<?php echo round($_SESSION["totaalprijs"], 2) ?></h2>
+<h2 style="font-size:20px;"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina-totaalprijs"). ": €" .  round($_SESSION["totaalprijs"], 2) ?></h2>
 <br>
 <img src="Public/Img/iDeal.jpg" alt="iDeal logo">
 <br>
 <form method="post" action="paymentaccepted.php">
-    <label style="font-size:20px;" for="bank">Choose your bank:</label>
+    <label style="font-size:20px;" for="bank"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina-keuze_bank") . ":"?></label>
     <select style="font-size:20px;" name="bank" id="bank">
-        <option style="font-size:20px;" value="abnamro">ABN Amro</option>
-        <option style="font-size:20px;" value="bunq">Bunq</option>
-        <option style="font-size:20px;" value="ING">ING</option>
-        <option style="font-size:20px;" value="moneyyou">MoneyYou</option>
-        <option style="font-size:20px;" value="rabobank">Rabobank</option>
-        <option style="font-size:20px;" value="sns">SNS</option>
-        <option style="font-size:20px;" value="asn">ASN</option>
-        <option style="font-size:20px;" value="knab">Knab</option>
+        <option style="font-size:20px;" value="abnamro"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_ABN-Amro") ?></option>
+        <option style="font-size:20px;" value="bunq"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_Bunq") ?></option>
+        <option style="font-size:20px;" value="ING"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_ING") ?></option>
+        <option style="font-size:20px;" value="moneyyou"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_MoneyYou") ?></option>
+        <option style="font-size:20px;" value="rabobank"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_Rabobank") ?></option>
+        <option style="font-size:20px;" value="sns"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_SNS") ?></option>
+        <option style="font-size:20px;" value="asn"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_ASN") ?></option>
+        <option style="font-size:20px;" value="knab"><?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_bank_Knab") ?></option>
     </select>
     <br><br><br>
-    <input type="submit" value="Back" style="font-size: 17px;" formaction="cart.php"
+    <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_knop_terug") ?>" style="font-size: 17px;" formaction="cart.php"
            class="form-submit-button">
-    <input type="submit" value="Pay" style="font-size: 17px;"
+    <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Betaalpagina_knop_betaal") ?>" style="font-size: 17px;"
            class="form-submit-button">
 </form>
 </body>

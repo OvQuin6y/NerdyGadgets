@@ -3,25 +3,27 @@
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
 $totaalPrijs = 0;
+$lang = $_SESSION["lang"];
+$databaseConnection = connectToDatabase();
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Shopping cart</title>
+    <title><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_paginatitel")?></title>
     <link rel="stylesheet" href="Public/CSS/cart.css">
 </head>
 <body>
 <div class="maincontainer">
-    <h1>Shopping cart contents</h1>
+    <h1><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_titel_overzicht")?></h1>
     <table id="checkoutItems">
         <thead>
         <tr class="titles">
-            <td>Image:</td>
-            <td>Name:</td>
-            <td>Quantity:</td>
-            <td>Price(incl. btw):</td>
-            <td>ID:</td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_overzicht_afbeelding") . ":"?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_naam") . ":"?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_aantal") . ":"?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_overzicht_prijs") . ":"?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_overzicht_ID") . ":"?></td>
             <td></td>
         </tr>
         </thead>
@@ -62,7 +64,7 @@ $totaalPrijs = 0;
                 </td>
                 <td><h4>€<?= number_format((float)$stockItem['SellPrice'], 2, '.', '') ?></h4></td>
                 <td><h4><a href="view.php?id=<?= $nr ?>"><?php echo $nr ?></a></h4></td>
-                <td><h4><a href="cart.php?<?php echo "del" . $nr ?>">Delete</a></h4></td>
+                <td><h4><a href="cart.php?<?php echo "del" . $nr ?>"><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_laatste_kolom")?></a></h4></td>
             </tr>
 
         <?php
@@ -71,10 +73,10 @@ $totaalPrijs = 0;
 
         </tbody>
     </table>
-    <h3>Total price (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
+    <h3><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_totaalprijs") . ": €"?><?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
     <form method="post" action="checkout.php" id="orderForm">
         <br>
-        <input type="submit" value="Place order" name="knop" class="Button_place_order">
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_overzicht_button")?>" name="knop" class="Button_place_order">
         <br>
     </form>
     <script>
@@ -84,7 +86,7 @@ $totaalPrijs = 0;
         form.addEventListener("submit", function (event) {
             if (checkoutItemsLength <= 1) {
                 event.preventDefault();
-                alert("You can't place an order with an empty cart!");
+                alert(<?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_leeg_winkelmandje")?>);
             }
         });
     </script>

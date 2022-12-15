@@ -1,9 +1,13 @@
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
 include "database.php";
+include "languageFunctions.php";
 
 if (!isset($_SESSION)) {
     session_start();
+}
+if (!isset($_SESSION["lang"])) {
+    $_SESSION["lang"] = "en";
 }
 
 $databaseConnection = connectToDatabase();
@@ -36,7 +40,8 @@ $databaseConnection = connectToDatabase();
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
                 <?php
-                $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $_SESSION["lang"]);
+                $lang = $_SESSION["lang"];
+                $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $lang);
 
                 foreach ($HeaderStockGroups as $HeaderStockGroup) {
                     ?>
@@ -48,7 +53,7 @@ $databaseConnection = connectToDatabase();
                 }
                 ?>
                 <li>
-                    <a href="categories.php" class="HrefDecoration">All categories</a>
+                    <a href="categories.php" class="HrefDecoration"><?php echo getTranslation($databaseConnection, $lang, "Kop_overzicht")?></a>
 
                 </li>
             </ul>
@@ -63,7 +68,7 @@ $databaseConnection = connectToDatabase();
                         <OPTION value="nl">Nederlands</OPTION>
                     </SELECT>
                 </form>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
+                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i><?php echo getTranslation($databaseConnection, $lang, "Kop_zoeken")?></a>
                 <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
             </li>
         </ul>
