@@ -9,6 +9,9 @@ $SortName = "price_low_high";
 $AmountOfPages = 0;
 $queryBuildResult = "";
 
+if(!isset($_SESSION)) {
+    session_start();
+}
 
 if (isset($_GET['category_id'])) {
     $CategoryID = $_GET['category_id'];
@@ -109,15 +112,15 @@ if ($CategoryID == "") {
     if ($queryBuildResult != "") {
         $queryBuildResult = "WHERE " . $queryBuildResult;
     }
-
+    $table = "stockgroups_" .  $_SESSION["lang"];
     $Query = "
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
                 QuantityOnHand,
                 (SELECT ImagePath
                 FROM stockitemimages
                 WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
+                (SELECT ImagePath FROM " . $table .  " JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM " . $table .  " SI
                 JOIN stockitemholdings SIH USING(stockitemid)
                 " . $queryBuildResult . "
                 GROUP BY StockItemID
@@ -145,16 +148,17 @@ if ($CategoryID == "") {
 // einde deel 2 van User story: Zoeken producten
 
 if ($CategoryID !== "") {
+    $table = "stockgroups_" .  $_SESSION["lang"];
     $Query = "
            SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
            ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
            QuantityOnHand,
            (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-           (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+           (SELECT ImagePath FROM " . $table .  " JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
            FROM stockitems SI
            JOIN stockitemholdings SIH USING(stockitemid)
            JOIN stockitemstockgroups USING(StockItemID)
-           JOIN stockgroups ON stockitemstockgroups.StockGroupID = stockgroups.StockGroupID
+           JOIN " . $table .  " ON stockitemstockgroups.StockGroupID = " . $table .  ".StockGroupID
            WHERE " . $queryBuildResult . " ? IN (SELECT StockGroupID from stockitemstockgroups WHERE StockItemID = SI.StockItemID)
            GROUP BY StockItemID
            ORDER BY " . $Sort . "
