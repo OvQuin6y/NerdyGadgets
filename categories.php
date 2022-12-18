@@ -2,7 +2,10 @@
 <?php
 
 include __DIR__ . "/header.php";
-$StockGroups = getStockGroups($databaseConnection);
+include "database.php";
+
+$databaseConnection = connectToDatabase();
+$StockGroups = getStockGroups($databaseConnection, $_SESSION["lang"]);
 
 ?>
 <div id="Wrap">

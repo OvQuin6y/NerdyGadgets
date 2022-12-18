@@ -14,7 +14,7 @@ if(!isset($_POST["goToIdeal"]) && !isset($_POST["goToIdeal2"])){
 <html lang="nl">
 <head>
     <meta charset="utf-8">
-    <title>iDeal bevestiginsscherm</title>
+    <title>iDeal bevestigingsscherm</title>
 </head>
 <body style="background-color:#FFFFFF;">
 <style>
@@ -86,6 +86,7 @@ if (isset($_POST["goToIdeal"])) {
     $_SESSION["paline1"] = $_POST["paline1"];
     $_SESSION["paline2"] = $_POST["paline2"];
     $_SESSION["pnumber"] = $_POST["pnumber"];
+    $_SESSION["e-mail"] = $_POST["e-mail"];
     $_SESSION["transactionOngoing"] = true;
 } else {
     $_SESSION["fname"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"FirstName");

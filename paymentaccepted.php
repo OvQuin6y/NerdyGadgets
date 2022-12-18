@@ -1,6 +1,7 @@
 <?php
 include "cartfuncties.php";
 include "database.php";
+include "utils.php";
 
 $databaseConnection = connectToDatabase();
 
@@ -74,7 +75,8 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     $paline1 = $_SESSION["paline1"];
     $paline2 = $_SESSION["paline2"];
     $pnumber = $_SESSION["pnumber"];
-    $fullname = $fname. " ". $lname;
+    $email = $_SESSION["e-mail"];
+    $fullname = $fname . " " . $lname;
 
     $newStock = 0;
     $customerID = 0;
@@ -138,9 +140,9 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $addOrderline->execute();
 
     }
+    send_email($email, $fullname, toString($databaseConnection));
     $_SESSION["transactionOngoing"] = false;
     clearCart();
 }
-
 
 ?>
