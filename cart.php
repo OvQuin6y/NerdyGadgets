@@ -71,7 +71,7 @@ $totaalPrijs = 0;
 
         </tbody>
     </table>
-    <h3>Total price (incl. BTW): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
+    <h3>Total price (VAT included): €<?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
     <form method="post" action="orderlogin.php" id="orderForm">
         <br>
         <input type="submit" value="Place order" name="knop" class="Button_place_order">

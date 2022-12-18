@@ -1,8 +1,12 @@
 <?php
+include "database.php";
+
+$databaseConnection = connectToDatabase();
+
 if (!isset($_SESSION)) {
     session_start();
 }
-if(!isset($_POST["goToIdeal"])){
+if(!isset($_POST["goToIdeal"]) && !isset($_POST["goToIdeal2"])){
     header("Location: checkout.php");
 }
 ?>
@@ -71,7 +75,7 @@ if(!isset($_POST["goToIdeal"])){
 </body>
 </html>
 <?php
-if(isset($_POST["goToIdeal"])){
+if (isset($_POST["goToIdeal"])) {
     $_SESSION["fname"] = $_POST["fname"];
     $_SESSION["lname"] = $_POST["lname"];
     $_SESSION["pcode"] = $_POST["pcode"];
@@ -82,6 +86,18 @@ if(isset($_POST["goToIdeal"])){
     $_SESSION["paline1"] = $_POST["paline1"];
     $_SESSION["paline2"] = $_POST["paline2"];
     $_SESSION["pnumber"] = $_POST["pnumber"];
+    $_SESSION["transactionOngoing"] = true;
+} else {
+    $_SESSION["fname"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"FirstName");
+    $_SESSION["lname"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"LastName");
+    $_SESSION["pcode"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"PostalCode");
+    $_SESSION["hnumber"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"HouseNumber");
+    $_SESSION["dpcode"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"PostalCode");
+    $_SESSION["daline1"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"City");
+    $_SESSION["daline2"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"City");
+    $_SESSION["paline1"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"City");
+    $_SESSION["paline2"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"City");
+    $_SESSION["pnumber"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"PhoneNumber");
     $_SESSION["transactionOngoing"] = true;
 }
 ?>
