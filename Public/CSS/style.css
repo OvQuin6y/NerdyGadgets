@@ -62,7 +62,6 @@ table tr td {
     padding: 10px;
 }
 ul#ul-class-navigation {
-    width: 50vh;
     right: 10px;
     line-height: 200px;
     position: absolute;
@@ -272,7 +271,7 @@ ul#ul-class-price li {
     color: #ffffff;
 }
 .cart-image {
-    width: 50px;
+    width: 40px;
     height: auto;
 }
 
@@ -324,7 +323,6 @@ ul#ul-class-price li {
     -ms-user-select: none;
     user-select: none;
 }
-
 .StockGroups {
     position: relative;
     border: 1px solid slategrey;
@@ -490,6 +488,7 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
+
  .Button_add_to_cart {
      background: #676EFF;
      color: white;
@@ -574,13 +573,92 @@ ul#ul-class-price li {
     height: 45px;
     width: 350px;
 }
-.header-right {
-    display: flex !important;
-    align-items: center;
+
+.registerTitle {
+    display: flex;
+    justify-content: center;
 }
-.language {
-    margin-right: 5vh;
-    width: 15vh;
+
+.registerContainer {
+    margin: auto;
+    display: flex;
+    width: 20%;
+    padding-top: 15px;
+}
+
+.registerContainer {
+    width: 20%;
+}
+
+.invoer {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.submitRegistration {
+
+    width: 50%;
+}
+
+.login_form {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 5px;
+}
+
+.loginfields {
+    width: 80.5%;
+    height: 30px;
+    margin: 7px;
+}
+.login-header {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+.account-button {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    line-height: 0;
+    color: white;
+}
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+    background-color: #676EFF;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content a {
+    color: white;
+    text-decoration: none;
+}
+.dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #00A4BD;
+}
+.right-header {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
 }

@@ -46,8 +46,8 @@ if(!isset($_POST["goToIdeal"])){
         color: white;
         border-style: outset;
         border-color: #FFA500;
-        border-radius: 12px;
-        height: 45px;
+        border-radius:         height: 45px;
+        12px;
         width: 100px;
     }
 </style>

@@ -185,7 +185,6 @@ $amount = $Result[0];
 if (isset($amount)) {
     $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
 }
-
   ?><div class="QuantityText"><?php
     $lang = $_SESSION["lang"];
 function getVoorraadTekst($actueleVoorraad, $databaseConnection, $lang)

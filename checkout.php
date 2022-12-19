@@ -4,6 +4,7 @@ include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
 $totaalprijs = 0;
+$databaseConnection = connectToDatabase();
 
 $lang = $_SESSION["lang"];
 $databaseConnection = connectToDatabase();
@@ -14,6 +15,11 @@ if(!isset($_SESSION['totaalprijs'])) {
 
 if(isCardEmpty()) {
     header("Location: index.php");
+}
+
+if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) == $_POST["pword"]) {
+    $_SESSION["klantID"] = getID($databaseConnection,$_POST["mail"]);
+    echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
 <!DOCTYPE html>
