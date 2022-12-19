@@ -2,8 +2,10 @@
 include "cartfuncties.php";
 include "database.php";
 include "utils.php";
+include "languageFunctions.php";
 
 $databaseConnection = connectToDatabase();
+$lang = $_SESSION["lang"];
 
 if (!isset($_SESSION)) {
     session_start();
@@ -17,7 +19,7 @@ if (!isset($_SESSION["transactionOngoing"]) || !$_SESSION["transactionOngoing"])
     <html lang="nl">
     <head>
         <meta charset="utf-8">
-        <title>Betaling is voltooid scherm</title>
+        <title><?php echo getTranslation($databaseConnection, $lang, "Betaalbevestigingsscherm_paginatitel") ?></title>
     </head>
     <body style="background-color:#FFFFFF;">
     <style>
@@ -53,10 +55,10 @@ if (!isset($_SESSION["transactionOngoing"]) || !$_SESSION["transactionOngoing"])
     </style>
     <br>
     <h1 style="font-size:300px;"></h1>
-    <h2 style="font-size:20px;">The payment has been accepted.</h2>
+    <h2 style="font-size:20px;"><?php echo getTranslation($databaseConnection, $lang, "Betaalbevestigingsscherm_tekst") . "." ?></h2>
     <form method="post" action="browse.php">
         <br>
-        <input style="font-size:20px;" type="submit" value="Return to NerdyGadgets"
+        <input style="font-size:20px;" type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Betaalbevestigingsscherm_knop_terug_naar_site") ?>"
                href="http://localhost/NerdyGadgets/ideal.php"
                class="form-submit-button">
     </form>
