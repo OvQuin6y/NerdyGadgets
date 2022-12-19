@@ -49,7 +49,6 @@ $databaseConnection = connectToDatabase();
                 ?>
                 <li>
                     <a href="categories.php" class="HrefDecoration">All categories</a>
-
                 </li>
             </ul>
         </div>
