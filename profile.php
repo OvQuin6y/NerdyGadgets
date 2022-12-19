@@ -1,5 +1,7 @@
 <?php
 include __DIR__ . "/header.php";
+$lang = $_SESSION["lang"];
+$databaseConnection = connectToDatabase();
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -31,9 +33,9 @@ include __DIR__ . "/header.php";
             </div>
             <div class="middle">
                 <h5>Email: Eliaspapa26@hotmail.com</h5>
-                <h5>Phonenumber: 0624427425</h5>
+                <h5><?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_telefoonnummer") . ": 0624427425"?></h5>
                 <h5>Postal code & Housenumber: 3862LK, 1</h5>
-                <h5>City: Nijkerk</h5>
+                <h5><?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_stad") . ": Nijkerk"?></h5>
             </div>
             <div class="right">
                 <h5 onclick="openPopup()">Edit Details</h5>
