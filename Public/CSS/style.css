@@ -494,7 +494,7 @@ ul#ul-class-price li {
      color: white;
      border-style: none;
      height: 30px;
-     width: 85%;
+     width: auto;
  }
 .Button_place_order {
     background: #676EFF;

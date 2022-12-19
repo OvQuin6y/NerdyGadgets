@@ -2,7 +2,6 @@
 <?php
 
 include __DIR__ . "/header.php";
-include "database.php";
 
 $databaseConnection = connectToDatabase();
 $StockGroups = getStockGroups($databaseConnection, $_SESSION["lang"]);

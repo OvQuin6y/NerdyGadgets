@@ -3,6 +3,9 @@
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
+$lang = $_SESSION["lang"];
+$databaseConnection = connectToDatabase();
+
 $StockItem = getStockItem($_GET['id'], $databaseConnection,$_SESSION["lang"]);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 ?>
@@ -71,21 +74,21 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             }
             ?>
 
-            <h1 class="StockItemID">Articlenumber: <?php print $StockItem["StockItemID"]; ?></h1>
+            <h1 class="StockItemID"><?php echo getTranslation($databaseConnection, $lang, "Artikelnummer") . ": " .  $StockItem["StockItemID"]; ?></h1>
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
 
             <div class="QuantityText"><?php if ($StockItem["QuantityOnHand"] > 1000) {
-                    print("Much stock available");
+                    print(getTranslation($databaseConnection, $lang, "Voorraad_veel_aanwezig"));
                 } elseif ($StockItem["QuantityOnHand"] <= 0) {
-                    print("Product unavailable");
+                    print(getTranslation($databaseConnection, $lang, "Voorraad_afwezig"));
                 } elseif ($StockItem["QuantityOnHand"] == 1) {
-                    print("Hurry! Only " . $StockItem['QuantityOnHand'] . " item left");
+                    print(getTranslation($databaseConnection, $lang, "Voorraad_een_deel1") . " ". $StockItem['QuantityOnHand'] . " " .  getTranslation($databaseConnection, $lang, "Voorraad_een_deel2"));
                 } elseif ($StockItem["QuantityOnHand"] <= 50) {
-                    print("Hurry! Only " . $StockItem['QuantityOnHand'] . " items left");
+                    print(getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel1") . " " . $StockItem['QuantityOnHand'] . " " . getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel2"));
                 } else {
-                    print($StockItem["QuantityOnHand"] . " items in stock");
+                    print($StockItem["QuantityOnHand"] . " " . getTranslation($databaseConnection, $lang, "Voorraad_overige_opties"));
                 }; ?></div>
 
             <div id="StockItemHeaderLeft">
@@ -93,7 +96,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?>
                         </p>
-                        <h6> Including BTW </h6>
+                        <h6><?php echo getTranslation($databaseConnection, $lang, "Prijs_regel")?></h6>
                         <?php
                         //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
                         if (isset($_GET["id"])) {
@@ -107,7 +110,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <?php
                             if ($StockItem['QuantityOnHand'] > 0) {
                                 ?>
-                                <input type="submit" name="submit" value="Add to shopping cart" class="Button_add_to_cart">
+                                <input type="submit" name="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Toevoegen_winkelmandje_button")?>" class="Button_add_to_cart">
                                 <?php
                             }
                             ?>
@@ -117,7 +120,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                             $stockItemID = $_POST["stockItemID"];
                             addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
-                            print("Product added to <a href='cart.php'> shopping cart!</a>");
+                            print(getTranslation($databaseConnection, $lang, "Toevoegen_winkelmandje1") . " " . "<a href='cart.php'>" . " " . getTranslation($databaseConnection, $lang, "Toevoegen_winkelmandje2") . "!" ."</a>");
                         }
                         ?>
                     </div>
@@ -126,18 +129,18 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
 
         <div id="StockItemDescription">
-            <h3>Article description</h3>
+            <h3><?php echo getTranslation($databaseConnection, $lang, "Productinformatie_titel_omschrijving")?></h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
         </div>
         <div id="StockItemSpecifications">
-            <h3>Article specifications</h3>
+            <h3><?php echo getTranslation($databaseConnection, $lang, "Productinformatie_titel_specificaties")?></h3>
             <?php
             $CustomFields = json_decode($StockItem['CustomFields'], true);
             if (is_array($CustomFields)) { ?>
                 <table>
                 <thead>
-                <th>Name</th>
-                <th>Data</th>
+                <th><?php echo getTranslation($databaseConnection, $lang, "Productinformatie_specificaties_naam")?></th>
+                <th><?php echo getTranslation($databaseConnection, $lang, "Productinformatie_specificaties_data")?></th>
                 </thead>
                 <?php
                 foreach ($CustomFields as $SpecName => $SpecText) { ?>
