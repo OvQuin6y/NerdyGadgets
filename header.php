@@ -53,8 +53,7 @@ $databaseConnection = connectToDatabase();
                 }
                 ?>
                 <li>
-                    <a href="categories.php" class="HrefDecoration">All categories</a>
-
+                    <a href="categories.php" class="HrefDecoration"><?php echo getTranslation($databaseConnection, $lang, "Kop_overzicht")?></a>
                 </li>
             </ul>
         </div>

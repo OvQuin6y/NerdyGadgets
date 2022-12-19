@@ -185,20 +185,20 @@ $amount = $Result[0];
 if (isset($amount)) {
     $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
 }
-
   ?><div class="QuantityText"><?php
-function getVoorraadTekst($actueleVoorraad)
+    $lang = $_SESSION["lang"];
+function getVoorraadTekst($actueleVoorraad, $databaseConnection, $lang)
 {
     if ($actueleVoorraad > 1000) {
-        return "Much stock available";
+        return getTranslation($databaseConnection, $lang, "Voorraad_veel_aanwezig");
     } elseif ($actueleVoorraad <= 0) {
-        return "Product unavailable";
+        return getTranslation($databaseConnection, $lang, "Voorraad_afwezig");
     } elseif ($actueleVoorraad == 1) {
-        return "Hurry! Only <b><i> $actueleVoorraad </i></b> item left";
+        return getTranslation($databaseConnection, $lang, "Voorraad_een_deel1") . " <b><i> $actueleVoorraad </i></b>". " " . getTranslation($databaseConnection, $lang, "Voorraad_een_deel1");
     } elseif ($actueleVoorraad <= 50) {
-        return "Hurry! Only <b><i> $actueleVoorraad </i></b> items left";
+        return getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel1") . " <b><i> $actueleVoorraad </i></b> " . " " . getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel2");
     } else {
-        return "$actueleVoorraad items in stock";
+        return $actueleVoorraad . getTranslation($databaseConnection, $lang, "Voorraad_overige_opties") ;
     }
 } ?>
 </div>
