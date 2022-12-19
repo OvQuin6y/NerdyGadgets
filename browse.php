@@ -185,21 +185,21 @@ if (isset($amount)) {
     $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
 }
 
-  ?><div class="QuantityText"><?php
-function getVoorraadTekst($actueleVoorraad)
-{
-    if ($actueleVoorraad > 1000) {
-        return "Much stock available";
-    } elseif ($actueleVoorraad <= 0) {
-        return "Product unavailable";
-    } elseif ($actueleVoorraad == 1) {
-        return "Hurry! Only <b><i> $actueleVoorraad </i></b> item left";
-    } elseif ($actueleVoorraad <= 50) {
-        return "Hurry! Only <b><i> $actueleVoorraad </i></b> items left";
-    } else {
-        return "$actueleVoorraad items in stock";
-    }
-} ?>
+?><div class="QuantityText"><?php
+    function getVoorraadTekst($actueleVoorraad)
+    {
+        if ($actueleVoorraad > 1000) {
+            return "Much stock available";
+        } elseif ($actueleVoorraad <= 0) {
+            return "Product unavailable";
+        } elseif ($actueleVoorraad == 1) {
+            return "Hurry! Only <b><i> $actueleVoorraad </i></b> item left";
+        } elseif ($actueleVoorraad <= 50) {
+            return "Hurry! Only <b><i> $actueleVoorraad </i></b> items left";
+        } else {
+            return "$actueleVoorraad items in stock";
+        }
+    } ?>
 </div>
 <?php
 function berekenVerkoopPrijs($adviesPrijs, $btw)
