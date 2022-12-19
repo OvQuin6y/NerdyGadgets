@@ -1,8 +1,16 @@
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+if(!isset($_POST["goToIdeal"])){
+    header("Location: checkout.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="utf-8">
-    <title>iDeal bevestiginsscherm</title>
+    <title>iDeal bevestigingsscherm</title>
 </head>
 <body style="background-color:#FFFFFF;">
 <style>
@@ -31,19 +39,19 @@
         color: white;
         border-style: outset;
         border-color: #FFA500;
-        border-radius: 12px;
-        height: 45px;
+        border-radius:         height: 45px;
+        12px;
         width: 100px;
     }
 </style>
 <br>
 <h1 style="font-size:200px;"></h1>
-<h2 style="font-size:20px;">Te betalen bedrag: €</h2>
+<h2 style="font-size:20px;">Amount to pay: €<?php echo round($_SESSION["totaalprijs"], 2) ?></h2>
 <br>
-<img src="iDeal.jpg" alt="iDeal logo">
+<img src="Public/Img/iDeal.jpg" alt="iDeal logo">
 <br>
-<form method="post" action="cart.php">
-    <label style="font-size:20px;" for="bank">Kies je bank:</label>
+<form method="post" action="paymentaccepted.php">
+    <label style="font-size:20px;" for="bank">Choose your bank:</label>
     <select style="font-size:20px;" name="bank" id="bank">
         <option style="font-size:20px;" value="abnamro">ABN Amro</option>
         <option style="font-size:20px;" value="bunq">Bunq</option>
@@ -55,11 +63,26 @@
         <option style="font-size:20px;" value="knab">Knab</option>
     </select>
     <br><br><br>
-    <input type="submit" value="Terug" style="font-size: 17px;" href="http://localhost/NerdyGadgets/cart.php" class="form-submit-button">
-    <form method="post" action="cart.php">
-        <input type="submit" value="Afrekenen" style="font-size: 17px;" href="http://localhost/NerdyGadgets/ideal.php"
-               class="form-submit-button">
-    </form>
+    <input type="submit" value="Back" style="font-size: 17px;" fomaction="cart.php"
+           class="form-submit-button">r
+    <input type="submit" value="Pay" style="font-size: 17px;"
+           class="form-submit-button">
 </form>
 </body>
 </html>
+<?php
+if(isset($_POST["goToIdeal"])){
+    $_SESSION["fname"] = $_POST["fname"];
+    $_SESSION["lname"] = $_POST["lname"];
+    $_SESSION["pcode"] = $_POST["pcode"];
+    $_SESSION["hnumber"] = $_POST["hnumber"];
+    $_SESSION["dpcode"] = $_POST["dpcode"];
+    $_SESSION["daline1"] = $_POST["daline1"];
+    $_SESSION["daline2"] = $_POST["daline2"];
+    $_SESSION["paline1"] = $_POST["paline1"];
+    $_SESSION["paline2"] = $_POST["paline2"];
+    $_SESSION["pnumber"] = $_POST["pnumber"];
+    $_SESSION["e-mail"] = $_POST["e-mail"];
+    $_SESSION["transactionOngoing"] = true;
+}
+?>

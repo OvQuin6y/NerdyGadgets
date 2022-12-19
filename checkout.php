@@ -2,8 +2,22 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
-$totaalprijs = 0;
 
+$totaalprijs = 0;
+$databaseConnection = connectToDatabase();
+
+if(!isset($_SESSION['totaalprijs'])) {
+    $_SESSION["totaalprijs"] = $totaalprijs;
+}
+
+if(isCardEmpty()) {
+    header("Location: index.php");
+}
+
+if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) == $_POST["pword"]) {
+    $_SESSION["klantID"] = getID($databaseConnection,$_POST["mail"]);
+    echo "<meta http-equiv='refresh' content='0'>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -14,14 +28,13 @@ $totaalprijs = 0;
 </head>
 <body>
 <div class="maincontainer">
-    <h1 style="font-size:40px;">Order payment</h1><br>
+    <h1 style="font-size:40px;">Order summary</h1><br>
     <table>
-        <thead>
+        <thead><br>
         <tr class="titles">
             <td>Name:</td>
             <td>Quantity:</td>
-            <td>Price(incl. btw):</td>
-            <td>ID:</td>
+            <td>Price per product (incl. btw):</td>
         </tr>
         </thead>
         <tbody class="bodycontainer">
@@ -57,22 +70,28 @@ $totaalprijs = 0;
                 width: 34%
             }
             form {
-                height: 45px;
-                width: 1000px;
+                height: 20px;
+                width: 900px;
                 padding-left: 5%;
+            }
+            h3 {
+                text-align: right;
             }
         </style>
         <?php
         $cart = getCart();
         foreach ($cart as $nr => $aantal):
-            $StockItem = getStockItem($nr, $databaseConnection);
+            $StockItem = getStockItem($nr, $databaseConnection, $_SESSION["lang"]);
             $stockItemImage = getStockItemImage($nr, $databaseConnection);
-            $totaalprijs += $cart[$nr] * $StockItem['SellPrice']; ?>
+            $totaalprijs += $cart[$nr] * $StockItem['SellPrice'];
+            if(isset($_SESSION['totaalprijs'])) {
+                $_SESSION["totaalprijs"] = $totaalprijs;
+            }
+            ?>
             <tr class="data">
                 <td><h6><?= $StockItem['StockItemName'] ?></h6></td>
                 <td><h4><?= $cart[$nr] ?></h4></td>
                 <td><h4>€<?= number_format((float)$StockItem['SellPrice'], 2, '.', '') ?></h4></td>
-                <td><h4><a href="<?= print("view.php?id=" . $nr) ?>"><?php echo $nr ?></a></h4></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -81,19 +100,32 @@ $totaalprijs = 0;
     <h3>Total price (incl. btw): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
     <br><br>
 </div>
-<form method="post" action="ideal.php">
-    <h3 style="font-size:40px;">Contact information: </h3>
-    <label style="font-size:25px;" for="fname">First name:</label>
-    <input type="text" id="fname" name="fname"><br><br>
-    <label style="font-size:25px;" for="lname">Last name:</label>
-    <input type="text" id="lname" name="lname"><br><br>
-    <label style="font-size:25px;" for="pcode">Postal code:</label>
-    <input type="text" id="pcode" name="pcode"><br><br>
-    <label style="font-size: 25px;" for="hnumber">House number</label>
-    <input type="number" id="hnumber" name="hnumber">
-    <label style="font-size:25px;" for="adress">Adress</label>
-    <input type="text" id="adress" name="adress"><br><br>
-    <input type="submit" value="To payment">
-</form>
+<?php
+?>
+<script>
+    if (window.history.replaceState ) {
+        window.history.replaceState(null, null, window.location.href );
+    }
+</script>
+<div class="Invoer_form"></div>
+    <h1><?php echo $_SESSION["klantID"]?></h1>
+    <h4 class = "Text_checkout">Contact information: </h4>
+    <form class = "Checkout_form" method="post" action="ideal.php">
+            <input type="text" id="fname" name="fname" placeholder="First name" class = Inputfields required><br><br>
+            <input type="text" id="lname" name="lname" placeholder="Last name" class = Inputfields required><br><br>
+            <input type="text" id="dpcode" name="dpcode" placeholder="Delivery postal code" class = Inputfields required><br><br>
+            <input type="text" id="pcode" name="pcode" placeholder="Postal code" class = Inputfields required><br><br>
+            <input type="number" id="hnumber" name="hnumber" placeholder="House number" class = Inputfields required><br><br>
+            <input type="text" id="city" name="city" placeholder="City" class = Inputfields required><br><br>
+            <input type="email" id="e-mail" name="e-mail" placeholder="e.g Example@windesheim.nl" class = Inputfields required><br><br>
+            <input type="number" id="pnumber" name="pnumber" placeholder="Phone number" class = Inputfields required><br><br>
+            <input type="text" id="daline1" name="daline1" required placeholder="Delivery Address" class = Inputfields><br><br>
+            <input type="text" id="daline2" name="daline2" placeholder="Aparment, suite, etc. (Optional)" class = Inputfields><br><br>
+            <input type="text" id="paline1" name="paline1" placeholder="Postal address" class = Inputfields required><br><br>
+            <input type="text" id="paline2" name="paline2" placeholder="(Optional) Postal address 2" class = Inputfields><br><br>
+            <input type="submit" value="Back to shopping cart" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php" class="Buttons_checkout"><br>
+            <input type="submit" value="Confirm and continue" style="font-size: 17px;" name="goToIdeal" class="Buttons_checkout"><br><br>
+    </form>
+</div>
 </body>
 </html>

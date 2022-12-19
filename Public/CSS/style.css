@@ -271,7 +271,7 @@ ul#ul-class-price li {
     color: #ffffff;
 }
 .cart-image {
-    width: 50px;
+    width: 40px;
     height: auto;
 }
 
@@ -489,9 +489,52 @@ ul#ul-class-price li {
     color: #fff;
 }
 
-.CartButton {
-    width: 100%;
+ .Button_add_to_cart {
+     background: #676EFF;
+     color: white;
+     border-style: none;
+     height: 30px;
+     width: 85%;
+ }
+.Button_place_order {
+    background: #676EFF;
+    color: white;
+    border-style: none;
+    height: 30px;
+    width: 95%;
 }
+.Buttons_checkout {
+    background: #676EFF;
+    color: white;
+    border-style: none;
+    height: 30px;
+    width: 40%;
+    text-align: left;
+}
+.Inputfields {
+    width: 40%;
+    height: 30px;
+}
+
+ .Checkout_form {
+     display: flex;
+     width: 100%;
+     height: auto;
+     flex-wrap: wrap;
+     justify-content: center;
+     column-gap: 5px;
+
+ }
+ .Invoer_form{
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+ }
+ .Text_checkout {
+     font-size:40px;
+     Text-align: center;
+ }
 
 .Cart-Image {
     width: 40px;
@@ -519,4 +562,103 @@ ul#ul-class-price li {
     align-items: center;
     display: flex;
     justify-content: center;
+}
+
+.NerdyReturn {
+    background: #676EFF;
+    color: white;
+    border-style: outset;
+    border-color: #676EFF;
+    border-radius: 12px;
+    height: 45px;
+    width: 350px;
+}
+
+.registerTitle {
+    display: flex;
+    justify-content: center;
+}
+
+.registerContainer {
+    margin: auto;
+    display: flex;
+    width: 20%;
+    padding-top: 15px;
+}
+
+.registerContainer {
+    width: 20%;
+}
+
+.invoer {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.submitRegistration {
+
+    width: 50%;
+}
+
+.login_form {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 5px;
+}
+
+.loginfields {
+    width: 80.5%;
+    height: 30px;
+    margin: 7px;
+}
+.login-header {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+.account-button {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    line-height: 0;
+    color: white;
+}
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+    background-color: #676EFF;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content a {
+    color: white;
+    text-decoration: none;
+}
+.dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #00A4BD;
+}
+.right-header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }

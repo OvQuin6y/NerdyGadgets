@@ -1,7 +1,11 @@
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
-session_start();
 include "database.php";
+
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 $databaseConnection = connectToDatabase();
 ?>
 <!DOCTYPE html>
@@ -20,6 +24,8 @@ $databaseConnection = connectToDatabase();
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="Background">
@@ -30,7 +36,7 @@ $databaseConnection = connectToDatabase();
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
                 <?php
-                $HeaderStockGroups = getHeaderStockGroups($databaseConnection);
+                $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $_SESSION["lang"]);
 
                 foreach ($HeaderStockGroups as $HeaderStockGroup) {
                     ?>
@@ -42,19 +48,47 @@ $databaseConnection = connectToDatabase();
                 }
                 ?>
                 <li>
-                    <a href="categories.php" class="HrefDecoration">Alle categoriën</a>
+                    <a href="categories.php" class="HrefDecoration">All categories</a>
                 </li>
             </ul>
         </div>
         <!-- code voor US3: zoeken -->
-        <ul id="ul-class-navigation">
-            <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
-                <a href="cart.php" class="HrefDecoration"><img class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
-            </li>
-        </ul>
+        <div class="right-header">
+            <ul id="ul-class-navigation">
+                <li>
+                    <form method="post" action="database.php" class="language">
+                        <SELECT id= "selectLang" name="language" onchange="changeLanguage()">
+                            <OPTION value=""></OPTION>
+                            <OPTION value="en">English</OPTION>
+                            <OPTION value="nl">Nederlands</OPTION>
+                        </SELECT>
+                    </form>
+                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
+                    <a href="cart.php" class="HrefDecoration"><img style="margin-right: 10px" class="Cart-Image" src="Public/Img/winkelwagen.png">Cart</a>
+                    <div class="dropdown">
+                        <button class="account-button"><img style="margin-right: 10px" class="cart-image" src="Public/Img/account.png"><?php echo (ISSET($_SESSION["klantID"])) ? getName($databaseConnection, $_SESSION["klantID"]) : "Account"?></button>
+                        <div class="dropdown-content">
+                            <?php if (ISSET($_SESSION["klantID"])) { ?>
+                                <a class="login-header" href="account.php">Account</a>
+                                <a class="login-header" href="Logout.php">Log out</a>
+                            <?php } else { ?>
+                            <a class="login-header" href="Login.php">Log in</a>
+                            <a class="login-header" href="register.php">Register</a>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <!-- einde code voor US3 zoeken -->
     </div>
+    <script>
+        function changeLanguage() {
+            let lang = document.getElementById("selectLang");
+            let value = lang.value;
+            window.location.replace("change_language.php?lang=" + value)
+        }
+    </script>
     <div class="row" id="Content">
         <div class="col-12">
             <div id="SubContent">
