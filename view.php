@@ -53,8 +53,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                   </h2>
 
                   <div class="location mt-4">
-                      <span class="d-block"><i class="fa fa-map-marker start"></i> <small class="text-truncate ml-2">Ganesha Road, preet vihar new delhi</small> </span>
-                      <span><i class="fa fa-map-marker stop mt-2"></i> <small class="text-truncate ml-2">Mandir Road, Mayur vihar, new delhi</small> </span>
+                      <span class="d-block"><i class="fa fa-map-marker start"></i>
+                      <span><i class="fa fa-map-marker stop mt-2"></i>
                   </div>
                   <div class="rate bg-success py-3 text-white mt-3">
                       <h6 class="mb-0">Rate this product</h6>
