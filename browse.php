@@ -187,19 +187,18 @@ if (isset($amount)) {
 }
 
   ?><div class="QuantityText"><?php
-    $lang = $_SESSION["lang"];
-function getVoorraadTekst($actueleVoorraad, $databaseConnection, $lang)
+function getVoorraadTekst($actueleVoorraad)
 {
     if ($actueleVoorraad > 1000) {
-        return getTranslation($databaseConnection, $lang, "Voorraad_veel_aanwezig");
+        return "Much stock available";
     } elseif ($actueleVoorraad <= 0) {
-        return getTranslation($databaseConnection, $lang, "Voorraad_afwezig");
+        return "Product unavailable";
     } elseif ($actueleVoorraad == 1) {
-        return getTranslation($databaseConnection, $lang, "Voorraad_een_deel1") . " <b><i> $actueleVoorraad </i></b>". " " . getTranslation($databaseConnection, $lang, "Voorraad_een_deel1");
+        return "Hurry! Only <b><i> $actueleVoorraad </i></b> item left";
     } elseif ($actueleVoorraad <= 50) {
-        return getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel1") . " <b><i> $actueleVoorraad </i></b> " . " " . getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel2");
+        return "Hurry! Only <b><i> $actueleVoorraad </i></b> items left";
     } else {
-        return $actueleVoorraad . getTranslation($databaseConnection, $lang, "Voorraad_overige_opties") ;
+        return "$actueleVoorraad items in stock";
     }
 } ?>
 </div>
