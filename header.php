@@ -62,15 +62,15 @@ $databaseConnection = connectToDatabase();
             <ul id="ul-class-navigation">
                 <li>
                     <form method="post" action="database.php" class="language">
-                        <SELECT id= "selectLang" name="language" onchange="changeLanguage()">
-                            <OPTION value=""></OPTION>
-                            <OPTION value="en" <?php if ($_SESSION['lang'] == "en") {
+                        <select id= "selectLang" name="language" onchange="changeLanguage()">
+                            <option value="">--Select a language--</option>
+                            <option value="en" <?php if ($_SESSION['lang'] == "en") {
                                 print "selected";
-                            } ?> >English</OPTION>
-                            <OPTION value="nl" <?php if ($_SESSION['lang'] == "nl") {
+                            } ?> >English</option>
+                            <option value="nl" <?php if ($_SESSION['lang'] == "nl") {
                                 print "selected";
-                            } ?>>Nederlands</OPTION>
-                        </SELECT>
+                            } ?>>Nederlands</option>
+                        </select>
                     </form>
                     <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
                     <a href="cart.php" class="HrefDecoration"><img style="margin-right: 10px" class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
