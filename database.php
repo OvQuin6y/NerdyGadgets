@@ -23,7 +23,7 @@ function connectToDatabase() {
 function getHeaderStockGroups($databaseConnection) {
     $Query = "
                 SELECT StockGroupID, StockGroupName, ImagePath
-                FROM stockgroups 
+                FROM stockgroups_en 
                 WHERE StockGroupID IN (
                                         SELECT StockGroupID 
                                         FROM stockitemstockgroups
@@ -38,7 +38,7 @@ function getHeaderStockGroups($databaseConnection) {
 function getStockGroups($databaseConnection) {
     $Query = "
             SELECT StockGroupID, StockGroupName, ImagePath
-            FROM stockgroups 
+            FROM stockgroups_en
             WHERE StockGroupID IN (
                                     SELECT StockGroupID 
                                     FROM stockitemstockgroups
@@ -60,11 +60,11 @@ function getStockItem($id, $databaseConnection) {
             QuantityOnHand,
             SearchDetails, 
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
-            (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
+            (SELECT ImagePath FROM stockgroups_en JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
             JOIN stockitemholdings SIH USING(stockitemid)
             JOIN stockitemstockgroups ON SI.StockItemID = stockitemstockgroups.StockItemID
-            JOIN stockgroups USING(StockGroupID)
+            JOIN stockgroups_en USING(StockGroupID)
             WHERE SI.stockitemid = ?
             GROUP BY StockItemID";
 

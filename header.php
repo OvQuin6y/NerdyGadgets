@@ -42,7 +42,7 @@ $databaseConnection = connectToDatabase();
                 }
                 ?>
                 <li>
-                    <a href="categories.php" class="HrefDecoration">Alle categorieÃ«n</a>
+                    <a href="categories.php" class="HrefDecoration">Alle categoriën</a>
                 </li>
             </ul>
         </div>
