@@ -9,6 +9,7 @@ $SortName = "price_low_high";
 
 $AmountOfPages = 0;
 $queryBuildResult = "";
+$databaseConnection = connectToDatabase();
 
 if(!isset($_SESSION)) {
     session_start();
@@ -118,19 +119,19 @@ if ($CategoryID == "") {
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
                 QuantityOnHand,
                 (SELECT ImagePath
-                FROM stockitemimages
-                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM " . $table .  " JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM stockitemimages AS SII
+                WHERE SII.StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+                (SELECT ImagePath FROM " . $table .  " AS J JOIN stockitemstockgroups USING(StockGroupID) WHERE J.StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
                 FROM " . $table .  " SI
                 JOIN stockitemholdings SIH USING(stockitemid)
                 " . $queryBuildResult . "
                 GROUP BY StockItemID
                 ORDER BY " . $Sort . "
                 LIMIT ?  OFFSET ?";
-
-
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "ii", $ProductsOnPage, $Offset);
+    echo $ProductsOnPage;
+    echo $Offset;
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
