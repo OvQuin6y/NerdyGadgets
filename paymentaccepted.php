@@ -84,6 +84,8 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     $customerID = 0;
     $date = date("Y/m/d");
     $orderID = 0;
+    // generate a short hash and add the order id to it
+    $hash = substr(md5(rand()), 0, 7).$orderID;
     try {
         $databaseConnection->autocommit(FALSE);
         $databaseConnection->begin_transaction();
@@ -106,9 +108,9 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
             $customerID = $result;
         }
         $addOrder = $databaseConnection->prepare("INSERT INTO orders(CustomerID, OrderDate, ExpectedDeliveryDate, IsUndersupplyBackordered, LastEditedBy,
-                   LastEditedWhen) VALUES (?,?,?,?,?,?)");
+                   LastEditedWhen, CancelCode) VALUES (?,?,?,?,?,?,?)");
         $isUndersupplyBackordered = 0;
-        $addOrder->bind_param("ississ", $customerID, $date, $date, $isUndersupplyBackordered, $date, $date);
+        $addOrder->bind_param("ississs", $customerID, $date, $date, $isUndersupplyBackordered, $date, $date, $hash);
         $addOrder->execute();
         $getOrderID = $databaseConnection->prepare("SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1; ");
         $getOrderID->execute();
@@ -140,7 +142,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
                 $description = $result;
             }
             $addOrderline = $databaseConnection->prepare("INSERT INTO orderlines(OrderID, StockItemID, Description, Quantity, LastEditedBy, lastEditedWhen)
-        VALUES (?,?,?,?,?,?)");
+            VALUES (?,?,?,?,?,?)");
             $addOrderline->bind_param("iisiis", $orderID, $nr, $description, $aantal, $customerID, $date);
             $addOrderline->execute();
 
@@ -150,7 +152,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $databaseConnection->rollback();
     }
     $databaseConnection->autocommit(TRUE);
-    send_email($email, $fullname, toString($databaseConnection));
+    send_email($email, $fullname, generateEmail($databaseConnection, $fullname, $_SESSION["totaalprijs"]));
     $_SESSION["transactionOngoing"] = false;
     clearCart();
 }
