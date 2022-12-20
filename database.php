@@ -145,17 +145,31 @@ function getID(mysqli $databaseConnection, $mail)
     return $return;
 }
 
-function getName(mysqli $databaseConnection, $id)
+function getCustomerData(mysqli $databaseConnection, $id, $column)
 {
     $query = "
-                SELECT FirstName
+                SELECT $column
                 FROM klant
                 WHERE klantID ='" . $id .  "';";
 
     $result = $databaseConnection->query($query);
     $return = "";
     while ($row = $result->fetch_array()) {
-        $return = $row["FirstName"];
+        $return = $row[$column];
     }
     return $return;
+}
+function getKlant(mysqli $databaseConnection, $id)
+{
+    $query = "
+                SELECT *
+                FROM klant
+                WHERE klantID ='" . $id .  "';";
+
+    $Statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R;
 }
