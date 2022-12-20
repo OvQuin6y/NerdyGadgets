@@ -1,6 +1,7 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
+
 //test2
 $ReturnableResult = null;
 $Sort = "SellPrice";
@@ -8,6 +9,7 @@ $SortName = "price_low_high";
 
 $AmountOfPages = 0;
 $queryBuildResult = "";
+$databaseConnection = connectToDatabase();
 
 if(!isset($_SESSION)) {
     session_start();
@@ -117,19 +119,19 @@ if ($CategoryID == "") {
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
                 QuantityOnHand,
                 (SELECT ImagePath
-                FROM stockitemimages
-                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM " . $table .  " JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM stockitemimages AS SII
+                WHERE SII.StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+                (SELECT ImagePath FROM " . $table .  " AS J JOIN stockitemstockgroups USING(StockGroupID) WHERE J.StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
                 FROM " . $table .  " SI
                 JOIN stockitemholdings SIH USING(stockitemid)
                 " . $queryBuildResult . "
                 GROUP BY StockItemID
                 ORDER BY " . $Sort . "
                 LIMIT ?  OFFSET ?";
-
-
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "ii", $ProductsOnPage, $Offset);
+    echo $ProductsOnPage;
+    echo $Offset;
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
@@ -184,22 +186,22 @@ $amount = $Result[0];
 if (isset($amount)) {
     $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
 }
-
-?><div class="QuantityText"><?php
-    function getVoorraadTekst($actueleVoorraad)
-    {
-        if ($actueleVoorraad > 1000) {
-            return "Much stock available";
-        } elseif ($actueleVoorraad <= 0) {
-            return "Product unavailable";
-        } elseif ($actueleVoorraad == 1) {
-            return "Hurry! Only <b><i> $actueleVoorraad </i></b> item left";
-        } elseif ($actueleVoorraad <= 50) {
-            return "Hurry! Only <b><i> $actueleVoorraad </i></b> items left";
-        } else {
-            return "$actueleVoorraad items in stock";
-        }
-    } ?>
+  ?><div class="QuantityText"><?php
+    $lang = $_SESSION["lang"];
+function getVoorraadTekst($actueleVoorraad, $databaseConnection, $lang)
+{
+    if ($actueleVoorraad > 1000) {
+        return getTranslation($databaseConnection, $lang, "Voorraad_veel_aanwezig");
+    } elseif ($actueleVoorraad <= 0) {
+        return getTranslation($databaseConnection, $lang, "Voorraad_afwezig");
+    } elseif ($actueleVoorraad == 1) {
+        return getTranslation($databaseConnection, $lang, "Voorraad_een_deel1") . " <b><i> $actueleVoorraad </i></b>". " " . getTranslation($databaseConnection, $lang, "Voorraad_een_deel1");
+    } elseif ($actueleVoorraad <= 50) {
+        return getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel1") . " <b><i> $actueleVoorraad </i></b> " . " " . getTranslation($databaseConnection, $lang, "Voorraad_minder_dan_vijftig_deel2");
+    } else {
+        return $actueleVoorraad . getTranslation($databaseConnection, $lang, "Voorraad_overige_opties") ;
+    }
+} ?>
 </div>
 <?php
 function berekenVerkoopPrijs($adviesPrijs, $btw)
@@ -212,14 +214,14 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
 <!-- code deel 3 van User story: Zoeken producten : de html -->
 <!-- de zoekbalk links op de pagina  -->
 
-<div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filter </h2>
+<div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i><?php echo " " . getTranslation($databaseConnection, $lang, "Zoekscherm_hoofdkop")?></h2>
     <form>
         <div id="FilterOptions">
-            <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Search</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-search"></i><?php echo " " . getTranslation($databaseConnection, $lang, "Zoekscherm_kop_zoeken")?></h4>
             <input type="text" name="search_string" id="search_string"
                    value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
                    class="form-submit">
-            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Products per page</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i><?php echo " " . getTranslation($databaseConnection, $lang, "Zoekscherm_kop_producten_per_pagina")?></h4>
 
             <input type="hidden" name="category_id" id="category_id"
                    value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
@@ -237,23 +239,23 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
                 } ?>>75
                 </option>
             </select>
-            <h4 class="FilterTopMargin"><i class="fas fa-sort"></i> Sort by</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-sort"></i><?php echo " " . getTranslation($databaseConnection, $lang, "Zoekscherm_kop_sorteren")?></h4>
             <select name="sort" id="sort" onchange="this.form.submit()">>
                 <option value="price_low_high" <?php if ($_SESSION['sort'] == "price_low_high") {
                     print "selected";
-                } ?>>Price high to low
+                } ?>><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie1")?>
                 </option>
                 <option value="price_high_low" <?php if ($_SESSION['sort'] == "price_high_low") {
                     print "selected";
-                } ?> >Price low to high
+                } ?> ><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie2")?>
                 </option>
                 <option value="name_low_high" <?php if ($_SESSION['sort'] == "name_low_high") {
                     print "selected";
-                } ?>>Name A-Z
+                } ?>><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie3")?>
                 </option>
                 <option value="name_high_low" <?php if ($_SESSION['sort'] == "name_high_low") {
                     print "selected";
-                } ?>>Name Z-A
+                } ?>><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie4")?>
                 </option>
             </select>
     </form>
@@ -286,13 +288,13 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
                     <div id="StockItemFrameRight">
                         <div class="CenterPriceLeftChild">
                             <h1 class="StockItemPriceText"><?php print "€ " . sprintf(" %0.2f", berekenVerkoopPrijs($row["RecommendedRetailPrice"], $row["TaxRate"])); ?></h1>
-                            <h6>Including BTW </h6>
+                            <h6><?php echo getTranslation($databaseConnection, $lang, "Prijs_regel")?></h6>
                         </div>
                     </div>
-                    <h1 class="StockItemID">Articlenumber: <?php print $row["StockItemID"]; ?></h1>
+                    <h1 class="StockItemID"><?php print getTranslation($databaseConnection, $lang, "Artikelnummer") . ": " .  $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
-                    <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"]); ?></h4>
+                    <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"], $databaseConnection, $lang); ?></h4>
                 </div>
                 <!--  coderegel 2 van User story: bekijken producten  -->
             </a>
@@ -336,7 +338,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
     } else {
         ?>
         <h2 id="NoSearchResults">
-            Yarr, no results have been found.
+            <?php echo getTranslation($databaseConnection, $lang, "Geen_resultaten2") . "."?>
         </h2>
         <?php
     }

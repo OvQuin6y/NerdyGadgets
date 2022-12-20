@@ -1,6 +1,9 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
+
+$lang = $_SESSION["lang"];
+$databaseConnection = connectToDatabase();
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +19,8 @@ include "cartfuncties.php";
 </div>
 <div class="container">
     <form class = "Checkout_form" method="post" action="confirmation.php">
-        <input type="text" name="fname" placeholder="First name" class = Inputfields required><br><br>
-        <input type="text" name="lname" placeholder="Last name" class = Inputfields required><br><br>
+        <input type="text" name="fname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_voornaam") . " *" ?>" class = Inputfields required><br><br>
+        <input type="text" name="lname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_achternaam") . " *" ?>" class = Inputfields required><br><br>
         <input type="email" name="email" placeholder="E-mail" class = Inputfields required><br><br>
         <input type="number" name="pnumber" placeholder="Phone number" class = Inputfields required><br><br>
         <input type="text" name="street" placeholder="Street name" class = Inputfields required><br><br>

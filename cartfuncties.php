@@ -14,6 +14,7 @@ function getCart() : array
     return $_SESSION['cart'] ?? array();   // resulterend winkelmandje terug naar aanroeper functie
 }
 
+
 /**
  * Sla de cart op in de sessie.
  * @param $cart array De cart.

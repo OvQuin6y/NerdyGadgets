@@ -4,6 +4,8 @@ include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
 $totaalprijs = 0;
+
+$lang = $_SESSION["lang"];
 $databaseConnection = connectToDatabase();
 
 if(!isset($_SESSION['totaalprijs'])) {
@@ -23,18 +25,18 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Afrekenen bestelling</title>
+    <title><?php echo getTranslation($databaseConnection, $lang, "Checkout_paginatitel")?></title>
     <link rel="stylesheet" href="Public/CSS/cart.css">
 </head>
 <body>
 <div class="maincontainer">
-    <h1 style="font-size:40px;">Order summary</h1><br>
+    <h1 style="font-size:40px;"><?php echo getTranslation($databaseConnection, $lang, "Checkout_titel_overzicht")?></h1><br>
     <table>
         <thead><br>
         <tr class="titles">
-            <td>Name:</td>
-            <td>Quantity:</td>
-            <td>Price per product (incl. btw):</td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_naam") . ":"?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_aantal") . ":"?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Checkout_overzicht_kop_prijs_extra") . ":"?></td>
         </tr>
         </thead>
         <tbody class="bodycontainer">
@@ -97,7 +99,7 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
         </tbody>
     </table>
     <br>
-    <h3>Total price (VAT included): €<?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
+    <h3><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_totaalprijs") . ": €"?><?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
     <br><br>
 </div>
 <?php
