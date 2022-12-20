@@ -37,5 +37,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $register = $databaseConnection->prepare("INSERT INTO klant(FirstName,LastName,Email,PhoneNumber,PostalCode,City,HouseNumber,Apartment,Password,Street,Country)
     VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-$register->bind_param("sssississsss",$fname,$lname,$email,$pnumber,$pcode,$city,$hnumber,$apartment,$pword,$street,$country);
+$register->bind_param("sssississss",$fname,$lname,$email,$pnumber,$pcode,$city,$hnumber,$apartment,$pword,$street,$country);
 $register->execute();
