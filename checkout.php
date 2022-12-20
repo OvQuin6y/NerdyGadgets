@@ -5,19 +5,24 @@ include "cartfuncties.php";
 
 $totaalprijs = 0;
 
+if (isCardEmpty()) {
+    ?>
+<script type="text/javascript">
+    window.location.href = "index.php";
+</script>
+
+    <?php
+}
+
 $lang = $_SESSION["lang"];
 $databaseConnection = connectToDatabase();
 
-if(!isset($_SESSION['totaalprijs'])) {
+if (!isset($_SESSION['totaalprijs'])) {
     $_SESSION["totaalprijs"] = $totaalprijs;
 }
 
-if(isCardEmpty()) {
-    header("Location: index.php");
-}
-
-if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) == $_POST["pword"]) {
-    $_SESSION["klantID"] = getID($databaseConnection,$_POST["mail"]);
+if (isset($_POST["login"]) && getPassword($databaseConnection, $_POST["mail"]) == $_POST["pword"]) {
+    $_SESSION["klantID"] = getID($databaseConnection, $_POST["mail"]);
     echo "<meta http-equiv='refresh' content='0'>";
 }
 
@@ -27,18 +32,19 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo getTranslation($databaseConnection, $lang, "Checkout_paginatitel")?></title>
+    <title><?php echo getTranslation($databaseConnection, $lang, "Checkout_paginatitel") ?></title>
     <link rel="stylesheet" href="Public/CSS/cart.css">
 </head>
 <body>
 <div class="maincontainer">
-    <h1 style="font-size:40px;"><?php echo getTranslation($databaseConnection, $lang, "Checkout_titel_overzicht")?></h1><br>
+    <h1 style="font-size:40px;"><?php echo getTranslation($databaseConnection, $lang, "Checkout_titel_overzicht") ?></h1>
+    <br>
     <table>
         <thead><br>
         <tr class="titles">
-            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_naam") . ":"?></td>
-            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_aantal") . ":"?></td>
-            <td><?php echo getTranslation($databaseConnection, $lang, "Checkout_overzicht_kop_prijs_extra") . ":"?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_naam") . ":" ?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_overzicht_aantal") . ":" ?></td>
+            <td><?php echo getTranslation($databaseConnection, $lang, "Checkout_overzicht_kop_prijs_extra") . ":" ?></td>
         </tr>
         </thead>
         <tbody class="bodycontainer">
@@ -73,11 +79,13 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
             td:nth-child(3) {
                 width: 34%
             }
+
             form {
                 height: 20px;
                 width: 900px;
                 padding-left: 5%;
             }
+
             h3 {
                 text-align: right;
             }
@@ -88,7 +96,7 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
             $StockItem = getStockItem($nr, $databaseConnection, $_SESSION["lang"]);
             $stockItemImage = getStockItemImage($nr, $databaseConnection);
             $totaalprijs += $cart[$nr] * $StockItem['SellPrice'];
-            if(isset($_SESSION['totaalprijs'])) {
+            if (isset($_SESSION['totaalprijs'])) {
                 $_SESSION["totaalprijs"] = $totaalprijs;
             }
             ?>
@@ -101,14 +109,14 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
         </tbody>
     </table>
     <br>
-    <h3><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_totaalprijs") . ": €"?><?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
+    <h3><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_totaalprijs") . ": €" ?><?= number_format((float)$totaalprijs, 2, '.', '') ?></h3>
     <br><br>
 </div>
 <?php
 ?>
 <script>
-    if (window.history.replaceState ) {
-        window.history.replaceState(null, null, window.location.href );
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
     }
 </script>
 <h4 class = "Text_checkout"><?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_titel")?></h4><br>
