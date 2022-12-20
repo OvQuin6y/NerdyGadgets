@@ -35,10 +35,10 @@ $databaseConnection = connectToDatabase();
 <div class="Background">
     <div class="row" id="Header">
         <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"><img src="Public/Img/NerdyGadgetsLogo.png"></div>
+                <div id="LogoImage" class="logoContainer"><img class="logo" src="Public/Img/NerdyGadgetsLogo.png"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
-            <ul id="ul-class">
+            <ul id="ul-class" class="middle-header">
                 <?php
                 $lang = $_SESSION["lang"];
                 $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $lang);
@@ -63,7 +63,7 @@ $databaseConnection = connectToDatabase();
                 <li>
                     <form method="post" action="database.php" class="language">
                         <select id= "selectLang" name="language" onchange="changeLanguage()">
-                            <option value="">--Select a language--</option>
+                            <option value="" disabled><?php echo "--" . getTranslation($databaseConnection, $lang, "Taal_aanpassen_invulveld"). "--"?></option>
                             <option value="en" <?php if ($_SESSION['lang'] == "en") {
                                 print "selected";
                             } ?> >English</option>
@@ -95,7 +95,7 @@ $databaseConnection = connectToDatabase();
         function changeLanguage() {
             let lang = document.getElementById("selectLang");
             let value = lang.value;
-            window.location.replace("change_language.php?lang=" + value)
+            window.location.replace("change_language.php?lang=" + value + "&lastPage=" + window.location.href);
         }
     </script>
     <div class="row" id="Content">
