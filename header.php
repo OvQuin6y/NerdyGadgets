@@ -96,7 +96,6 @@ $databaseConnection = connectToDatabase();
             let lang = document.getElementById("selectLang");
             let value = lang.value;
             window.location.replace("change_language.php?lang=" + value + "&lastPage=" + window.location.href);
-
         }
     </script>
     <div class="row" id="Content">
