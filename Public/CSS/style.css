@@ -61,6 +61,19 @@ table tr th,
 table tr td {
     padding: 10px;
 }
+.middle-header {
+    transform: translateX(-26vh);
+}
+.logo {
+    width: 50%;
+    height: auto;
+}
+.logoContainer {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 2vh;
+}
 ul#ul-class-navigation {
     right: 10px;
     line-height: 200px;
