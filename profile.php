@@ -1,7 +1,14 @@
 <?php
 include __DIR__ . "/header.php";
-$lang = $_SESSION["lang"];
+
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 $databaseConnection = connectToDatabase();
+$klant = getKlant($databaseConnection, $_SESSION["klantID"]);
+
+foreach ($klant as $user):
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -29,7 +36,7 @@ $databaseConnection = connectToDatabase();
         <div class="userDetailsContainer">
             <div class="left">
                 <h5>Welcome!</h5>
-                <h4>Elias Papakonstantinou</h4>
+                <h4><?= $user["FirstName"];?> <?= $user["LastName"]?></h4>
             </div>
             <div class="middle">
                 <h5>Email: Eliaspapa26@hotmail.com</h5>
@@ -116,3 +123,4 @@ $databaseConnection = connectToDatabase();
         title.style.fontSize = "0"
     }
 </script>
+<?php endforeach;?>
