@@ -68,6 +68,10 @@ table tr td {
     width: 50%;
     height: auto;
 }
+.language {
+    width: 30vh;
+    height: 100%;
+}
 .logoContainer {
     display: flex;
     justify-content: left;
