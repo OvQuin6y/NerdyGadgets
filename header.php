@@ -63,7 +63,7 @@ $databaseConnection = connectToDatabase();
                 <li>
                     <form method="post" action="database.php" class="language">
                         <select id= "selectLang" name="language" onchange="changeLanguage()">
-                            <option value="">--Select a language--</option>
+                            <option value=""><?php echo "--" . getTranslation($databaseConnection, $lang, "Taal_aanpassen_invulveld"). "--"?></option>
                             <option value="en" <?php if ($_SESSION['lang'] == "en") {
                                 print "selected";
                             } ?> >English</option>

@@ -230,3 +230,7 @@ WHERE Name= 'Voorraad_veel_aanwezig';
 UPDATE Translation_table
 SET en = 'Large stock available'
 WHERE Name= 'Voorraad_veel_aanwezig';
+
+-- insert into
+INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
+    ('Taal_aanpassen_invulveld', 'Select a language', 'Kies je taal' );
