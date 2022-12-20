@@ -216,3 +216,8 @@ INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
 ('Zoekscherm_sorteren_optie2', 'Price low to high', 'Prijs laag naar hoog'),
 ('Zoekscherm_sorteren_optie3', 'Name A-Z', 'Naam A-Z'),
 ('Zoekscherm_sorteren_optie4', 'Name Z-A', 'Naam Z-A');
+
+-- extra query
+UPDATE stockgroups_nl
+SET StockGroupName = 'Souvenirs'
+WHERE StockGroupName = 'Souveniers';
