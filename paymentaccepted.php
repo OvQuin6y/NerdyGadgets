@@ -84,64 +84,72 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     $customerID = 0;
     $date = date("Y/m/d");
     $orderID = 0;
-    $addCustomer = $databaseConnection->prepare("INSERT INTO customers(CustomerName, BillToCustomerID, CustomerCategoryID,AccountOpenedDate,                      
+    try {
+        $databaseConnection->autocommit(FALSE);
+        $databaseConnection->begin_transaction();
+        $addCustomer = $databaseConnection->prepare("INSERT INTO customers(CustomerName, BillToCustomerID, CustomerCategoryID,AccountOpenedDate,                      
         PhoneNumber, DeliveryAddressLine1, DeliveryAddressLine2,                      
         DeliveryPostalCode, PostalAddressLine1,PostalAddressLine2,PostalPostalCode,                      
         ValidFrom, ValidTo)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $dateToValid = "9999-12-31 23:59:59";
-    $billToCustomerId = 1;
-    $customerCategoryId = 3;
-    $addCustomer->bind_param("siissssssssss", $fullname, $billToCustomerId, $customerCategoryId, $date, $pnumber, $daline1, $daline2, $dpcode, $paline1, $paline2, $pcode, $date, $dateToValid);
-    $addCustomer->execute();
-    $getCustomerid = $databaseConnection->prepare("SELECT CustomerID FROM customers WHERE CustomerName = ? AND PhoneNumber = ?");
-    $getCustomerid->bind_param("ss", $fullname, $pnumber);
-    $getCustomerid->execute();
-    $getCustomerid->store_result();
-    $getCustomerid->bind_result($result);
-    while ($getCustomerid->fetch()) {
-        $customerID = $result;
-    }
-    $addOrder = $databaseConnection->prepare("INSERT INTO orders(CustomerID, OrderDate, ExpectedDeliveryDate, IsUndersupplyBackordered, LastEditedBy,
+        $dateToValid = "9999-12-31 23:59:59";
+        $billToCustomerId = 1;
+        $customerCategoryId = 3;
+        $addCustomer->bind_param("siissssssssss", $fullname, $billToCustomerId, $customerCategoryId, $date, $pnumber, $daline1, $daline2, $dpcode, $paline1, $paline2, $pcode, $date, $dateToValid);
+        $addCustomer->execute();
+        $getCustomerid = $databaseConnection->prepare("SELECT CustomerID FROM customers WHERE CustomerName = ? AND PhoneNumber = ?");
+        $getCustomerid->bind_param("ss", $fullname, $pnumber);
+        $getCustomerid->execute();
+        $getCustomerid->store_result();
+        $getCustomerid->bind_result($result);
+        while ($getCustomerid->fetch()) {
+            $customerID = $result;
+        }
+        $addOrder = $databaseConnection->prepare("INSERT INTO orders(CustomerID, OrderDate, ExpectedDeliveryDate, IsUndersupplyBackordered, LastEditedBy,
                    LastEditedWhen) VALUES (?,?,?,?,?,?)");
-    $isUndersupplyBackordered = 0;
-    $addOrder->bind_param("ississ", $customerID, $date, $date, $isUndersupplyBackordered, $date, $date);
-    $addOrder->execute();
-    $getOrderID = $databaseConnection->prepare("SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1; ");
-    $getOrderID->execute();
-    $getOrderID->store_result();
-    $getOrderID->bind_result($result);
-    while ($getOrderID->fetch()) {
-        $orderID = $result;
-    }
+        $isUndersupplyBackordered = 0;
+        $addOrder->bind_param("ississ", $customerID, $date, $date, $isUndersupplyBackordered, $date, $date);
+        $addOrder->execute();
+        $getOrderID = $databaseConnection->prepare("SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1; ");
+        $getOrderID->execute();
+        $getOrderID->store_result();
+        $getOrderID->bind_result($result);
+        while ($getOrderID->fetch()) {
+            $orderID = $result;
+        }
 
-    foreach ($getCart as $nr => $aantal) {
-        $description = "";
-        $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
-        $getStock->bind_param("i", $nr);
-        $getStock->execute();
-        $getStock->store_result();
-        $getStock->bind_result($oldStock);
-        while ($getStock->fetch()) {
-            $newStock = $oldStock - $aantal;
-        }
-        $updateStock = $databaseConnection->prepare("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockitemID = ?; ");
-        $updateStock->bind_param("ii", $newStock, $nr);
-        $updateStock->execute();
-        $getDescription = $databaseConnection->prepare("SELECT SearchDetails FROM stockitems WHERE StockItemID = ?; ");
-        $getDescription->bind_param("i", $nr);
-        $getDescription->execute();
-        $getDescription->store_result();
-        $getDescription->bind_result($result);
-        while ($getDescription->fetch()) {
-            $description = $result;
-        }
-        $addOrderline = $databaseConnection->prepare("INSERT INTO orderlines(OrderID, StockItemID, Description, Quantity, LastEditedBy, lastEditedWhen)
+        foreach ($getCart as $nr => $aantal) {
+            $description = "";
+            $getStock = $databaseConnection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?; ");
+            $getStock->bind_param("i", $nr);
+            $getStock->execute();
+            $getStock->store_result();
+            $getStock->bind_result($oldStock);
+            while ($getStock->fetch()) {
+                $newStock = $oldStock - $aantal;
+            }
+            $updateStock = $databaseConnection->prepare("UPDATE stockitemholdings SET QuantityOnHand = ? WHERE StockitemID = ?; ");
+            $updateStock->bind_param("ii", $newStock, $nr);
+            $updateStock->execute();
+            $getDescription = $databaseConnection->prepare("SELECT SearchDetails FROM stockitems WHERE StockItemID = ?; ");
+            $getDescription->bind_param("i", $nr);
+            $getDescription->execute();
+            $getDescription->store_result();
+            $getDescription->bind_result($result);
+            while ($getDescription->fetch()) {
+                $description = $result;
+            }
+            $addOrderline = $databaseConnection->prepare("INSERT INTO orderlines(OrderID, StockItemID, Description, Quantity, LastEditedBy, lastEditedWhen)
         VALUES (?,?,?,?,?,?)");
-        $addOrderline->bind_param("iisiis", $orderID, $nr, $description, $aantal, $customerID, $date);
-        $addOrderline->execute();
+            $addOrderline->bind_param("iisiis", $orderID, $nr, $description, $aantal, $customerID, $date);
+            $addOrderline->execute();
 
+        }
+        $databaseConnection->commit();
+    } catch (Exception $e) {
+        $databaseConnection->rollback();
     }
+    $databaseConnection->autocommit(TRUE);
     send_email($email, $fullname, toString($databaseConnection));
     $_SESSION["transactionOngoing"] = false;
     clearCart();
