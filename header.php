@@ -63,7 +63,7 @@ $databaseConnection = connectToDatabase();
                 <li>
                     <form method="post" action="database.php" class="language">
                         <select id= "selectLang" name="language" onchange="changeLanguage()">
-                            <option value=""><?php echo "--" . getTranslation($databaseConnection, $lang, "Taal_aanpassen_invulveld"). "--"?></option>
+                            <option value="" disabled><?php echo "--" . getTranslation($databaseConnection, $lang, "Taal_aanpassen_invulveld"). "--"?></option>
                             <option value="en" <?php if ($_SESSION['lang'] == "en") {
                                 print "selected";
                             } ?> >English</option>
@@ -95,7 +95,8 @@ $databaseConnection = connectToDatabase();
         function changeLanguage() {
             let lang = document.getElementById("selectLang");
             let value = lang.value;
-            window.location.replace("change_language.php?lang=" + value)
+            window.location.replace("change_language.php?lang=" + value + "&lastPage=" + window.location.href);
+
         }
     </script>
     <div class="row" id="Content">
