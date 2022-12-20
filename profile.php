@@ -39,10 +39,10 @@ foreach ($klant as $user):
                 <h4><?= $user["FirstName"];?> <?= $user["LastName"]?></h4>
             </div>
             <div class="middle">
-                <h5>Email: <?= $user["Email"] ?></h5>
-                <h5>Phonenumber: <?= $user["PhoneNumber"]?></h5>
-                <h5>Postal code & Housenumber: <?= $user["PostalCode"]?>, <?= $user["HouseNumber"]?></h5>
-                <h5>City: <?= $user["City"]?></h5>
+                <h5>Email: Eliaspapa26@hotmail.com</h5>
+                <h5><?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_telefoonnummer") . ": 0624427425"?></h5>
+                <h5>Postal code & Housenumber: 3862LK, 1</h5>
+                <h5><?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_stad") . ": Nijkerk"?></h5>
             </div>
             <div class="right">
                 <h5 onclick="openPopup()">Edit Details</h5>

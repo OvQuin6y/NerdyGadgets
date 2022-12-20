@@ -62,13 +62,17 @@ $databaseConnection = connectToDatabase();
             <ul id="ul-class-navigation">
                 <li>
                     <form method="post" action="database.php" class="language">
-                        <SELECT id= "selectLang" name="language" onchange="changeLanguage()">
-                            <OPTION value=""></OPTION>
-                            <OPTION value="en">English</OPTION>
-                            <OPTION value="nl">Nederlands</OPTION>
-                        </SELECT>
+                        <select id= "selectLang" name="language" onchange="changeLanguage()">
+                            <option value="">--Select a language--</option>
+                            <option value="en" <?php if ($_SESSION['lang'] == "en") {
+                                print "selected";
+                            } ?> >English</option>
+                            <option value="nl" <?php if ($_SESSION['lang'] == "nl") {
+                                print "selected";
+                            } ?>>Nederlands</option>
+                        </select>
                     </form>
-                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
+                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i><?php echo " " . getTranslation($databaseConnection, $lang, "Kop_zoeken")?></a>
                     <a href="cart.php" class="HrefDecoration"><img style="margin-right: 10px" class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
                     <div class="dropdown">
                         <button class="account-button"><img style="margin-right: 10px" class="cart-image" src="Public/Img/account.png"><?php echo (ISSET($_SESSION["klantID"])) ? getName($databaseConnection, $_SESSION["klantID"]) : "Account"?></button>

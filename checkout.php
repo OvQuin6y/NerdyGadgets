@@ -4,7 +4,6 @@ include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
 $totaalprijs = 0;
-$databaseConnection = connectToDatabase();
 
 $lang = $_SESSION["lang"];
 $databaseConnection = connectToDatabase();
