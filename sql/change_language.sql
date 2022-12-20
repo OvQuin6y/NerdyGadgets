@@ -221,3 +221,16 @@ INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
 UPDATE stockgroups_nl
 SET StockGroupName = 'Souvenirs'
 WHERE StockGroupName = 'Souveniers';
+
+-- extra query's
+UPDATE Translation_table
+SET nl = 'Ruime voorraad aanwezig'
+WHERE Name= 'Voorraad_veel_aanwezig';
+
+UPDATE Translation_table
+SET en = 'Large stock available'
+WHERE Name= 'Voorraad_veel_aanwezig';
+
+-- insert into
+INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
+    ('Taal_aanpassen_invulveld', 'Select a language', 'Kies je taal' );
