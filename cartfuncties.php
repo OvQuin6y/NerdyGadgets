@@ -20,7 +20,7 @@ function getCart() : array
  * @param $cart array De cart.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function saveCart(array $cart) :
+function saveCart(array $cart)
 {
     $_SESSION["cart"] = $cart;                  // werk de "gedeelde" $_SESSION["cart"] bij met de meegestuurde gegevens
 }
@@ -30,7 +30,7 @@ function saveCart(array $cart) :
  * @param $stockItemID int Het ID van het product.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function addProductToCart(int $stockItemID) :
+function addProductToCart(int $stockItemID)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
 
@@ -48,7 +48,7 @@ function addProductToCart(int $stockItemID) :
  * @param $stockItemID int Het ID van het product.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function removeProductFromCart(int $stockItemID) :
+function removeProductFromCart(int $stockItemID)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
 
@@ -66,7 +66,7 @@ function removeProductFromCart(int $stockItemID) :
  * @param $stockItemID int Het ID van het product.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function deleteProductFromCart(int $stockItemID) :
+function deleteProductFromCart(int $stockItemID)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
 
@@ -83,7 +83,7 @@ function deleteProductFromCart(int $stockItemID) :
  * @param $amount int Het nieuwe aantal.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function setProductInCart(int $stockItemID, int $amount) :
+function setProductInCart(int $stockItemID, int $amount)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
     $cart[$stockItemID] = $amount;
@@ -95,7 +95,7 @@ function setProductInCart(int $stockItemID, int $amount) :
  * Leeg de cart.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function clearCart() :
+function clearCart()
 {
     $cart = getCart();  // haal de huidige cart op
 
@@ -141,13 +141,14 @@ function generateEmail(mysqli $databaseconnection, string $klantnaam, int $order
     }
     // retrieve the CancelCode from the order table
     $query = "SELECT CancelCode AS c FROM orders WHERE OrderID = $orderId"; // maak een query die de productnaam ophaalt
+    print $orderId;
     $statement = mysqli_prepare($databaseconnection, $query); // maak een verklaring van de query
     mysqli_stmt_execute($statement); // voer de query uit
     $result = mysqli_stmt_get_result($statement); // haal het resultaat op
     $row = mysqli_fetch_assoc($result); // haal de rij op
     $cancelUrl = "localhost/cancel_order.php?cancelCode=" . $row["c"];
-    $email .= "Mocht u om welke rede dan ook besluiten om uw bestelling te annuleren, dan kunt u dit doen door 
-    <a href='$cancelUrl'>hier</a> te klikken. Let op u kunt uw bestelling max 3 dagen na het afrekenen annuleren. 
+    $email .= "Mocht u om welke reden dan ook besluiten om uw bestelling te annuleren, dan kunt u dit doen door 
+    <a href='$cancelUrl'>hier</a> te klikken. Let op: u kunt uw bestelling max.S 3 dagen na het afrekenen annuleren. 
     Het zal binnen 7 dagen bij u thuis worden bezorgd.<br><br>";
     $email .= "Met vriendelijke groet,<br>";
     $email .= "Webshop NerdyGadgets";
