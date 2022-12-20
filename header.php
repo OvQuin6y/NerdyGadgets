@@ -35,10 +35,10 @@ $databaseConnection = connectToDatabase();
 <div class="Background">
     <div class="row" id="Header">
         <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"><img src="Public/Img/NerdyGadgetsLogo.png"></div>
+                <div id="LogoImage" class="logoContainer"><img class="logo" src="Public/Img/NerdyGadgetsLogo.png"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
-            <ul id="ul-class">
+            <ul id="ul-class" class="middle-header">
                 <?php
                 $lang = $_SESSION["lang"];
                 $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $lang);
