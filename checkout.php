@@ -111,39 +111,38 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
         window.history.replaceState(null, null, window.location.href );
     }
 </script>
-<h4 class = "Text_checkout"><?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_titel")?></h4><br>
-
+<div class="Invoer_form">
+    <h4 class = "Text_checkout"><?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_titel")?></h4><br>
     <?php if (isset($_SESSION["klantID"])) { ?>
-        <div class="Invoer_form">
-        <table style="display: flex; justify-content: space-around; margin-left: 3vh">
+
+        <table style="display: flex; justify-content: space-around; margin-left: 15vh">
             <Tr>
-                <td>Name:</td>
+                <td><?php echo getTranslation($databaseConnection, $lang, "naam").": "?></td>
                 <td><?php echo getCustomerData($databaseConnection,$_SESSION["klantID"],"FirstName")." ".getCustomerData($databaseConnection,$_SESSION["klantID"],"LastName")?></td>
             </Tr>
             <tr>
-                <td>E-maiL:</td>
+                <td><?php echo getTranslation($databaseConnection, $lang, "E-mail").": "?></td>
                 <td><?php echo getCustomerData($databaseConnection,$_SESSION["klantID"],"Email")?></td>
             </tr>
             <tr>
-                <td>Phone Number:</td>
+                <td><?php echo getTranslation($databaseConnection, $lang, "telefoonnummer").": "?></td>
                 <td><?php echo getCustomerData($databaseConnection,$_SESSION["klantID"],"PhoneNumber")?></td>
             </tr>
             <tr>
-                <td>Adress:</td>
+                <td><?php echo getTranslation($databaseConnection, $lang, "adres").": "?></td>
                 <td><?php echo getCustomerData($databaseConnection,$_SESSION["klantID"],"Street")." ".getCustomerData($databaseConnection,$_SESSION["klantID"],"HouseNumber").", ".getCustomerData($databaseConnection,$_SESSION["klantID"],"PostalCode")." ".getCustomerData($databaseConnection,$_SESSION["klantID"],"City")?></td>
             </tr>
             <tr>
-                <td>Country:</td>
+                <td><?php echo getTranslation($databaseConnection, $lang, "land").": "?></td>
                 <td><?php echo getCustomerData($databaseConnection,$_SESSION["klantID"],"Country")?></td>
             </tr>
         </table>
-        </div>
+
         <form class="Checkout_form" style="padding-left: 0" method="post" action="ideal.php">
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand") ?>" style="font-size: 17px; width: 27vh;" href="http://localhost/NerdyGadgets/checkout.php" class="Buttons_checkout"><br>
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_iDeal") ?>" style="font-size: 17px; width: 27vh;" name="goToIdeal2" class="Buttons_checkout"><br><br>
         </form>
     <?php } else { ?>
-        <div class="Invoer_form">
         <form class = "Checkout_form" method="post" action="ideal.php">
             <input type="text" id="fname" name="fname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_voornaam") . " *" ?>" class = Inputfields required><br><br>
             <input type="text" id="lname" name="lname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_achternaam") . " *" ?>" class = Inputfields required><br><br>
@@ -160,8 +159,8 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand") ?>" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php" class="Buttons_checkout"><br>
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_iDeal") ?>" style="font-size: 17px;" name="goToIdeal" class="Buttons_checkout"><br><br>
         </form>
-        </div>
     <?php } ?>
+</div>
 </div>
 </body>
 </html>
