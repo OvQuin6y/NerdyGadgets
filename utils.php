@@ -19,7 +19,7 @@ function send_email(string $ontvanger, string $onderwerp, string $body): string{
     $mail = new PHPMailer(true);
     try {
         $mail->IsSMTP();
-        $mail->SMTPDebug = 1;
+//        $mail->SMTPDebug = 1;
         $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth = true;
