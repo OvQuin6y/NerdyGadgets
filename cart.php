@@ -74,8 +74,7 @@ $databaseConnection = connectToDatabase();
         </tbody>
     </table>
     <h3><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_totaalprijs") . ": €"?><?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
-    <form method="post" action="checkout.php" id="orderForm">
-        <br>
+    <form method="post" action="checkout.php" id="orderForm">Z        <br>
         <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_overzicht_button")?>" name="knop" class="Button_place_order">
         <br>
     </form>

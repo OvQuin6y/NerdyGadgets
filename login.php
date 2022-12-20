@@ -32,7 +32,7 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
             <input type="password" name="pword" placeholder="Password" class="loginfields" required>
         </div>
         <div class="Checkout_form">
-            <input style="margin: 7px" type="submit" value="Back to website" href="javascript:history.go(-1)" class="Buttons_checkout">
+            <input style="margin: 7px" type="submit" value="Back to website" formaction="index.php" class="Buttons_checkout" formnovalidate>
             <input style="margin: 7px" type="submit" value="Log in" name="login" class="Buttons_checkout">
         </div>
         <h1 style="font-size:20px; text-align: center">Don't have an account? register <a href="register.php">here</a></h1>

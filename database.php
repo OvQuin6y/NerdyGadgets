@@ -145,17 +145,17 @@ function getID(mysqli $databaseConnection, $mail)
     return $return;
 }
 
-function getName(mysqli $databaseConnection, $id)
+function getCustomerData(mysqli $databaseConnection, $id, $column)
 {
     $query = "
-                SELECT FirstName
+                SELECT $column
                 FROM klant
                 WHERE klantID ='" . $id .  "';";
 
     $result = $databaseConnection->query($query);
     $return = "";
     while ($row = $result->fetch_array()) {
-        $return = $row["FirstName"];
+        $return = $row[$column];
     }
     return $return;
 }
