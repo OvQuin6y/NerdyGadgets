@@ -50,6 +50,8 @@ as $user):
                             <input id="inputEdit5" type="text" name="postalCode" value="<?= $user["PostalCode"] ?>">
                             <label id="labelEdit6">House Number:</label>
                             <input id="inputEdit6" type="text" name="houseNumber" value="<?= $user["HouseNumber"] ?>">
+                            <label id="labelEdit7">City:</label>
+                            <input id="inputEdit7" type="text" name="city" value="<?= $user["City"] ?>">
                         </div>
                     </div>
 
@@ -130,12 +132,14 @@ as $user):
     var phoneNumber = document.getElementById("inputEdit4")
     var postalCode = document.getElementById("inputEdit5")
     var houseNumber = document.getElementById("inputEdit6")
+    var city = document.getElementById("inputEdit7")
     var label1 = document.getElementById("labelEdit")
     var label2 = document.getElementById("labelEdit2")
     var label3 = document.getElementById("labelEdit3")
     var label4 = document.getElementById("labelEdit4")
     var label5 = document.getElementById("labelEdit5")
     var label6 = document.getElementById("labelEdit6")
+    var label7 = document.getElementById("labelEdit7")
     var submit = document.getElementById("submitForm")
 
     function openPopup() {
@@ -171,12 +175,16 @@ as $user):
         houseNumber.style.display = "block"
         houseNumber.style.width = "40vh"
         houseNumber.style.height = "5vh"
+        city.style.display = "block"
+        city.style.width = "40vh"
+        city.style.height = "5vh"
         label1.style.display = "block"
         label2.style.display = "block"
         label3.style.display = "block"
         label4.style.display = "block"
         label5.style.display = "block"
         label6.style.display = "block"
+        label7.style.display = "block"
         submit.style.display = "block"
         submit.style.width = "15vh"
         submit.style.height = "5vh"
@@ -208,25 +216,45 @@ as $user):
         houseNumber.style.display = "none"
         houseNumber.style.width = "0%"
         houseNumber.style.height = "0vh"
+        city.style.display = "none"
+        city.style.width = "0%"
+        city.style.height = "0vh"
         label1.style.display = "none"
         label2.style.display = "none"
         label3.style.display = "none"
         label4.style.display = "none"
         label5.style.display = "none"
         label6.style.display = "none"
+        label7.style.display = "none"
         submit.style.display = "none"
         submit.style.width = "0vh"
         submit.style.height = "0vh"
     }
 </script>
 <?php endforeach;
-if (!empty($_POST["firstName"]) && !empty($_POST["lastName"]) && !empty($_POST["email"]) && !empty($_POST["phoneNumber"]) && !empty($_POST["postalCode"]) && !empty($_POST["houseNumber"])) {
+if (!empty($_POST["firstName"]) && !empty($_POST["lastName"]) && !empty($_POST["email"]) && !empty($_POST["phoneNumber"]) && !empty($_POST["postalCode"]) && !empty($_POST["houseNumber"]) && !empty($_POST["city"])) {
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
     $email = $_POST["email"];
     $phoneNumber = $_POST["phoneNumber"];
     $postalCode = $_POST["postalCode"];
     $houseNumber = $_POST["houseNumber"];
-    updateKlant($databaseConnection, $_SESSION["klantID"], $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber);
+    $city = $_POST["city"];
+
+    if (preg_match('/^[0-9]{1,2}[0-9][0-9]? [A-Z]{2}$/', $postalCode)){
+        updateKlant($databaseConnection, $_SESSION["klantID"], $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber, $city);
+        ?>
+        <script>
+            window.location = 'profile.php'
+        </script>
+        <?php
+    } else {
+        ?>
+        <script>
+        alert("Postal code is incorrect. Type it like this 0000 AA");
+        window.location = 'profile.php'
+        </script>
+        <?php
+    }
 }
 ?>

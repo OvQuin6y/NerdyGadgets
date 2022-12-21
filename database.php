@@ -173,12 +173,12 @@ function getKlant(mysqli $databaseConnection, $id)
 
     return $R;
 }
-function updateKlant(mysqli $databaseConnection, $id, $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber)
+function updateKlant(mysqli $databaseConnection, $id, $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber, $city)
 {
     $query = "
                 UPDATE klant
                 SET FirstName = '$firstName', LastName = '$lastName', Email = '$email', PhoneNumber = '$phoneNumber',
-                    PostalCode = '$postalCode', HouseNumber = '$houseNumber'
+                    PostalCode = '$postalCode', HouseNumber = '$houseNumber', City = '$city'
                 WHERE klantID = $id";
 
     $Statement = mysqli_prepare($databaseConnection, $query);
