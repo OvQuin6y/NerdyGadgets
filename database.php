@@ -150,7 +150,7 @@ function getName(mysqli $databaseConnection, $id)
     $query = "
                 SELECT FirstName
                 FROM klant
-                WHERE klantID ='" . $id .  "';";
+                WHERE klantID = $id";
 
     $result = $databaseConnection->query($query);
     $return = "";
@@ -172,4 +172,15 @@ function getKlant(mysqli $databaseConnection, $id)
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
 
     return $R;
+}
+function updateKlant(mysqli $databaseConnection, $id, $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber)
+{
+    $query = "
+                UPDATE klant
+                SET FirstName = '$firstName', LastName = '$lastName', Email = '$email', PhoneNumber = '$phoneNumber',
+                    PostalCode = '$postalCode', HouseNumber = '$houseNumber'
+                WHERE klantID = $id";
+
+    $Statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($Statement);
 }
