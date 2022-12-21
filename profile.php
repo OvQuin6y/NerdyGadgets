@@ -6,9 +6,12 @@ if (!isset($_SESSION)) {
 }
 
 $databaseConnection = connectToDatabase();
+
 $klant = getKlant($databaseConnection, $_SESSION["klantID"]);
 
-foreach ($klant as $user):
+foreach ($klant
+
+as $user):
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -20,29 +23,53 @@ foreach ($klant as $user):
 <body>
 <div class="bodyContainer">
     <div id="formPopup" class="formPopup">
-        <div class="topContainer">
-            <h3 id="title">Edit Details Here</h3>
-            <svg id="exit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" onclick="closePopup()">
-                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
-            </svg>
-        </div>
-        <div class="formContainer">
-            <form method="post">
+        <form method="post" action="profile.php">
+            <div class="topContainer">
+                <h3 id="title">Edit Details Here</h3>
+                <svg id="exit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                     class="w-6 h-6"
+                     onclick="closePopup()">
+                    <path fill-rule="evenodd"
+                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="formContainer">
+                <form method="post" action="profile.php">
+                    <div class="editForm">
+                        <div class="flexContainer">
+                            <label id="labelEdit">First Name:</label>
+                            <input id="inputEdit" type="text" name="firstName" value="<?= $user["FirstName"] ?>">
+                            <label id="labelEdit2">Last Name:</label>
+                            <input id="inputEdit2" type="text" name="lastName" value="<?= $user["LastName"] ?>">
+                            <label id="labelEdit3">Email:</label>
+                            <input id="inputEdit3" type="text" name="email" value="<?= $user["Email"] ?>">
+                            <label id="labelEdit4">Phone Number:</label>
+                            <input id="inputEdit4" type="text" name="phoneNumber" value="<?= $user["PhoneNumber"] ?>">
+                            <label id="labelEdit5">Postal Code:</label>
+                            <input id="inputEdit5" type="text" name="postalCode" value="<?= $user["PostalCode"] ?>">
+                            <label id="labelEdit6">House Number:</label>
+                            <input id="inputEdit6" type="text" name="houseNumber" value="<?= $user["HouseNumber"] ?>">
+                        </div>
+                    </div>
 
-            </form>
-        </div>
+            </div>
+            <div class="bottomContainer">
+                <input type="submit" name="submit" class="submitForm" value="Submit" id="submitForm">
+            </div>
+        </form>
     </div>
     <div class="mainContainer">
         <div class="userDetailsContainer">
             <div class="left">
                 <h5>Welcome!</h5>
-                <h4><?= $user["FirstName"];?> <?= $user["LastName"]?></h4>
+                <h4><?= $user["FirstName"]; ?> <?= $user["LastName"] ?></h4>
             </div>
             <div class="middle">
                 <h5>Email: <?= $user["Email"] ?></h5>
-                <h5>Phonenumber: <?= $user["PhoneNumber"]?></h5>
-                <h5>Postal code & Housenumber: <?= $user["PostalCode"]?>, <?= $user["HouseNumber"]?></h5>
-                <h5>City: <?= $user["City"]?></h5>
+                <h5>Phonenumber: <?= $user["PhoneNumber"] ?></h5>
+                <h5>Postal code & Housenumber: <?= $user["PostalCode"] ?>, <?= $user["HouseNumber"] ?></h5>
+                <h5>City: <?= $user["City"] ?></h5>
             </div>
             <div class="right">
                 <h5 onclick="openPopup()">Edit Details</h5>
@@ -97,6 +124,20 @@ foreach ($klant as $user):
     var container = document.getElementById("formPopup")
     var containerExit = document.getElementById("exit")
     var title = document.getElementById("title")
+    var firstName = document.getElementById("inputEdit")
+    var lastName = document.getElementById("inputEdit2")
+    var email = document.getElementById("inputEdit3")
+    var phoneNumber = document.getElementById("inputEdit4")
+    var postalCode = document.getElementById("inputEdit5")
+    var houseNumber = document.getElementById("inputEdit6")
+    var label1 = document.getElementById("labelEdit")
+    var label2 = document.getElementById("labelEdit2")
+    var label3 = document.getElementById("labelEdit3")
+    var label4 = document.getElementById("labelEdit4")
+    var label5 = document.getElementById("labelEdit5")
+    var label6 = document.getElementById("labelEdit6")
+    var submit = document.getElementById("submitForm")
+
     function openPopup() {
         container.style.transform = "translateY(-10vh)"
         container.style.zIndex = "1"
@@ -112,7 +153,35 @@ foreach ($klant as $user):
         containerExit.style.cursor = "pointer"
         title.style.display = "block"
         title.style.fontSize = "22pt"
+        firstName.style.display = "block"
+        firstName.style.width = "40vh"
+        firstName.style.height = "5vh"
+        lastName.style.display = "block"
+        lastName.style.width = "40vh"
+        lastName.style.height = "5vh"
+        email.style.display = "block"
+        email.style.width = "40vh"
+        email.style.height = "5vh"
+        phoneNumber.style.display = "block"
+        phoneNumber.style.width = "40vh"
+        phoneNumber.style.height = "5vh"
+        postalCode.style.display = "block"
+        postalCode.style.width = "40vh"
+        postalCode.style.height = "5vh"
+        houseNumber.style.display = "block"
+        houseNumber.style.width = "40vh"
+        houseNumber.style.height = "5vh"
+        label1.style.display = "block"
+        label2.style.display = "block"
+        label3.style.display = "block"
+        label4.style.display = "block"
+        label5.style.display = "block"
+        label6.style.display = "block"
+        submit.style.display = "block"
+        submit.style.width = "15vh"
+        submit.style.height = "5vh"
     }
+
     function closePopup() {
         container.style.display = "hidden";
         container.style.width = "0%"
@@ -121,6 +190,43 @@ foreach ($klant as $user):
         containerExit.style.width = "0px"
         title.style.display = "hidden"
         title.style.fontSize = "0"
+        firstName.style.display = "none"
+        firstName.style.width = "0%"
+        firstName.style.height = "0vh"
+        lastName.style.display = "none"
+        lastName.style.width = "0%"
+        lastName.style.height = "0vh"
+        email.style.display = "none"
+        email.style.width = "0%"
+        email.style.height = "0vh"
+        phoneNumber.style.display = "none"
+        phoneNumber.style.width = "0%"
+        phoneNumber.style.height = "0vh"
+        postalCode.style.display = "none"
+        postalCode.style.width = "0%"
+        postalCode.style.height = "0vh"
+        houseNumber.style.display = "none"
+        houseNumber.style.width = "0%"
+        houseNumber.style.height = "0vh"
+        label1.style.display = "none"
+        label2.style.display = "none"
+        label3.style.display = "none"
+        label4.style.display = "none"
+        label5.style.display = "none"
+        label6.style.display = "none"
+        submit.style.display = "none"
+        submit.style.width = "0vh"
+        submit.style.height = "0vh"
     }
 </script>
-<?php endforeach;?>
+<?php endforeach;
+if (!empty($_POST["firstName"]) && !empty($_POST["lastName"]) && !empty($_POST["email"]) && !empty($_POST["phoneNumber"]) && !empty($_POST["postalCode"]) && !empty($_POST["houseNumber"])) {
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $email = $_POST["email"];
+    $phoneNumber = $_POST["phoneNumber"];
+    $postalCode = $_POST["postalCode"];
+    $houseNumber = $_POST["houseNumber"];
+    updateKlant($databaseConnection, $_SESSION["klantID"], $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber);
+}
+?>

@@ -35,6 +35,7 @@ thead {
 .data {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
 }
 .data td {
     width: 20%;
