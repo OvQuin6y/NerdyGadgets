@@ -26,9 +26,9 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
 <div class="registerTitle">
     <h1><?php echo getTranslation($databaseConnection, $lang, "inloggen")?></h1>
 </div>
-<div class="container">
-    <form method="post" action="login.php">
-        <div class = "login_form">
+<div class="loginContainer">
+    <form method="post" action="login.php" class="loginForm">
+        <div class="loginInput">
             <input type="email" name="mail" placeholder="<?php echo getTranslation($databaseConnection, $lang, "E-mail")?>" class="loginfields" required>
             <input type="password" name="pword" placeholder="<?php echo getTranslation($databaseConnection, $lang, "wachtwoord")?>" class="loginfields" required>
         </div>
