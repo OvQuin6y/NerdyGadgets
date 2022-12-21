@@ -240,6 +240,21 @@ if (!empty($_POST["firstName"]) && !empty($_POST["lastName"]) && !empty($_POST["
     $postalCode = $_POST["postalCode"];
     $houseNumber = $_POST["houseNumber"];
     $city = $_POST["city"];
-    updateKlant($databaseConnection, $_SESSION["klantID"], $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber, $city);
+
+    if (preg_match('/^[0-9]{1,2}[0-9][0-9]? [A-Z]{2}$/', $postalCode)){
+        updateKlant($databaseConnection, $_SESSION["klantID"], $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber, $city);
+        ?>
+        <script>
+            window.location = 'profile.php'
+        </script>
+        <?php
+    } else {
+        ?>
+        <script>
+        alert("Postal code is incorrect. Type it like this 0000 AA");
+        window.location = 'profile.php'
+        </script>
+        <?php
+    }
 }
 ?>
