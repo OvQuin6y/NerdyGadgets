@@ -160,7 +160,7 @@ if (isset($_POST["login"]) && getPassword($databaseConnection, $_POST["mail"]) =
             <input type="text" id="city" name="city" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_stad") . " *" ?>" class = Inputfields required><br><br>
             <input type="email" id="e-mail" name="e-mail" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_e-mail") . " *" ?>" class = Inputfields required><br><br>
             <input type="number" id="pnumber" name="pnumber" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_telefoonnummer") . " *" ?>" class = Inputfields required><br><br>
-            <input type="text" id="daline1" name="daline1" required placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_bezorgadres") . "*"?>" class = Inputfields required><br><br>
+            <input type="text" id="daline1" name="daline1" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_bezorgadres") . "*"?>" class = Inputfields required><br><br>
             <input type="text" id="daline2" name="daline2" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_bezorgadres_toevoeging") ?>" class = Inputfields><br><br>
             <input type="text" id="paline1" name="paline1" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_postadres") . " *" ?>" class = Inputfields required><br><br>
             <input type="text" id="paline2" name="paline2" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_postadres_toevoeging") ?>" class = Inputfields><br><br>
