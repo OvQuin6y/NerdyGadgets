@@ -3,6 +3,7 @@ include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
 $databaseConnection = connectToDatabase();
+$lang = $_SESSION["lang"];
 
 if (isset($_POST["register"]) && checkMail($databaseConnection, $_POST["email"]) == "FALSE") {
     $fname = $_POST["fname"];

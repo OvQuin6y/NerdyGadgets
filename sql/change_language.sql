@@ -261,4 +261,6 @@ INSERT INTO translation_table (`name`, `en`, `nl`)VALUES
 ('Review_button_submit', 'Submit', 'Verzend'),
 ('Review_button_close', 'Close', 'Sluit');
 
-
+UPDATE translation_table
+SET nl = 'Schrijf hier je review'
+WHERE name = 'Review_titel_in_menu';
