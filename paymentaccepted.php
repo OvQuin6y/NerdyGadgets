@@ -155,13 +155,14 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
 
         }
         $databaseConnection->commit();
+        $databaseConnection->autocommit(TRUE);
+        send_email($email, $fullname, generateEmail($databaseConnection, $fullname, $orderID));
+        $_SESSION["transactionOngoing"] = false;
+        clearCart();
     } catch (Exception $e) {
         $databaseConnection->rollback();
+        echo $e;
     }
-    $databaseConnection->autocommit(TRUE);
-    send_email($email, $fullname, generateEmail($databaseConnection, $fullname, $orderID));
-    $_SESSION["transactionOngoing"] = false;
-    clearCart();
 }
 
 ?>
