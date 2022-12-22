@@ -47,4 +47,20 @@ thead {
     width: 100px;
     height: 100px;
 }
+.checkoutContainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.checkoutForm {
+    display: flex;
+    width: 80%;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 2vh;
+    column-gap: 2vh;
+}
 
