@@ -28,17 +28,17 @@ if (ISSET($_SESSION['klantID'])) {
 <div class="registerTitle">
     <h1>Login</h1>
 </div>
-<div class="container">
-    <form method="post" action="checkout.php">
-        <div class = "login_form">
+<div class="loginContainer">
+    <form method="post" action="checkout.php" class="loginForm">
+        <div class = "loginInput">
         <input type="email" name="mail" placeholder="<?php echo getTranslation($databaseConnection, $lang, "E-mail")?>" class="loginfields" required>
         <input type="password" name="pword" placeholder="<?php echo getTranslation($databaseConnection, $lang, "wachtwoord")?>" class="loginfields" required>
         </div>
         <div class="Checkout_form">
-        <input style="margin: 7px" type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand")?>" formaction="cart.php" class="Buttons_checkout" formnovalidate>
-        <input style="margin: 7px" type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "inloggen")?>" name="login" class="Buttons_checkout">
-        <input style="margin: 7px" type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "zonderacount")?>" formaction="checkout.php" class="Buttons_checkout" formnovalidate>
-        <input style="margin: 7px" type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "registreren")?>" formaction="register.php" class="Buttons_checkout" formnovalidate>
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand")?>" formaction="cart.php" class="Buttons_checkout" formnovalidate>
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "inloggen")?>" name="login" class="Buttons_checkout">
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "zonderacount")?>" formaction="checkout.php" class="Buttons_checkout" formnovalidate>
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "registreren")?>" formaction="register.php" class="Buttons_checkout" formnovalidate>
         </div>
     </form>
     <?php
