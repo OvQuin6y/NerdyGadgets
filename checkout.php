@@ -8,7 +8,7 @@ $totaalprijs = 0;
 if (isCardEmpty()) {
     ?>
 <script type="text/javascript">
-    window.location.href = "index.php";
+    window.location.href = "cart.php";
 </script>
 
     <?php
@@ -147,7 +147,7 @@ if (isset($_POST["login"]) && getPassword($databaseConnection, $_POST["mail"]) =
         </table>
 
         <form class="Checkout_form" style="padding-left: 0" method="post" action="ideal.php">
-            <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand") ?>" style="font-size: 17px; width: 27vh;" href="http://localhost/NerdyGadgets/checkout.php" class="Buttons_checkout"><br>
+            <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand") ?>" style="font-size: 17px; width: 27vh;" formaction="cart.php" class="Buttons_checkout" formnovalidate><br>
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_iDeal") ?>" style="font-size: 17px; width: 27vh;" name="goToIdeal2" class="Buttons_checkout"><br><br>
         </form>
     <?php } else { ?>
@@ -164,7 +164,7 @@ if (isset($_POST["login"]) && getPassword($databaseConnection, $_POST["mail"]) =
             <input type="text" id="daline2" name="daline2" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_bezorgadres_toevoeging") ?>" class = Inputfields><br><br>
             <input type="text" id="paline1" name="paline1" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_postadres") . " *" ?>" class = Inputfields required><br><br>
             <input type="text" id="paline2" name="paline2" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_postadres_toevoeging") ?>" class = Inputfields><br><br>
-            <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand") ?>" style="font-size: 17px;" href="http://localhost/NerdyGadgets/checkout.php" class="Buttons_checkout"><br>
+            <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand") ?>" style="font-size: 17px;" formaction="cart.php" class="Buttons_checkout" formnovalidate><br>
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_iDeal") ?>" style="font-size: 17px;" name="goToIdeal" class="Buttons_checkout"><br><br>
         </form>
     <?php } ?>

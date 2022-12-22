@@ -9,7 +9,11 @@ if (!isset($_SESSION)) {
 }
 
 if (ISSET($_SESSION['klantID'])) {
-    header("Location: checkout.php");
+    ?>
+    <script type="text/javascript">
+        window.location.href = "checkout.php";
+    </script>
+    <?php
 }
 ?>
 
