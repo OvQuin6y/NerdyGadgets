@@ -1,6 +1,7 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
+include "get_temp.php";
 
 //test2
 $ReturnableResult = null;
@@ -199,7 +200,8 @@ function getVoorraadTekst($actueleVoorraad, $databaseConnection, $lang)
     } else {
         return $actueleVoorraad . getTranslation($databaseConnection, $lang, "Voorraad_overige_opties") ;
     }
-} ?>
+}
+?>
 </div>
 <?php
 function berekenVerkoopPrijs($adviesPrijs, $btw)
@@ -292,6 +294,16 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
                     <h1 class="StockItemID"><?php print getTranslation($databaseConnection, $lang, "Artikelnummer") . ": " .  $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
+                    <p class="StockItemComments"><?php
+                        if($row["StockItemID"] >= 220 && $row["StockItemID"] <= 227){
+                            if($lang == "en"){
+                                echo "Temperature: ";
+                            }else{
+                                echo "Temperatuur: ";
+                            }
+                            echo getTemperature($databaseConnection) . " °C";
+                        }
+                        ?></p>
                     <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"], $databaseConnection, $lang); ?></h4>
                 </div>
                 <!--  coderegel 2 van User story: bekijken producten  -->

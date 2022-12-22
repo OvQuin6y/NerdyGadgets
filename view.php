@@ -2,6 +2,7 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
+include "get_temp.php";
 
 $lang = $_SESSION["lang"];
 $databaseConnection = connectToDatabase();
@@ -224,6 +225,19 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         }
                         ?>
                     </td>
+                </tr>
+            <?php }  if($stockItemID >= 220 && $stockItemID <= 227){?>
+                <tr>
+                    <td><?php
+                        if($_SESSION['lang'] == "en"){
+                            echo "Temperature";
+                        } else {
+                            print "Temperatuur";
+                        }
+                        ?></td>
+                    <td><?php
+                        echo getTemperature($databaseConnection); echo " °C";
+                        ?></td>
                 </tr>
             <?php } ?>
             </table><?php
