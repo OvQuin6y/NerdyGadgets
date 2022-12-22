@@ -145,13 +145,13 @@ if (isset($_POST["login"]) && getPassword($databaseConnection, $_POST["mail"]) =
                 <td><?php echo getCustomerData($databaseConnection,$_SESSION["klantID"],"Country")?></td>
             </tr>
         </table>
-
-        <form class="Checkout_form" style="padding-left: 0" method="post" action="ideal.php">
+        <div class="checkoutContainer">
+        <form class="checkoutForm" style="padding-left: 0" method="post" action="ideal.php">
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand") ?>" style="font-size: 17px; width: 27vh;" formaction="cart.php" class="Buttons_checkout" formnovalidate><br>
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_iDeal") ?>" style="font-size: 17px; width: 27vh;" name="goToIdeal2" class="Buttons_checkout"><br><br>
         </form>
     <?php } else { ?>
-        <form class = "Checkout_form" method="post" action="ideal.php">
+        <form class = "checkoutForm" method="post" action="ideal.php">
             <input type="text" id="fname" name="fname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_voornaam") . " *" ?>" class = Inputfields required><br><br>
             <input type="text" id="lname" name="lname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_achternaam") . " *" ?>" class = Inputfields required><br><br>
             <input type="text" id="dpcode" name="dpcode" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_bezorg_postcode") . " *" ?>" class = Inputfields required><br><br>
@@ -168,6 +168,7 @@ if (isset($_POST["login"]) && getPassword($databaseConnection, $_POST["mail"]) =
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_iDeal") ?>" style="font-size: 17px;" name="goToIdeal" class="Buttons_checkout"><br><br>
         </form>
     <?php } ?>
+        </div>
 </div>
 </div>
 </body>
