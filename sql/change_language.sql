@@ -240,7 +240,7 @@ UPDATE Translation_table
 SET nl = 'Ruime voorraad beschikbaar'
 WHERE Name= 'Voorraad_veel_aanwezig';
 
--- oplossen null waardes
+-- oplossen null waardes -> in TO gezet
 UPDATE Stockgroups_nl
 SET ImagePath = null
 WHERE StockGroupID = 3;
@@ -252,3 +252,13 @@ WHERE StockGroupID = 8;
 UPDATE Stockgroups_nl
 SET ImagePath = null
 WHERE StockGroupID = 10;
+
+INSERT INTO translation_table (`name`, `en`, `nl`)VALUES
+('Review_button', 'Review this product', 'Schrijf review'),
+('Review_titel', 'Review', 'Review'),
+('Review_titel_in_menu', 'Typ your review', 'Schrijf je Beoordeling'),
+('Review_titel_sterren' , 'Rate this product', 'Beoordeel dit product'),
+('Review_button_submit', 'Submit', 'Verzend'),
+('Review_button_close', 'Close', 'Sluit');
+
+

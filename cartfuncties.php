@@ -139,17 +139,17 @@ function generateEmail(mysqli $databaseconnection, string $klantnaam, int $order
         $row = mysqli_fetch_assoc($result); // haal de rij op
         $email .= $row["StockItemName"] . " x " . $aantal . "<br>"; // voeg de productnaam en het aantal toe aan de email
     }
-    // retrieve the CancelCode from the order table
-    $query = "SELECT CancelCode AS c FROM orders WHERE OrderID = $orderId"; // maak een query die de productnaam ophaalt
-    print $orderId;
-    $statement = mysqli_prepare($databaseconnection, $query); // maak een verklaring van de query
-    mysqli_stmt_execute($statement); // voer de query uit
-    $result = mysqli_stmt_get_result($statement); // haal het resultaat op
-    $row = mysqli_fetch_assoc($result); // haal de rij op
-    $cancelUrl = "localhost/cancel_order.php?cancelCode=" . $row["c"];
-    $email .= "Mocht u om welke reden dan ook besluiten om uw bestelling te annuleren, dan kunt u dit doen door 
-    <a href='$cancelUrl'>hier</a> te klikken. Let op: u kunt uw bestelling max.S 3 dagen na het afrekenen annuleren. 
-    Het zal binnen 7 dagen bij u thuis worden bezorgd.<br><br>";
+    $getCodesQuery = "SELECT CancelCode AS c, VerificationCode AS vc FROM orders WHERE OrderID = $orderId";
+    $statement = mysqli_prepare($databaseconnection, $getCodesQuery);
+    mysqli_stmt_execute($statement);
+    $result = mysqli_stmt_get_result($statement);
+    $row = mysqli_fetch_assoc($result);
+    $cancelCode = $row["c"];
+    $verificationCode = $row["vc"];
+    $cancelUrl = "localhost/NerdyGadgets/cancel_order.php?cancelCode=" . $cancelCode;
+    $email .= "<br>Mocht u om welke reden dan ook besluiten om uw bestelling te annuleren, dan kunt u dit doen door 
+    <a href='$cancelUrl'>hier</a> te klikken. Uw unieke verificatie code is: " . $verificationCode .
+        " .Let op: u kunt uw bestelling max. 3 dagen na het afrekenen annuleren. De bestelling zal binnen 7 dagen bij u thuis worden bezorgd.<br><br>";
     $email .= "Met vriendelijke groet,<br>";
     $email .= "Webshop NerdyGadgets";
     return $email; // geef de email terug

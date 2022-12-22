@@ -11,7 +11,11 @@ if (!isset($_SESSION)) {
 
 if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) == $_POST["pword"]) {
     $_SESSION["klantID"] = getID($databaseConnection,$_POST["mail"]);
-    header("Location: index.php");
+    ?>
+    <script type="text/javascript">
+        window.location.href = "index.php";
+    </script>
+    <?php
 }
 ?>
 

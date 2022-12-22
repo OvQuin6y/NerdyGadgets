@@ -150,7 +150,7 @@ function getCustomerData(mysqli $databaseConnection, $id, $column)
     $query = "
                 SELECT $column
                 FROM klant
-                WHERE klantID = $id";
+                WHERE klantID ='" . $id .  "';";
 
     $result = $databaseConnection->query($query);
     $return = "";
@@ -183,4 +183,23 @@ function updateKlant(mysqli $databaseConnection, $id, $firstName, $lastName, $em
 
     $Statement = mysqli_prepare($databaseConnection, $query);
     mysqli_stmt_execute($Statement);
+}
+
+function checkMail(mysqli $databaseConnection, $mail)
+{
+    $query = "
+                SELECT COUNT(*) aantal
+                FROM klant
+                WHERE Email ='" . $mail .  "';";
+
+    $result = $databaseConnection->query($query);
+    $return = "";
+    while ($row = $result->fetch_array()) {
+        $return = $row["aantal"];
+    }
+    if ($return == 1) {
+        return "TRUE";
+    } else {
+        return "FALSE";
+    }
 }

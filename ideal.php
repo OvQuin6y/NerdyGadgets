@@ -102,6 +102,7 @@ if (isset($_POST["goToIdeal"])) {
     $_SESSION["paline1"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"City");
     $_SESSION["paline2"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"City");
     $_SESSION["pnumber"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"PhoneNumber");
+    $_SESSION["e-mail"] = getCustomerData($databaseConnection,$_SESSION["klantID"],"Email");
     $_SESSION["transactionOngoing"] = true;
 }
 ?>
