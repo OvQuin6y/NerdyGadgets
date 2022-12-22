@@ -25,7 +25,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     <?php }
     ?>
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Review this product
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><?php echo getTranslation($databaseConnection, $lang, "Review_button")?>
     </button>
 
     <!-- Modal -->
@@ -36,7 +36,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Review</h4>
+                    <h4 class="modal-title"><?php echo getTranslation($databaseConnection, $lang, "Review_titel")?></h4>
                 </div>
                 <form action="\NerdyGadgets\view.php" method="post">
                     <div class="modal-body">
@@ -52,13 +52,13 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <div class="card text-center">
 
 
-                                <textarea id="test" name="w3review" placeholder="Typ your review" rows="4" cols="50"
+                                <textarea id="test" name="w3review" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Review_titel_in_menu")?>" rows="4" cols="50"
                                           maxlength="150" required></textarea>
                                 <br>
 
 
                                 <div class="rate bg-success py-3 text-white mt-3">
-                                    <h6 class="mb-0">Rate this product</h6>
+                                    <h6 class="mb-0"><?php echo getTranslation($databaseConnection, $lang, "Review_titel_sterren")?></h6>
                                     <div class="rating">
                                         <input type="radio" name="rating" value="5" id="5"><label for="5" >☆</label>
                                         <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
@@ -71,10 +71,10 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="upload" value="submit">
+                        <input type="submit" class="upload" value="<?php echo getTranslation($databaseConnection, $lang, "Review_button_submit")?>">
 
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo getTranslation($databaseConnection, $lang, "Review_button_close")?></button>
 
                     </div>
                 </form>
