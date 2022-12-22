@@ -25,6 +25,10 @@ if(isset($_GET["cancelCode"])) {
         margin: auto;
         border: 1px solid black;
         padding: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 </style>
 <div class="container">
