@@ -16,15 +16,25 @@ if(isset($_GET["cancelCode"])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bestelling Annuleren</title>
+    <title>Order Cancellation</title>
 </head>
 <body>
-<h1><?php echo $_SESSION["cancelCode"];?></h1>
+<style>
+    .container {
+        width: 500px;
+        margin: auto;
+        border: 1px solid black;
+        padding: 10px;
+    }
+</style>
+<div class="container">
 <form action="cancel_order.php" method="post">
+    <h1>Cancellation code: <?php echo $_SESSION["cancelCode"];?></h1>
     <label for="code">Verificatie Code:</label>
     <input type="number" name="code" id="code" pattern="[0-9]{6}" required> <br>
     <input type="submit" value="Verstuur" name="submit">
 </form>
+</div>
 </body>
 </html>
 <?php
@@ -41,14 +51,24 @@ if(isset($_GET["cancelCode"])) {
                 $query = "DELETE FROM orders WHERE CancelCode = '" . $cancelCode . "'";
                 $statement = mysqli_prepare($databaseConnection, $query);
                 mysqli_stmt_execute($statement);
-                echo "Your order has been cancelled";
+                ?>
+                <script type="text/javascript">
+                    alert("Your order has been cancelled.");
+                </script>
+                <?php
             } else {
-                echo "That's not a valid verification code.";
+                ?>
+                <script type="text/javascript">
+                    alert("Your order could not be cancelled.");
+                </script>
+                <?php
             }
         } catch (Exception $e) {
-            echo "Something unexpected happend.";
+            ?>
+            <script type="text/javascript">
+                alert("Something unexpected happend.");
+            </script>
+            <?php
         }
     }
-
-
 ?>
