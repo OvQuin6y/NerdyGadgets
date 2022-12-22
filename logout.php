@@ -3,4 +3,8 @@ include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
 unset($_SESSION["klantID"]);
-header("Location: index.php");
+
+?>
+<script type="text/javascript">
+    location.href = "index.php";
+</script>
