@@ -254,9 +254,11 @@ SET ImagePath = null
 WHERE StockGroupID = 10;
 
 INSERT INTO translation_table (`name`, `en`, `nl`)VALUES
-('review_button', 'Review this product', 'Schrijf review'),
-('review_titel', 'Review', 'Review'),
+('Review_button', 'Review this product', 'Schrijf review'),
+('Review_titel', 'Review', 'Review'),
 ('Review_titel_in_menu', 'Typ your review', 'Schrijf je Beoordeling'),
 ('Review_titel_sterren' , 'Rate this product', 'Beoordeel dit product'),
 ('Review_button_submit', 'Submit', 'Verzend'),
 ('Review_button_close', 'Close', 'Sluit');
+
+
