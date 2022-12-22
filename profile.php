@@ -6,6 +6,7 @@ if (!isset($_SESSION)) {
 }
 
 $databaseConnection = connectToDatabase();
+$lang = $_SESSION["lang"];
 
 $klant = getKlant($databaseConnection, $_SESSION["klantID"]);
 

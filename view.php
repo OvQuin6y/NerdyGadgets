@@ -236,6 +236,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     </div>
 <?php
 } else {
-    ?><h2 id="ProductNotFound">The searched product could not be found</h2><?php
+    ?><h2 id="ProductNotFound"><?php echo getTranslation($databaseConnection, $lang, "Geen_resultaten1") ?></h2><?php
 } ?>
 </div>
