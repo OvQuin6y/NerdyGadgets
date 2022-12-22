@@ -46,7 +46,7 @@ $databaseConnection = connectToDatabase();
             ?>
             <tr class="data">
                 <td>
-                    <img src="Public/StockItemIMG/<?php if (!empty($stockItemImage) ? print($stockItemImage[0]['ImagePath']) : print 'error.png') ?>">
+                    <img src="<?php if (!empty($stockItemImage) ? print($stockItemImage[0]['ImagePath']) : print 'error.png') ?>">
                 </td>
                 <td><h6><?= $stockItem['StockItemName'] ?></h6></td>
                 <td>
