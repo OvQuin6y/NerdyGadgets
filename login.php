@@ -40,7 +40,7 @@ if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) ==
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "terugnaarwebsite")?>" formaction="index.php" class="Buttons_checkout" formnovalidate>
             <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "inloggen")?>" name="login" class="Buttons_checkout">
         </div>
-        <h1 style="font-size:20px; text-align: center"><?php echo getTranslation($databaseConnection, $lang, "geenaccount")?> <a href="register.php"><?php echo getTranslation($databaseConnection, $lang, "hier2")?></a></h1>
+        <h1 style="font-size:20px; text-align: center"><?php echo getTranslation($databaseConnection, $lang, "geenaccount")?> <a class="here" href="register.php"><?php echo getTranslation($databaseConnection, $lang, "hier2")?></a></h1>
         <?php
         if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) <> $_POST["pword"]) {
             ?>

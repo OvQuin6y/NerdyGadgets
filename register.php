@@ -97,7 +97,7 @@ if (isset($_POST["register"]) && checkMail($databaseConnection, $_POST["email"])
         </div>
     </form>
     <h1 style="font-size:20px; text-align: center"><?php echo getTranslation($databaseConnection, $lang, "aleenaccount") ?>
-        <a href="login.php"><?php echo " " . getTranslation($databaseConnection, $lang, "hier") ?></a></h1>
+        <a class="here" href="login.php"><?php echo " " . getTranslation($databaseConnection, $lang, "hier") ?></a></h1>
     <?php if (isset($_POST["register"]) && checkMail($databaseConnection, $_POST["email"]) == "TRUE") { ?>
         <h1 style="font-size:20px; text-align: center; color: red;"><?php echo getTranslation($databaseConnection, $lang, "emailinuse") ?></h1>
     <?php } ?>

@@ -729,3 +729,6 @@ ul#ul-class-price li {
     justify-content: center;
     column-gap: 5%;
 }
+.here {
+    color: #676EFF;
+}
