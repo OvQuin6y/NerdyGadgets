@@ -159,3 +159,36 @@ function getCustomerData(mysqli $databaseConnection, $id, $column)
     }
     return $return;
 }
+function getKlant(mysqli $databaseConnection, $id)
+{
+    $query = "
+                SELECT *
+                FROM klant
+                WHERE klantID ='" . $id .  "';";
+
+    $Statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R;
+}
+
+function checkMail(mysqli $databaseConnection, $mail)
+{
+    $query = "
+                SELECT COUNT(*) aantal
+                FROM klant
+                WHERE Email ='" . $mail .  "';";
+
+    $result = $databaseConnection->query($query);
+    $return = "";
+    while ($row = $result->fetch_array()) {
+        $return = $row["aantal"];
+    }
+    if ($return == 1) {
+        return "TRUE";
+    } else {
+        return "FALSE";
+    }
+}
