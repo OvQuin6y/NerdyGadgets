@@ -6,9 +6,6 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-if (!isset($_SESSION["lang"])) {
-    $_SESSION["lang"] = "en";
-}
 ?>
 <div class="IndexStyle">
     <div class="col-11">

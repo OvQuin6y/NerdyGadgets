@@ -1,7 +1,7 @@
 
 -- De oorspronkelijke tabel hernoemen
 ALTER TABLE stockgroups
-RENAME TO stockgroups_en
+RENAME TO stockgroups_en;
 
 --nieuwe tabel aanmaken (voor nl)
 CREATE TABLE IF NOT EXISTS stockgroups_nl
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS stockgroups_nl
     LastEditedBy 	INT(11)		NOT NULL,
     ValidFrom 		DATETIME  	NOT NULL,
     ValidTo 		DATETIME 	NOT NULL,
-    ImagePath		VARCHAR(255) 		NULL,
+    ImagePath		VARCHAR(255) NULL,
     PRIMARY KEY (StockGroupID)
     );
 
@@ -80,19 +80,20 @@ ALTER TABLE specialdeals
 --nieuwe tabel met vertalingen aanmaken
 CREATE TABLE IF NOT EXISTS Translation_table
 (
-    Name			VARCHAR(50) 		NOT NULL,
+    Name		VARCHAR(50) 		NOT NULL,
     en			VARCHAR(50) 		NOT NULL,
     nl			VARCHAR(50) 		NOT NULL,
     PRIMARY KEY (Name)
     );
 
+-- tabel invullen met waarden
 INSERT INTO translation_table (`name`, `en`, `nl`)VALUES
 ('Kop_overzicht', 'All categories', 'Alle categorieën'),
 ('Kop_zoeken', 'Search', 'Zoeken'),
 ('Voorraad_veel_aanwezig', 'Much stock available', 'Veel voorraad aanwezig'),
 ('Voorraad_afwezig', 'Product unavailable', 'Product niet op voorraad'),
 ('Voorraad_een_deel1', 'Hurry! Only ', 'Schiet op! Nog'),
-('Voorraad_een_deel1', ' item left', ' item op voorraad'),
+('Voorraad_een_deel2', ' item left', ' item op voorraad'),
 ('Voorraad_minder_dan_vijftig_deel1', 'Hurry! Only ', 'Schiet op! Nog' ),
 ('Voorraad_minder_dan_vijftig_deel2',' items left', ' items op voorraad'),
 ('Voorraad_overige_opties', 'items in stock', 'producten op voorraad'),
@@ -153,5 +154,83 @@ INSERT INTO translation_table (`name`, `en`, `nl`)VALUES
 ('Betaalbevestigingsscherm_tekst', 'The payment has been accepted', 'De betaling is geacepteerd'),
 ('Betaalbevestigingsscherm_knop_terug_naar_site', 'Return to NerdyGadgets', 'Terug naar NerdyGadgets');
 
+-- extra toevoegingen, spelfouten enzo
+UPDATE Translation_table
+SET en = 'Price per product(incl. VAT)'
+WHERE Name = 'Checkout_overzicht_kop_prijs_extra';
 
+UPDATE Translation_table
+SET en = 'shopping cart'
+WHERE Name= 'Toevoegen_winkelmandje2';
 
+UPDATE Translation_table
+SET nl = 'item op voorraad'
+WHERE Name= 'Voorraad_een_deel2';
+
+UPDATE Translation_table
+SET nl = 'items op voorraad'
+WHERE Name= 'Voorraad_minder_dan_vijftig_deel2';
+
+UPDATE Translation_table
+SET en = 'item left'
+WHERE Name= 'Voorraad_een_deel2';
+
+UPDATE Translation_table
+SET en = 'items left'
+WHERE Name= 'Voorraad_minder_dan_vijftig_deel2';
+
+UPDATE Translation_table
+SET Name = 'Productinformatie_titel_omschrijving'
+WHERE Name = 'Productinformatie-titel_omschrijving';
+
+UPDATE Translation_table
+SET nl = 'Alle categorieen'
+WHERE Name = 'Kop_overzicht';
+
+UPDATE Translation_table
+SET Name = 'Winkelmandje_leeg_winkelmandje'
+WHERE Name = 'Winkelmanjde_leeg_winkelmandje';
+
+UPDATE Translation_table
+SET en = 'Product added to'
+WHERE Name = 'Toevoegen_winkelmandje1';
+
+UPDATE Translation_table
+SET nl = 'Product is toegevoegd aan'
+WHERE Name = 'Toevoegen_winkelmandje1';
+
+UPDATE Translation_table
+SET en = 'Contact information'
+WHERE Name = 'Persoonsgegevens_titel';
+
+UPDATE Translation_table
+SET en = 'Contact informatie'
+WHERE Name = 'Persoonsgegevens_titel';
+
+INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
+('Zoekscherm_hoofdkop', 'Filter', 'Filter'),
+('Zoekscherm_kop_zoeken', 'Search', 'Zoeken'),
+('Zoekscherm_kop_producten_per_pagina', 'Products per page', 'Producten per pagina'),
+('Zoekscherm_kop_sorteren', 'Sort by', 'Sorteren'),
+('Zoekscherm_sorteren_optie1', 'Price high to low', 'Prijs hoog naar laag'),
+('Zoekscherm_sorteren_optie2', 'Price low to high', 'Prijs laag naar hoog'),
+('Zoekscherm_sorteren_optie3', 'Name A-Z', 'Naam A-Z'),
+('Zoekscherm_sorteren_optie4', 'Name Z-A', 'Naam Z-A');
+
+-- extra query
+UPDATE stockgroups_nl
+SET StockGroupName = 'Souvenirs'
+WHERE StockGroupName = 'Souveniers';
+
+-- extra query's
+UPDATE Translation_table
+SET nl = 'Ruime voorraad aanwezig'
+WHERE Name= 'Voorraad_veel_aanwezig';
+
+UPDATE Translation_table
+SET en = 'Large stock available'
+WHERE Name= 'Voorraad_veel_aanwezig';
+
+-- insert into
+INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
+    ('Taal_aanpassen_invulveld', 'Select a language', 'Kies je taal' );

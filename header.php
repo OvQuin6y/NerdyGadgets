@@ -1,9 +1,13 @@
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
 include "database.php";
+include "languageFunctions.php";
 
 if (!isset($_SESSION)) {
     session_start();
+}
+if (!isset($_SESSION["lang"])) {
+    $_SESSION["lang"] = "en";
 }
 
 $databaseConnection = connectToDatabase();
@@ -31,12 +35,13 @@ $databaseConnection = connectToDatabase();
 <div class="Background">
     <div class="row" id="Header">
         <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"><img src="Public/Img/NerdyGadgetsLogo.png"></div>
+                <div id="LogoImage" class="logoContainer"><img class="logo" src="Public/Img/NerdyGadgetsLogo.png"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
-            <ul id="ul-class">
+            <ul id="ul-class" class="middle-header">
                 <?php
-                $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $_SESSION["lang"]);
+                $lang = $_SESSION["lang"];
+                $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $lang);
 
                 foreach ($HeaderStockGroups as $HeaderStockGroup) {
                     ?>
@@ -48,8 +53,7 @@ $databaseConnection = connectToDatabase();
                 }
                 ?>
                 <li>
-                    <a href="categories.php" class="HrefDecoration">All categories</a>
-
+                    <a href="categories.php" class="HrefDecoration"><?php echo getTranslation($databaseConnection, $lang, "Kop_overzicht")?></a>
                 </li>
             </ul>
         </div>
@@ -58,14 +62,18 @@ $databaseConnection = connectToDatabase();
             <ul id="ul-class-navigation">
                 <li>
                     <form method="post" action="database.php" class="language">
-                        <SELECT id= "selectLang" name="language" onchange="changeLanguage()">
-                            <OPTION value=""></OPTION>
-                            <OPTION value="en">English</OPTION>
-                            <OPTION value="nl">Nederlands</OPTION>
-                        </SELECT>
+                        <select id= "selectLang" name="language" onchange="changeLanguage()">
+                            <option value="" disabled><?php echo "--" . getTranslation($databaseConnection, $lang, "Taal_aanpassen_invulveld"). "--"?></option>
+                            <option value="en" <?php if ($_SESSION['lang'] == "en") {
+                                print "selected";
+                            } ?> >English</option>
+                            <option value="nl" <?php if ($_SESSION['lang'] == "nl") {
+                                print "selected";
+                            } ?>>Nederlands</option>
+                        </select>
                     </form>
-                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Search</a>
-                    <a href="cart.php" class="HrefDecoration"><img style="margin-right: 10px" class="Cart-Image" src="Public/Img/winkelwagen.png">Cart</a>
+                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i><?php echo " " . getTranslation($databaseConnection, $lang, "Kop_zoeken")?></a>
+                    <a href="cart.php" class="HrefDecoration"><img style="margin-right: 10px" class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
                     <div class="dropdown">
                         <button class="account-button"><img style="margin-right: 10px" class="cart-image" src="Public/Img/account.png"><?php echo (ISSET($_SESSION["klantID"])) ? getCustomerData($databaseConnection, $_SESSION["klantID"],"FirstName") : "Account"?></button>
                         <div class="dropdown-content">
@@ -87,7 +95,7 @@ $databaseConnection = connectToDatabase();
         function changeLanguage() {
             let lang = document.getElementById("selectLang");
             let value = lang.value;
-            window.location.replace("change_language.php?lang=" + value)
+            window.location.replace("change_language.php?lang=" + value + "&lastPage=" + window.location.href);
         }
     </script>
     <div class="row" id="Content">
