@@ -1,7 +1,7 @@
 <?php
 
 function getTemperature($db) {
-    $query = "SELECT Temperature AS t FROM coldroomtemperatures  WHERE ColdRoomSensorNumber = 4";
+    $query = "SELECT Temperature AS t FROM coldroomtemperatures  WHERE ColdRoomSensorNumber = 5";
     $statement = mysqli_prepare($db, $query);
     mysqli_stmt_execute($statement);
     $result = mysqli_stmt_get_result($statement);
