@@ -86,6 +86,12 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
     $orderID = 0;
     // generate a short hash and add the order id to it
     $hash = substr(md5(rand()), 0, 7).$orderID;
+    // generate a 6 digit code
+    $cancelCode = '';
+    for ($i = 0; $i < 6; $i++) {
+        $cancelCode .= mt_rand(0, 9);
+    }
+    $cancelCode = intval($cancelCode);
     try {
         $databaseConnection->autocommit(FALSE);
         $databaseConnection->begin_transaction();
@@ -108,9 +114,10 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
             $customerID = $result;
         }
         $addOrder = $databaseConnection->prepare("INSERT INTO orders(CustomerID, OrderDate, ExpectedDeliveryDate, IsUndersupplyBackordered, LastEditedBy,
-                   LastEditedWhen, CancelCode) VALUES (?,?,?,?,?,?,?)");
+                   LastEditedWhen, CancelCode, VerificationCode) VALUES (?,?,?,?,?,?,?,?)");
         $isUndersupplyBackordered = 0;
-        $addOrder->bind_param("ississs", $customerID, $date, $date, $isUndersupplyBackordered, $date, $date, $hash);
+        $addOrder->bind_param("ississsi", $customerID, $date, $date, $isUndersupplyBackordered, $date,
+            $date, $hash, $cancelCode);
         $addOrder->execute();
         $getOrderID = $databaseConnection->prepare("SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1; ");
         $getOrderID->execute();
@@ -152,7 +159,7 @@ if ($_POST && isset($_SESSION["transactionOngoing"]) && $_SESSION["transactionOn
         $databaseConnection->rollback();
     }
     $databaseConnection->autocommit(TRUE);
-    send_email($email, $fullname, generateEmail($databaseConnection, $fullname, $_SESSION["totaalprijs"]));
+    send_email($email, $fullname, generateEmail($databaseConnection, $fullname, $orderID));
     $_SESSION["transactionOngoing"] = false;
     clearCart();
 }
