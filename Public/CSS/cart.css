@@ -46,4 +46,21 @@ thead {
     width: 100px;
     height: 100px;
 }
+.reviewMainContainer {
+    width: 60vh;
+    height: 30vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    transform: translateY(-5vh);
+    padding-left: 3vh;
+}
+.review {
+    max-width: 50vh;
+    height: 20vh;
+    border-width: 50vh;
+    border: white solid 1px;
+    background-color: #23282fcc;
+    margin-bottom: 1vh;
+    word-wrap: break-word;
+}
 

@@ -159,3 +159,17 @@ function getName(mysqli $databaseConnection, $id)
     }
     return $return;
 }
+function getReviews(mysqli $databaseConnection, $id)
+{
+    $query = "
+                SELECT *
+                FROM reviews
+                WHERE StockItemID ='" . $id .  "';";
+
+    $Statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R;
+}
