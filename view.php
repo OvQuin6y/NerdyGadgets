@@ -7,9 +7,33 @@ include "get_temp.php";
 $lang = $_SESSION["lang"];
 $databaseConnection = connectToDatabase();
 
+if (!$databaseConnection) {
+    die('Failed to make connection');
+}
+if (isset($_POST['submitModal'], $_POST['rating'], $_POST['w3review'])) {
+
+    $addReview = $databaseConnection->prepare("INSERT INTO reviews(klantID, StockItemID, rating, memo) 
+    VALUES (?,?,?,?)");
+    $addReview->bind_param("iiis", $_SESSION["klantID"], $_GET['id'], $_POST['rating'], $_POST['w3review']);
+    $addReview->execute();
+    ?>
+    <script type="text/javascript">
+        let url="view.php?id="
+       let product = "<?php echo $_GET['id'] ?>"
+       location.href= url + product
+           </script>
+<?php
+} ?>
+
+<!-- ('Location: http://www.nerdygagdgets.view.php/');-->
+<?php
 $StockItem = getStockItem($_GET['id'], $databaseConnection, $_SESSION["lang"]);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
+$reviews = getReviews($databaseConnection, $_GET['id']);
+
+
 ?>
+<link href="browse.php">
 <style xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 </style>
@@ -25,8 +49,22 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
     <?php }
     ?>
+    <script type="text/javascript">
+        function openModal() {
+            <?php
+            if(!isset($_SESSION["klantID"])) {
+            ?>
+            window.location.href = "Login.php";
+            <?php
+            }
+            ?>
+        }
+    </script>
+
+
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><?php echo getTranslation($databaseConnection, $lang, "Review_button")?>
+    <button type="button" class="Button_add_to_cart" data-toggle="modal" data-target="#myModal" onclick="openModal()">
+        Review this product
     </button>
 
     <!-- Modal -->
@@ -39,20 +77,14 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><?php echo getTranslation($databaseConnection, $lang, "Review_titel")?></h4>
                 </div>
-                <form action="\NerdyGadgets\view.php" method="post">
+                <form method="post" action="view.php?id=<?php echo $_GET['id']; ?>">
                     <div class="modal-body">
                         <div class="container d-flex justify-content-center">
-
-                            <!--              <script>-->
-                            <!--                  $("button").click(function(){-->
-                            <!--                      $.get("demo_test.asp", function(data, status){-->
-                            <!--                          alert("Data: " + data + "\nStatus: " + status);-->
-                            <!--                      });-->
-                            <!--                  });-->
-                            <!--              </script>-->
                             <div class="card text-center">
 
 
+
+                                <textarea id="test" name="w3review" placeholder="Typ your review" rows="4" cols="50"
                                 <textarea id="test" name="w3review" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Review_titel_in_menu")?>" rows="4" cols="50"
                                           maxlength="150" required></textarea>
                                 <br>
@@ -61,7 +93,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                                 <div class="rate bg-success py-3 text-white mt-3">
                                     <h6 class="mb-0"><?php echo getTranslation($databaseConnection, $lang, "Review_titel_sterren")?></h6>
                                     <div class="rating">
-                                        <input type="radio" name="rating" value="5" id="5"><label for="5" >☆</label>
+                                        <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
                                         <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
                                         <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
                                         <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
@@ -74,6 +106,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <div class="modal-footer">
                         <input type="submit" class="upload" value="<?php echo getTranslation($databaseConnection, $lang, "Review_button_submit")?>">
 
+                        <input name="submitModal" type="submit" class="upload" value="Upload">
 
                         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo getTranslation($databaseConnection, $lang, "Review_button_close")?></button>
 
@@ -199,6 +232,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         <h3><?php echo getTranslation($databaseConnection, $lang, "Productinformatie_titel_omschrijving") ?></h3>
         <p><?php print $StockItem['SearchDetails']; ?></p>
     </div>
+
     <div id="StockItemSpecifications">
         <h3><?php echo getTranslation($databaseConnection, $lang, "Productinformatie_titel_specificaties") ?></h3>
         <?php
@@ -249,6 +283,16 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         }
         ?>
     </div>
+    <div class="reviewMainContainer">
+        <h3>Recent reviews</h3>
+        <?php foreach ($reviews as $review):?>
+        <div class="review">
+            <h5><?=$review['memo']?></h5
+            <h5><?=$review['rating']?></h5
+        </div>
+    </div>
+<?php endforeach; ?>
+
 <?php
 } else {
     ?><h2 id="ProductNotFound"><?php echo getTranslation($databaseConnection, $lang, "Geen_resultaten1") ?></h2><?php

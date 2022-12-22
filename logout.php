@@ -6,5 +6,5 @@ unset($_SESSION["klantID"]);
 
 ?>
 <script type="text/javascript">
-    location.href = "index.php";
+    window.location.href = "index.php";
 </script>
