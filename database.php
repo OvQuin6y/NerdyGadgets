@@ -38,20 +38,32 @@ function getHeaderStockGroups($databaseConnection, $language) {
 
 function getStockGroups($databaseConnection, $language) {
     $table = "stockgroups_" . $language;
-    $group = "";
     $getStockGroups = $databaseConnection->prepare("
             SELECT StockGroupID, StockGroupName, ImagePath
-            FROM ?
+            FROM $table
             WHERE StockGroupID IN (
                                     SELECT StockGroupID 
                                     FROM stockitemstockgroups
                                     ) AND ImagePath IS NOT NULL
             ORDER BY StockGroupID ASC");
-    $getStockGroups->bind_param("s", $table);
     $getStockGroups->execute();
     $getStockGroups->store_result();
-    $getStockGroups->bind_result($group);
-    return $group;
+    $stockGroupID = null;
+    $stockGroupName = null;
+    $imagePath = null;
+    $getStockGroups->bind_result($stockGroupID, $stockGroupName, $imagePath);
+    $result = array();
+    $i = 0;
+    while($getStockGroups->fetch()) {
+        $StockGroups = array(
+            "StockGroupID" => $stockGroupID,
+            "StockGroupName" => $stockGroupName,
+            "ImagePath" => $imagePath
+        );
+        $result[$i] = $StockGroups;
+        $i++;
+    }
+    return $result;
 }
 
 function getStockItem($id, $databaseConnection, $language) {
@@ -84,18 +96,33 @@ function getStockItem($id, $databaseConnection, $language) {
 }
 
 function getStockItemImage($id, $databaseConnection) {
-
     $Query = "
                 SELECT ImagePath
                 FROM stockitemimages 
-                WHERE StockItemID = ?";
-
+                WHERE StockItemID = $id";
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "i", $id);
     mysqli_stmt_execute($Statement);
     $R = mysqli_stmt_get_result($Statement);
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+    // turn into the full path
 
+    // check if $R is empty
+    if (empty($R)) {
+        // get the stockgroup image
+        $Query = "
+                SELECT ImagePath
+                FROM stockitemstockgroups
+                JOIN stockgroups_nl USING(StockGroupID)
+                WHERE StockItemID = $id";
+        $Statement = mysqli_prepare($databaseConnection, $Query);
+        mysqli_stmt_execute($Statement);
+        $R = mysqli_stmt_get_result($Statement);
+        $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+        // turn into the full path
+        $R[0]["ImagePath"] = "Public/StockGroupIMG/" . $R[0]["ImagePath"];
+        return $R;
+    }
+    $R[0]["ImagePath"] = "Public/StockItemIMG/" . $R[0]["ImagePath"];
     return $R;
 }
 
@@ -145,19 +172,63 @@ function getID(mysqli $databaseConnection, $mail)
     return $return;
 }
 
-function getName(mysqli $databaseConnection, $id)
+function getCustomerData(mysqli $databaseConnection, $id, $column)
 {
     $query = "
-                SELECT FirstName
+                SELECT $column
                 FROM klant
                 WHERE klantID ='" . $id .  "';";
 
     $result = $databaseConnection->query($query);
     $return = "";
     while ($row = $result->fetch_array()) {
-        $return = $row["FirstName"];
+        $return = $row[$column];
     }
     return $return;
+}
+function getKlant(mysqli $databaseConnection, $id)
+{
+    $query = "
+                SELECT *
+                FROM klant
+                WHERE klantID ='" . $id .  "';";
+
+    $Statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R;
+}
+function updateKlant(mysqli $databaseConnection, $id, $firstName, $lastName, $email, $phoneNumber, $postalCode, $houseNumber, $city)
+{
+    $query = "
+                UPDATE klant
+                SET FirstName = '$firstName', LastName = '$lastName', Email = '$email', PhoneNumber = '$phoneNumber',
+                    PostalCode = '$postalCode', HouseNumber = '$houseNumber', City = '$city'
+                WHERE klantID = $id";
+
+    $Statement = mysqli_prepare($databaseConnection, $query);
+    mysqli_stmt_execute($Statement);
+}
+
+function checkMail(mysqli $databaseConnection, $mail)
+{
+    $query = "
+                SELECT COUNT(*) aantal
+                FROM klant
+                WHERE Email ='" . $mail .  "';";
+
+    $result = $databaseConnection->query($query);
+    $return = "";
+    while ($row = $result->fetch_array()) {
+        $return = $row["aantal"];
+    }
+    if ($return == 1) {
+        return "TRUE";
+    } else {
+        return "FALSE";
+    }
 }
 function getReviews(mysqli $databaseConnection, $id)
 {

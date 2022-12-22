@@ -2,6 +2,7 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
+include "get_temp.php";
 
 $lang = $_SESSION["lang"];
 $databaseConnection = connectToDatabase();
@@ -40,7 +41,7 @@ $reviews = getReviews($databaseConnection, $_GET['id']);
 <link rel="stylesheet" href="Public/CSS/review.css">
 <div id="CenteredContent">
     <?php
-    if ($StockItem != null){
+    if ($StockItem != null) {
     if (isset($StockItem['Video'])) {
         ?>
         <div id="VideoFrame">
@@ -74,7 +75,7 @@ $reviews = getReviews($databaseConnection, $_GET['id']);
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Review</h4>
+                    <h4 class="modal-title"><?php echo getTranslation($databaseConnection, $lang, "Review_titel")?></h4>
                 </div>
                 <form method="post" action="view.php?id=<?php echo $_GET['id']; ?>">
                     <div class="modal-body">
@@ -84,12 +85,13 @@ $reviews = getReviews($databaseConnection, $_GET['id']);
 
 
                                 <textarea id="test" name="w3review" placeholder="Typ your review" rows="4" cols="50"
+                                <textarea id="test" name="w3review" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Review_titel_in_menu")?>" rows="4" cols="50"
                                           maxlength="150" required></textarea>
                                 <br>
 
 
                                 <div class="rate bg-success py-3 text-white mt-3">
-                                    <h6 class="mb-0">Rate this product</h6>
+                                    <h6 class="mb-0"><?php echo getTranslation($databaseConnection, $lang, "Review_titel_sterren")?></h6>
                                     <div class="rating">
                                         <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
                                         <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
@@ -102,9 +104,11 @@ $reviews = getReviews($databaseConnection, $_GET['id']);
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <input type="submit" class="upload" value="<?php echo getTranslation($databaseConnection, $lang, "Review_button_submit")?>">
+
                         <input name="submitModal" type="submit" class="upload" value="Upload">
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo getTranslation($databaseConnection, $lang, "Review_button_close")?></button>
 
                     </div>
                 </form>
@@ -120,7 +124,8 @@ $reviews = getReviews($databaseConnection, $_GET['id']);
             if (count($StockItemImage) == 1) {
                 ?>
                 <div id="ImageFrame"
-                     style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                     style="background-image: url('<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px;
+                             background-repeat: no-repeat; background-position: center; background-color: rgb(35, 35, 47)"></div>
                 <?php
             } else if (count($StockItemImage) >= 2) { ?>
                 <!-- meerdere plaatjes laten zien -->
@@ -256,6 +261,19 @@ $reviews = getReviews($databaseConnection, $_GET['id']);
                         ?>
                     </td>
                 </tr>
+            <?php }  if($stockItemID >= 220 && $stockItemID <= 227){?>
+                <tr>
+                    <td><?php
+                        if($_SESSION['lang'] == "en"){
+                            echo "Temperature";
+                        } else {
+                            print "Temperatuur";
+                        }
+                        ?></td>
+                    <td><?php
+                        echo getTemperature($databaseConnection); echo " °C";
+                        ?></td>
+                </tr>
             <?php } ?>
             </table><?php
         } else { ?>
@@ -277,6 +295,6 @@ $reviews = getReviews($databaseConnection, $_GET['id']);
 
 <?php
 } else {
-    ?><h2 id="ProductNotFound">The searched product could not be found</h2><?php
+    ?><h2 id="ProductNotFound"><?php echo getTranslation($databaseConnection, $lang, "Geen_resultaten1") ?></h2><?php
 } ?>
 </div>

@@ -20,7 +20,7 @@ function getCart() : array
  * @param $cart array De cart.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function saveCart(array $cart) : void
+function saveCart(array $cart)
 {
     $_SESSION["cart"] = $cart;                  // werk de "gedeelde" $_SESSION["cart"] bij met de meegestuurde gegevens
 }
@@ -30,7 +30,7 @@ function saveCart(array $cart) : void
  * @param $stockItemID int Het ID van het product.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function addProductToCart(int $stockItemID) : void
+function addProductToCart(int $stockItemID)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
 
@@ -48,7 +48,7 @@ function addProductToCart(int $stockItemID) : void
  * @param $stockItemID int Het ID van het product.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function removeProductFromCart(int $stockItemID) : void
+function removeProductFromCart(int $stockItemID)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
 
@@ -66,7 +66,7 @@ function removeProductFromCart(int $stockItemID) : void
  * @param $stockItemID int Het ID van het product.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function deleteProductFromCart(int $stockItemID) : void
+function deleteProductFromCart(int $stockItemID)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
 
@@ -83,7 +83,7 @@ function deleteProductFromCart(int $stockItemID) : void
  * @param $amount int Het nieuwe aantal.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function setProductInCart(int $stockItemID, int $amount) : void
+function setProductInCart(int $stockItemID, int $amount)
 {
     $cart = getCart();                          // eerst de huidige cart ophalen
     $cart[$stockItemID] = $amount;
@@ -95,7 +95,7 @@ function setProductInCart(int $stockItemID, int $amount) : void
  * Leeg de cart.
  * @return void Deze functie heeft geen returnwaarde.
  */
-function clearCart() : void
+function clearCart()
 {
     $cart = getCart();  // haal de huidige cart op
 
@@ -123,10 +123,13 @@ function isCardEmpty(): bool
  * @param $databaseConnection mysqli De database connectie.
  * @return string De inhoud van de cart als een string.
  */
-function toString(mysqli $databaseconnection): string
+function generateEmail(mysqli $databaseconnection, string $klantnaam, int $orderId): string
 {
     $cart = getCart();  // haal de huidige cart op
-    $string = "";  // maak een lege string aan
+    $email = "Beste " .  $klantnaam . "<br><br>";
+    $email .= "Bedankt voor uw bestelling bij ons! Wij zijn blij om te zien dat u geïnteresseerd bent in onze producten 
+    en hopen dat u tevreden zult zijn met uw aankoop.<br><br>";
+    $email .= "Hieronder vindt u een overzicht van uw bestelling:<br><br>";
     foreach ($cart as $nr => $aantal) { // loop door de cart
         // query de productnaam uit de database
         $query = "SELECT StockItemName FROM stockitems WHERE StockItemID = $nr"; // maak een query die de productnaam ophaalt
@@ -134,7 +137,20 @@ function toString(mysqli $databaseconnection): string
         mysqli_stmt_execute($statement); // voer de query uit
         $result = mysqli_stmt_get_result($statement); // haal het resultaat op
         $row = mysqli_fetch_assoc($result); // haal de rij op
-        $string .= $row["StockItemName"] . " x " . $aantal . "<br>"; // voeg de productnaam en het aantal toe aan de string
+        $email .= $row["StockItemName"] . " x " . $aantal . "<br>"; // voeg de productnaam en het aantal toe aan de email
     }
-    return $string; // geef de string terug
+    $getCodesQuery = "SELECT CancelCode AS c, VerificationCode AS vc FROM orders WHERE OrderID = $orderId";
+    $statement = mysqli_prepare($databaseconnection, $getCodesQuery);
+    mysqli_stmt_execute($statement);
+    $result = mysqli_stmt_get_result($statement);
+    $row = mysqli_fetch_assoc($result);
+    $cancelCode = $row["c"];
+    $verificationCode = $row["vc"];
+    $cancelUrl = "localhost/NerdyGadgets/cancel_order.php?cancelCode=" . $cancelCode;
+    $email .= "<br>Mocht u om welke reden dan ook besluiten om uw bestelling te annuleren, dan kunt u dit doen door 
+    <a href='$cancelUrl'>hier</a> te klikken. Uw unieke verificatie code is: " . $verificationCode .
+        " .Let op: u kunt uw bestelling max. 3 dagen na het afrekenen annuleren. De bestelling zal binnen 7 dagen bij u thuis worden bezorgd.<br><br>";
+    $email .= "Met vriendelijke groet,<br>";
+    $email .= "Webshop NerdyGadgets";
+    return $email; // geef de email terug
 }

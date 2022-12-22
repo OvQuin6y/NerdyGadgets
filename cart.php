@@ -46,7 +46,7 @@ $databaseConnection = connectToDatabase();
             ?>
             <tr class="data">
                 <td>
-                    <img src="Public/StockItemIMG/<?php if (!empty($stockItemImage) ? print($stockItemImage[0]['ImagePath']) : print 'error.png') ?>">
+                    <img src="<?php if (!empty($stockItemImage) ? print($stockItemImage[0]['ImagePath']) : print 'error.png') ?>">
                 </td>
                 <td><h6><?= $stockItem['StockItemName'] ?></h6></td>
                 <td>
@@ -74,8 +74,7 @@ $databaseConnection = connectToDatabase();
         </tbody>
     </table>
     <h3><?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_en_checkout_totaalprijs") . ": €"?><?= number_format((float)$totaalPrijs, 2, '.', '') ?></h3>
-    <form method="post" action="checkout.php" id="orderForm">
-        <br>
+    <form method="post" action="orderlogin.php" id="orderForm"><br>
         <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Winkelmandje_overzicht_button")?>" name="knop" class="Button_place_order">
         <br>
     </form>

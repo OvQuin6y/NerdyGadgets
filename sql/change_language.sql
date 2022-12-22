@@ -221,3 +221,46 @@ INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
 UPDATE stockgroups_nl
 SET StockGroupName = 'Souvenirs'
 WHERE StockGroupName = 'Souveniers';
+
+-- extra query's
+UPDATE Translation_table
+SET nl = 'Ruime voorraad aanwezig'
+WHERE Name= 'Voorraad_veel_aanwezig';
+
+UPDATE Translation_table
+SET en = 'Large stock available'
+WHERE Name= 'Voorraad_veel_aanwezig';
+
+-- insert into
+INSERT INTO Translation_table (`name`, `en`, `nl`)VALUES
+    ('Taal_aanpassen_invulveld', 'Select a language', 'Kies je taal' );
+
+-- Nog in TO zetten
+UPDATE Translation_table
+SET nl = 'Ruime voorraad beschikbaar'
+WHERE Name= 'Voorraad_veel_aanwezig';
+
+-- oplossen null waardes -> in TO gezet
+UPDATE Stockgroups_nl
+SET ImagePath = null
+WHERE StockGroupID = 3;
+
+UPDATE Stockgroups_nl
+SET ImagePath = null
+WHERE StockGroupID = 8;
+
+UPDATE Stockgroups_nl
+SET ImagePath = null
+WHERE StockGroupID = 10;
+
+INSERT INTO translation_table (`name`, `en`, `nl`)VALUES
+('Review_button', 'Review this product', 'Schrijf review'),
+('Review_titel', 'Review', 'Review'),
+('Review_titel_in_menu', 'Typ your review', 'Schrijf je Beoordeling'),
+('Review_titel_sterren' , 'Rate this product', 'Beoordeel dit product'),
+('Review_button_submit', 'Submit', 'Verzend'),
+('Review_button_close', 'Close', 'Sluit');
+
+UPDATE translation_table
+SET nl = 'Schrijf hier je review'
+WHERE name = 'Review_titel_in_menu';

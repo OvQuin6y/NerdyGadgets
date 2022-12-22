@@ -1,21 +1,25 @@
 <?php
-include "database.php";
 
-$databaseConnection = connectToDatabase();
+$stockItemId = 5;
 
-function getPassword(mysqli $databaseConnection, $mail)
+echo "<a href='view.php?id=$stockItemId'>";
+
+function checkMail(mysqli $databaseConnection, $mail)
 {
     $query = "
-                SELECT Password
+                SELECT COUNT(*) aantal
                 FROM klant
                 WHERE Email ='" . $mail .  "';";
 
     $result = $databaseConnection->query($query);
     $return = "";
     while ($row = $result->fetch_array()) {
-        $return = $row["Password"];
+        $return = $row["aantal"];
     }
-    return $return;
+    if ($return == 1) {
+        return "TRUE";
+    } else {
+        return "FALSE";
+    }
 }
 
-echo getPassword($databaseConnection, "thimo8123@gmail.com");

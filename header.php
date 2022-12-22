@@ -35,10 +35,10 @@ $databaseConnection = connectToDatabase();
 <div class="Background">
     <div class="row" id="Header">
         <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"><img src="Public/Img/NerdyGadgetsLogo.png"></div>
+                <div id="LogoImage" class="logoContainer"><img class="logo" src="Public/Img/NerdyGadgetsLogo.png"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
-            <ul id="ul-class">
+            <ul id="ul-class" class="middle-header">
                 <?php
                 $lang = $_SESSION["lang"];
                 $HeaderStockGroups = getHeaderStockGroups($databaseConnection, $lang);
@@ -62,8 +62,8 @@ $databaseConnection = connectToDatabase();
             <ul id="ul-class-navigation">
                 <li>
                     <form method="post" action="database.php" class="language">
-                        <select id= "selectLang" name="language" onchange="changeLanguage()">
-                            <option value="">--Select a language--</option>
+                        <select id= "selectLang" name="language" onchange="changeLanguage()" class="selectLang">
+                            <option value="" disabled><?php echo "--" . getTranslation($databaseConnection, $lang, "Taal_aanpassen_invulveld"). "--"?></option>
                             <option value="en" <?php if ($_SESSION['lang'] == "en") {
                                 print "selected";
                             } ?> >English</option>
@@ -75,17 +75,17 @@ $databaseConnection = connectToDatabase();
                     <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i><?php echo " " . getTranslation($databaseConnection, $lang, "Kop_zoeken")?></a>
                     <a href="cart.php" class="HrefDecoration"><img style="margin-right: 10px" class="Cart-Image" src="Public/Img/winkelwagen.png"></a>
                     <div class="dropdown">
-                        <button class="account-button"><img style="margin-right: 10px" class="cart-image" src="Public/Img/account.png"><?php echo (ISSET($_SESSION["klantID"])) ? getName($databaseConnection, $_SESSION["klantID"]) : "Account"?></button>
+                        <button class="account-button"><img style="margin-right: 10px" class="cart-image" src="Public/Img/account.png"><?php echo (ISSET($_SESSION["klantID"])) ? getCustomerData($databaseConnection, $_SESSION["klantID"],"FirstName") : "Account"?></button>
                         <div class="dropdown-content">
                             <?php if (ISSET($_SESSION["klantID"])) { ?>
-                                <a class="login-header" href="account.php">Account</a>
+                                <a class="login-header" href="profile.php">Profile</a>
                                 <a class="login-header" href="Logout.php">Log out</a>
                             <?php } else { ?>
                             <a class="login-header" href="Login.php">Log in</a>
                             <a class="login-header" href="register.php">Register</a>
                             <?php } ?>
                         </div>
-                    </div>
+                        </div>
                 </li>
             </ul>
         </div>
@@ -95,7 +95,7 @@ $databaseConnection = connectToDatabase();
         function changeLanguage() {
             let lang = document.getElementById("selectLang");
             let value = lang.value;
-            window.location.replace("change_language.php?lang=" + value)
+            window.location.replace("change_language.php?lang=" + value + "&lastPage=" + window.location.href);
         }
     </script>
     <div class="row" id="Content">

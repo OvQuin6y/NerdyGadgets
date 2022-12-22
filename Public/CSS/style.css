@@ -61,6 +61,23 @@ table tr th,
 table tr td {
     padding: 10px;
 }
+.middle-header {
+    transform: translateX(-26vh);
+}
+.logo {
+    width: 50%;
+    height: auto;
+}
+.language {
+    width: 30vh;
+    height: 100%;
+}
+.logoContainer {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 2vh;
+}
 ul#ul-class-navigation {
     right: 10px;
     line-height: 200px;
@@ -511,10 +528,9 @@ ul#ul-class-price li {
 .Buttons_checkout {
     background: #676EFF;
     color: white;
-    border-style: none;
-    height: 30px;
     width: 40%;
-    text-align: left;
+    height: 5vh;
+    border: none;
 }
 .Inputfields {
     width: 40%;
@@ -523,18 +539,19 @@ ul#ul-class-price li {
 
  .Checkout_form {
      display: flex;
-     width: 100%;
+     width: 80%;
      height: auto;
      flex-wrap: wrap;
-     justify-content: center;
-     column-gap: 5px;
+     justify-content: space-between;
+     row-gap: 2vh;
 
  }
  .Invoer_form{
      width: 100%;
-     height: 100%;
      display: flex;
-     justify-content: center;
+     height: 100%;
+     flex-direction: column;
+     align-items: center;
  }
  .Text_checkout {
      font-size:40px;
@@ -606,18 +623,18 @@ ul#ul-class-price li {
     width: 50%;
 }
 
-.login_form {
+.loginInput {
     display: flex;
     width: 100%;
-    height: auto;
+    height: 20vh;
     flex-wrap: wrap;
     justify-content: center;
     column-gap: 5px;
 }
 
 .loginfields {
-    width: 80.5%;
-    height: 30px;
+    width: 80%;
+    height: 6vh;
     margin: 7px;
 }
 .login-header {
@@ -628,9 +645,15 @@ ul#ul-class-price li {
     justify-content: center;
     line-height: 0;
 }
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .account-button {
     width: 100%;
-    height: 8vh;
+    height: 6vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -666,4 +689,43 @@ ul#ul-class-price li {
     height: 100%;
     display: flex;
     align-items: center;
+}
+.loginContainer {
+    width: 100%;
+    height: 72vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: auto;
+}
+.selectLang {
+    margin: 0;
+}
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+    align-items: center;
+}
+.topRegister {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 5%;
+}
+.bottomRegister {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    column-gap: 5%;
 }

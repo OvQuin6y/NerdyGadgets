@@ -4,5 +4,5 @@ if (!isset($_SESSION)) {
 }
 
 $_SESSION['lang']  = $_GET['lang'];
-echo $_SESSION['lang'];
-header('Location:index.php');
+$lastPage = $_GET["lastPage"];
+header('Location:' . $lastPage );

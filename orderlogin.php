@@ -9,7 +9,11 @@ if (!isset($_SESSION)) {
 }
 
 if (ISSET($_SESSION['klantID'])) {
-    header("Location: checkout.php");
+    ?>
+    <script type="text/javascript">
+        window.location.href = "checkout.php";
+    </script>
+    <?php
 }
 ?>
 
@@ -24,21 +28,19 @@ if (ISSET($_SESSION['klantID'])) {
 <div class="registerTitle">
     <h1>Login</h1>
 </div>
-<div class="container">
-    <form method="post" action="checkout.php">
-        <div class = "login_form">
-        <input type="email" name="mail" placeholder="E-mail" class="loginfields" required>
-        <input type="password" name="pword" placeholder="Password" class="loginfields" required>
+<div class="loginContainer">
+    <form method="post" action="checkout.php" class="loginForm">
+        <div class = "loginInput">
+        <input type="email" name="mail" placeholder="<?php echo getTranslation($databaseConnection, $lang, "E-mail")?>" class="loginfields" required>
+        <input type="password" name="pword" placeholder="<?php echo getTranslation($databaseConnection, $lang, "wachtwoord")?>" class="loginfields" required>
         </div>
         <div class="Checkout_form">
-        <input style="margin: 7px" type="submit" value="Back to cart" href="cart.php" class="Buttons_checkout">
-        <input style="margin: 7px" type="submit" value="Log in" name="login" class="Buttons_checkout">
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_knop_naar_winkelmand")?>" formaction="cart.php" class="Buttons_checkout" formnovalidate>
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "inloggen")?>" name="login" class="Buttons_checkout">
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "zonderacount")?>" formaction="checkout.php" class="Buttons_checkout" formnovalidate>
+        <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "registreren")?>" formaction="register.php" class="Buttons_checkout" formnovalidate>
         </div>
     </form>
-    <div class="Checkout_form">
-        <button style="font-size: 20px; margin: 7px" href="checkout.php" class="Buttons_checkout">Continue without account</button>
-        <button style="font-size: 20px; margin: 7px" href="register.php" class="Buttons_checkout">Register</button>
-    </div>
     <?php
     if (ISSET($_POST["login"]) && getPassword($databaseConnection,$_POST["mail"]) <> $_POST["pword"]) {
         ?>

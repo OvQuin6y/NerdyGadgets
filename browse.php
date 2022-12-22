@@ -1,6 +1,7 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
+include "get_temp.php";
 
 //test2
 $ReturnableResult = null;
@@ -119,10 +120,10 @@ if ($CategoryID == "") {
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
                 QuantityOnHand,
                 (SELECT ImagePath
-                FROM stockitemimages AS SII
-                WHERE SII.StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM " . $table .  " AS J JOIN stockitemstockgroups USING(StockGroupID) WHERE J.StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM " . $table .  " SI
+                FROM stockitemimages 
+                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+                (SELECT ImagePath FROM " . $table .  " JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM stockitems SI
                 JOIN stockitemholdings SIH USING(stockitemid)
                 " . $queryBuildResult . "
                 GROUP BY StockItemID
@@ -130,8 +131,6 @@ if ($CategoryID == "") {
                 LIMIT ?  OFFSET ?";
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "ii", $ProductsOnPage, $Offset);
-    echo $ProductsOnPage;
-    echo $Offset;
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
@@ -201,7 +200,8 @@ function getVoorraadTekst($actueleVoorraad, $databaseConnection, $lang)
     } else {
         return $actueleVoorraad . getTranslation($databaseConnection, $lang, "Voorraad_overige_opties") ;
     }
-} ?>
+}
+?>
 </div>
 <?php
 function berekenVerkoopPrijs($adviesPrijs, $btw)
@@ -243,11 +243,11 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
             <select name="sort" id="sort" onchange="this.form.submit()">>
                 <option value="price_low_high" <?php if ($_SESSION['sort'] == "price_low_high") {
                     print "selected";
-                } ?>><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie1")?>
+                } ?>><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie2")?>
                 </option>
                 <option value="price_high_low" <?php if ($_SESSION['sort'] == "price_high_low") {
                     print "selected";
-                } ?> ><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie2")?>
+                } ?> ><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie1")?>
                 </option>
                 <option value="name_low_high" <?php if ($_SESSION['sort'] == "name_low_high") {
                     print "selected";
@@ -294,6 +294,16 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
                     <h1 class="StockItemID"><?php print getTranslation($databaseConnection, $lang, "Artikelnummer") . ": " .  $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
+                    <p class="StockItemComments"><?php
+                        if($row["StockItemID"] >= 220 && $row["StockItemID"] <= 227){
+                            if($lang == "en"){
+                                echo "Temperature: ";
+                            }else{
+                                echo "Temperatuur: ";
+                            }
+                            echo getTemperature($databaseConnection) . " °C";
+                        }
+                        ?></p>
                     <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"], $databaseConnection, $lang); ?></h4>
                 </div>
                 <!--  coderegel 2 van User story: bekijken producten  -->

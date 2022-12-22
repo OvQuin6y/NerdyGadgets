@@ -35,6 +35,7 @@ thead {
 .data {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
 }
 .data td {
     width: 20%;
@@ -45,6 +46,23 @@ thead {
 .data img {
     width: 100px;
     height: 100px;
+}
+.checkoutContainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.checkoutForm {
+    display: flex;
+    width: 80%;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 2vh;
+    column-gap: 2vh;
+    padding-left: 0;
 }
 .reviewMainContainer {
     width: 60vh;
