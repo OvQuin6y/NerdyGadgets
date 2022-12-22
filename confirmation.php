@@ -21,21 +21,4 @@ if (!isset($_SESSION)) {
     <h1>Your registration was succesfull!</h1>
 </div>
 
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fname = $_POST["fname"];
-    $lname = $_POST["lname"];
-    $email = $_POST["email"];
-    $pnumber = $_POST["pnumber"];
-    $pcode = $_POST["pcode"];
-    $city = $_POST["city"];
-    $hnumber = $_POST["hnumber"];
-    $apartment = $_POST["apartment"];
-    $pword = $_POST["pword"];
-    $country = $_POST["country"];
-    $street = $_POST["street"];
-}
-$register = $databaseConnection->prepare("INSERT INTO klant(FirstName,LastName,Email,PhoneNumber,PostalCode,City,HouseNumber,Apartment,Password,Street,Country)
-    VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-$register->bind_param("sssississss",$fname,$lname,$email,$pnumber,$pcode,$city,$hnumber,$apartment,$pword,$street,$country);
-$register->execute();
+
