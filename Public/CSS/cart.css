@@ -62,5 +62,6 @@ thead {
     justify-content: center;
     row-gap: 2vh;
     column-gap: 2vh;
+    padding-left: 0;
 }
 
