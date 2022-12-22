@@ -36,7 +36,7 @@ if (isset($_POST["register"]) && checkMail($databaseConnection,$_POST["email"]) 
     <h1><?php echo getTranslation($databaseConnection, $lang, "Registreren")?></h1>
 </div>
 <div class="container">
-    <form class = "Checkout_form" method="post" action="confirmation.php">
+    <form class = "Checkout_form" method="post" action="register.php">
         <input type="text" name="fname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_voornaam") . " *" ?>" class = Inputfields required><br><br>
         <input type="text" name="lname" placeholder="<?php echo getTranslation($databaseConnection, $lang, "Persoonsgegevens_achternaam") . " *" ?>" class = Inputfields required><br><br>
         <input type="email" name="email" placeholder="<?php echo getTranslation($databaseConnection, $lang, "E-mail") . " *" ?>" class = Inputfields required><br><br>
@@ -53,6 +53,9 @@ if (isset($_POST["register"]) && checkMail($databaseConnection,$_POST["email"]) 
         <input type="submit" value="<?php echo getTranslation($databaseConnection, $lang, "registreren")?>" style="font-size: 17px;" name="register" class="Buttons_checkout"><br><br>
     </form>
     <h1 style="font-size:20px; text-align: center"><?php echo getTranslation($databaseConnection, $lang, "aleenaccount")?><a href="login.php"><?php echo " ".getTranslation($databaseConnection, $lang, "hier")?></a></h1>
+    <?php if (isset($_POST["register"]) && checkMail($databaseConnection,$_POST["email"]) == "TRUE") {?>
+        <h1 style="font-size:20px; text-align: center; color: red;"><?php echo getTranslation($databaseConnection, $lang, "emailinuse")?></h1>
+    <?php } ?>
 </div>
 </body>
 
