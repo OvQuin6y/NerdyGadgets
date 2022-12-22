@@ -16,6 +16,7 @@ if (isset($_POST["register"]) && checkMail($databaseConnection, $_POST["email"])
     $pword = $_POST["pword"];
     $country = $_POST["country"];
     $street = $_POST["street"];
+    if (preg_match('/^[0-9]{1,2}[0-9][0-9]? [A-Z]{2}$/', $pcode)){
     $register = $databaseConnection->prepare("INSERT INTO klant(FirstName,LastName,Email,PhoneNumber,PostalCode,City,HouseNumber,Apartment,Password,Street,Country)
     VALUES (?,?,?,?,?,?,?,?,?,?,?)");
     $register->bind_param("sssississss", $fname, $lname, $email, $pnumber, $pcode, $city, $hnumber, $apartment, $pword, $street, $country);
@@ -25,6 +26,14 @@ if (isset($_POST["register"]) && checkMail($databaseConnection, $_POST["email"])
         location.href = "confirmation.php";
     </script>
     <?php
+} else {
+        ?>
+        <script>
+            alert("Postal code is incorrect. Type it like this 0000 AA");
+            window.location = 'register.php'
+        </script>
+        <?php
+    }
 }
 ?>
 
