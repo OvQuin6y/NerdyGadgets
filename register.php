@@ -20,7 +20,11 @@ if (isset($_POST["register"]) && checkMail($databaseConnection,$_POST["email"]) 
     VALUES (?,?,?,?,?,?,?,?,?,?,?)");
     $register->bind_param("sssississss",$fname,$lname,$email,$pnumber,$pcode,$city,$hnumber,$apartment,$pword,$street,$country);
     $register->execute();
-    header("Location: confirmation.php");
+    ?>
+    <script type="text/javascript">
+        location.href = "confirmation.php";
+    </script>
+    <?php
 }
 ?>
 
