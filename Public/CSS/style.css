@@ -68,6 +68,10 @@ table tr td {
     width: 50%;
     height: auto;
 }
+.language {
+    width: 30vh;
+    height: 100%;
+}
 .logoContainer {
     display: flex;
     justify-content: left;
@@ -525,9 +529,10 @@ ul#ul-class-price li {
     background: #676EFF;
     color: white;
     border-style: none;
-    height: 30px;
-    width: 40%;
+    height: 5vh;
+    width: 48%;
     text-align: left;
+    margin: 0 !important;
 }
 .Inputfields {
     width: 40%;
@@ -536,11 +541,10 @@ ul#ul-class-price li {
 
  .Checkout_form {
      display: flex;
-     width: 100%;
+     width: 80%;
      height: auto;
      flex-wrap: wrap;
-     justify-content: center;
-     column-gap: 5px;
+     justify-content: space-between;
 
  }
  .Invoer_form{
@@ -618,18 +622,18 @@ ul#ul-class-price li {
     width: 50%;
 }
 
-.login_form {
+.loginInput {
     display: flex;
     width: 100%;
-    height: auto;
+    height: 20vh;
     flex-wrap: wrap;
     justify-content: center;
     column-gap: 5px;
 }
 
 .loginfields {
-    width: 80.5%;
-    height: 30px;
+    width: 80%;
+    height: 6vh;
     margin: 7px;
 }
 .login-header {
@@ -678,4 +682,21 @@ ul#ul-class-price li {
     height: 100%;
     display: flex;
     align-items: center;
+}
+.loginContainer {
+    width: 100%;
+    height: 72vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: auto;
+}
+.selectLang {
+    margin: 0;
 }

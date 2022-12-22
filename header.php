@@ -62,7 +62,7 @@ $databaseConnection = connectToDatabase();
             <ul id="ul-class-navigation">
                 <li>
                     <form method="post" action="database.php" class="language">
-                        <select id= "selectLang" name="language" onchange="changeLanguage()">
+                        <select id= "selectLang" name="language" onchange="changeLanguage()" class="selectLang">
                             <option value="" disabled><?php echo "--" . getTranslation($databaseConnection, $lang, "Taal_aanpassen_invulveld"). "--"?></option>
                             <option value="en" <?php if ($_SESSION['lang'] == "en") {
                                 print "selected";
@@ -78,7 +78,7 @@ $databaseConnection = connectToDatabase();
                         <button class="account-button"><img style="margin-right: 10px" class="cart-image" src="Public/Img/account.png"><?php echo (ISSET($_SESSION["klantID"])) ? getCustomerData($databaseConnection, $_SESSION["klantID"],"FirstName") : "Account"?></button>
                         <div class="dropdown-content">
                             <?php if (ISSET($_SESSION["klantID"])) { ?>
-                                <a class="login-header" href="account.php">Account</a>
+                                <a class="login-header" href="profile.php">Profile</a>
                                 <a class="login-header" href="Logout.php">Log out</a>
                             <?php } else { ?>
                             <a class="login-header" href="Login.php">Log in</a>

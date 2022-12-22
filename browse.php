@@ -241,11 +241,11 @@ function berekenVerkoopPrijs($adviesPrijs, $btw)
             <select name="sort" id="sort" onchange="this.form.submit()">>
                 <option value="price_low_high" <?php if ($_SESSION['sort'] == "price_low_high") {
                     print "selected";
-                } ?>><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie1")?>
+                } ?>><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie2")?>
                 </option>
                 <option value="price_high_low" <?php if ($_SESSION['sort'] == "price_high_low") {
                     print "selected";
-                } ?> ><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie2")?>
+                } ?> ><?php echo getTranslation($databaseConnection, $lang, "Zoekscherm_sorteren_optie1")?>
                 </option>
                 <option value="name_low_high" <?php if ($_SESSION['sort'] == "name_low_high") {
                     print "selected";
