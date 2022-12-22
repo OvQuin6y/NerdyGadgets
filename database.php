@@ -38,20 +38,32 @@ function getHeaderStockGroups($databaseConnection, $language) {
 
 function getStockGroups($databaseConnection, $language) {
     $table = "stockgroups_" . $language;
-    $group = "";
     $getStockGroups = $databaseConnection->prepare("
             SELECT StockGroupID, StockGroupName, ImagePath
-            FROM ?
+            FROM $table
             WHERE StockGroupID IN (
                                     SELECT StockGroupID 
                                     FROM stockitemstockgroups
                                     ) AND ImagePath IS NOT NULL
             ORDER BY StockGroupID ASC");
-    $getStockGroups->bind_param("s", $table);
     $getStockGroups->execute();
     $getStockGroups->store_result();
-    $getStockGroups->bind_result($group);
-    return $group;
+    $stockGroupID = null;
+    $stockGroupName = null;
+    $imagePath = null;
+    $getStockGroups->bind_result($stockGroupID, $stockGroupName, $imagePath);
+    $result = array();
+    $i = 0;
+    while($getStockGroups->fetch()) {
+        $StockGroups = array(
+            "StockGroupID" => $stockGroupID,
+            "StockGroupName" => $stockGroupName,
+            "ImagePath" => $imagePath
+        );
+        $result[$i] = $StockGroups;
+        $i++;
+    }
+    return $result;
 }
 
 function getStockItem($id, $databaseConnection, $language) {
