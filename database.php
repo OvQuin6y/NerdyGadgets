@@ -96,18 +96,33 @@ function getStockItem($id, $databaseConnection, $language) {
 }
 
 function getStockItemImage($id, $databaseConnection) {
-
     $Query = "
                 SELECT ImagePath
                 FROM stockitemimages 
-                WHERE StockItemID = ?";
-
+                WHERE StockItemID = $id";
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "i", $id);
     mysqli_stmt_execute($Statement);
     $R = mysqli_stmt_get_result($Statement);
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+    // turn into the full path
 
+    // check if $R is empty
+    if (empty($R)) {
+        // get the stockgroup image
+        $Query = "
+                SELECT ImagePath
+                FROM stockitemstockgroups
+                JOIN stockgroups_nl USING(StockGroupID)
+                WHERE StockItemID = $id";
+        $Statement = mysqli_prepare($databaseConnection, $Query);
+        mysqli_stmt_execute($Statement);
+        $R = mysqli_stmt_get_result($Statement);
+        $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+        // turn into the full path
+        $R[0]["ImagePath"] = "Public/StockGroupIMG/" . $R[0]["ImagePath"];
+        return $R;
+    }
+    $R[0]["ImagePath"] = "Public/StockItemIMG/" . $R[0]["ImagePath"];
     return $R;
 }
 
